@@ -12,6 +12,7 @@ namespace IntelligentBusSystem
     {
         protected void Application_Start()
         {
+            //on app start
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
