@@ -8,6 +8,7 @@ namespace IntelligentBusSystem
     {
         public void Configuration(IAppBuilder app)
         {
+            //GitHubTest
             ConfigureAuth(app);
         }
     }
