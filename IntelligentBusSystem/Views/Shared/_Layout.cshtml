@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/Content/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Fonts -->
+    <link href="/Content/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/Content/animate.css" rel="stylesheet" />
+    <!-- Squad theme CSS -->
+    <link href="/Content/style.css" rel="stylesheet">
+    <link href="/Content/default.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="load"></div>
+    </div>
+
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="index.html">
+                    <h1>Besancon @User.Identity.Name</h1>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">Home</a></li>
+                    <li><a href="/Home/Contact">Contact</a></li>
+                    <li><a href="#">Example</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Example menu</a></li>
+                            <li><a href="#">Example menu</a></li>
+                            <li><a href="#">Example menu</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+               @Html.Partial("_LoginPartial")
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Section: intro -->
+    <section id="intro" class="intro"></section>
+    <!-- /Section: intro -->
+    <!-- Section: about -->
+    <section id="body" class="home-section text-center">
+
+
+  
+
+        @RenderBody()
+
+
+
+    </section>
+    <!-- /Section: about -->
+    <!-- Section: contact -->
+    <!-- /Section: contact -->
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+
+                    <p>&copy;Copyright ESIB - Hoda Baydoun & Marc Ghossein, Supervised by Mr. Maroun Chamoun</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    @RenderSection("scripts", required: false)
+    <!-- Core JavaScript Files -->
+    <script src="/Scripts/jquery.min.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/jquery.easing.min.js"></script>
+    <script src="/Scripts/jquery.scrollTo.js"></script>
+    <script src="/Scripts/wow.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="/Scripts/custom.js"></script>
+
+</body>
+
+</html>
