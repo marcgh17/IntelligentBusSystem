@@ -261,12 +261,12 @@ hr {
 	display:block;
     position:relative;
     z-index:120;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 
 .section-heading h2 {
-	font-size: 40px;
+	font-size: 24px;
 }
 .section-heading i {
 	margin-bottom: 20px;
