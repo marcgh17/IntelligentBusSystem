@@ -5,9 +5,8 @@
     <title>@ViewBag.Title - My ASP.NET MVC Application</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
-    
-    @Scripts.Render("~/bundles/modernizr")
 
+    @Scripts.Render("~/bundles/modernizr")
 
     <!-- Bootstrap Core CSS -->
     <link href="/Content/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -40,9 +39,9 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-               
 
-               @Html.Partial("_LoginPartial")
+
+                @Html.Partial("_LoginPartial")
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -56,7 +55,7 @@
     <section id="body" class="home-section text-center">
 
 
-  
+
 
         @RenderBody()
 
@@ -79,6 +78,9 @@
     </footer>
 
     @RenderSection("scripts", required: false)
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+
     <!-- Core JavaScript Files -->
     <script src="/Scripts/jquery.min.js"></script>
     <script src="/Scripts/bootstrap.min.js"></script>

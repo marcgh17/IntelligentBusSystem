@@ -1,0 +1,1192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="IntelligentBusSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AddressLat" Type="float" Nullable="false" />
+          <Property Name="AddressLong" Type="float" Nullable="false" />
+          <Property Name="AddressDescription" Type="text" />
+          <Property Name="StudentID" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Bus">
+          <Key>
+            <PropertyRef Name="BusID" />
+          </Key>
+          <Property Name="BusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BusNumber" Type="int" />
+          <Property Name="BusModel" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BusCapacity" Type="int" Nullable="false" />
+          <Property Name="BusMaxCapacity" Type="int" Nullable="false" />
+          <Property Name="BusStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BusLat" Type="float" Nullable="false" />
+          <Property Name="BusLong" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="int" Nullable="false" />
+          <Property Name="ClassName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClassTripCategory">
+          <Key>
+            <PropertyRef Name="ClassID" />
+            <PropertyRef Name="TripCategoryID" />
+          </Key>
+          <Property Name="ClassID" Type="int" Nullable="false" />
+          <Property Name="TripCategoryID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DailyTrip">
+          <Key>
+            <PropertyRef Name="DailyTripID" />
+          </Key>
+          <Property Name="DailyTripID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DailyTripDate" Type="date" Nullable="false" />
+          <Property Name="ScheduledTripID" Type="int" />
+          <Property Name="BusID" Type="int" Nullable="false" />
+          <Property Name="DriverID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DailyTripStartTime" Type="time" Precision="7" />
+          <Property Name="DailyTripEndTime" Type="time" Precision="7" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="DriverID" />
+          </Key>
+          <Property Name="DriverID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DriverFirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DriverLastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DriverPhoto" Type="nchar" MaxLength="10" />
+          <Property Name="DriverLat" Type="float" />
+          <Property Name="DriverLong" Type="float" />
+        </EntityType>
+        <EntityType Name="Parent">
+          <Key>
+            <PropertyRef Name="ParentID" />
+          </Key>
+          <Property Name="ParentID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ParentPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ParentFirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ParentLastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ParentNumber" Type="int" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="ScheduleID" />
+          </Key>
+          <Property Name="ScheduleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ScheduleME" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="ScheduleDay" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="ScheduleDescription" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ScheduledTrip">
+          <Key>
+            <PropertyRef Name="ScheduledTripID" />
+          </Key>
+          <Property Name="ScheduledTripID" Type="int" Nullable="false" />
+          <Property Name="BusID" Type="int" Nullable="false" />
+          <Property Name="DriverID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TripCategoryID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'IntelligentBusSystem.dbo.School' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="School">
+          <Key>
+            <PropertyRef Name="SchoolName" />
+            <PropertyRef Name="SchoolLat" />
+            <PropertyRef Name="SchoolLong" />
+          </Key>
+          <Property Name="SchoolName" Type="text" Nullable="false" />
+          <Property Name="SchoolLat" Type="float" Nullable="false" />
+          <Property Name="SchoolLong" Type="float" Nullable="false" />
+          <Property Name="SchoolPhoto" Type="text" />
+          <Property Name="SchoolLogo" Type="text" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StudentFirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StudentLastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StudentGender" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="StudentBirthdate" Type="date" />
+          <Property Name="StudentPhoto" Type="text" />
+          <Property Name="ClassID" Type="int" />
+        </EntityType>
+        <EntityType Name="StudentDailyTrip">
+          <Key>
+            <PropertyRef Name="DailyTripID" />
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="DailyTripID" Type="int" Nullable="false" />
+          <Property Name="StudentID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StudentDailyTripStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="StudentDailyTripCheckTime" Type="time" Precision="7" />
+          <Property Name="StudentDailyTripOrder" Type="int" />
+          <Property Name="StudentDailyTripLat" Type="float" />
+          <Property Name="StudentDailyTripLong" Type="float" />
+        </EntityType>
+        <EntityType Name="StudentParent">
+          <Key>
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="ParentID" />
+          </Key>
+          <Property Name="StudentID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ParentID" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StudentScheduledTrip">
+          <Key>
+            <PropertyRef Name="ScheduledTripID" />
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="ScheduledTripID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StudentScheduledTripOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subscription">
+          <Key>
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="ScheduleID" />
+          </Key>
+          <Property Name="StudentID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ScheduleID" Type="int" Nullable="false" />
+          <Property Name="SubscriptionYN" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="AddressID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SUser">
+          <Key>
+            <PropertyRef Name="SUserID" />
+          </Key>
+          <Property Name="SUserID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SUserPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SUserFirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SUserLastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SUserRole" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SUserPhoto" Type="text" />
+        </EntityType>
+        <EntityType Name="TripCategory">
+          <Key>
+            <PropertyRef Name="TripCategoryID" />
+          </Key>
+          <Property Name="TripCategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ScheduleID" Type="int" Nullable="false" />
+          <Property Name="TripCategoryTime" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Address_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClassTripCategory_Class">
+          <End Role="Class" Type="Self.Class" Multiplicity="1" />
+          <End Role="ClassTripCategory" Type="Self.ClassTripCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="ClassTripCategory">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClassTripCategory_TripCategory">
+          <End Role="TripCategory" Type="Self.TripCategory" Multiplicity="1" />
+          <End Role="ClassTripCategory" Type="Self.ClassTripCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TripCategory">
+              <PropertyRef Name="TripCategoryID" />
+            </Principal>
+            <Dependent Role="ClassTripCategory">
+              <PropertyRef Name="TripCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DailyTrip_Bus">
+          <End Role="Bus" Type="Self.Bus" Multiplicity="1" />
+          <End Role="DailyTrip" Type="Self.DailyTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bus">
+              <PropertyRef Name="BusID" />
+            </Principal>
+            <Dependent Role="DailyTrip">
+              <PropertyRef Name="BusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DailyTrip_Driver">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="1" />
+          <End Role="DailyTrip" Type="Self.DailyTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverID" />
+            </Principal>
+            <Dependent Role="DailyTrip">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DailyTrip_ScheduledTrip">
+          <End Role="ScheduledTrip" Type="Self.ScheduledTrip" Multiplicity="0..1" />
+          <End Role="DailyTrip" Type="Self.DailyTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScheduledTrip">
+              <PropertyRef Name="ScheduledTripID" />
+            </Principal>
+            <Dependent Role="DailyTrip">
+              <PropertyRef Name="ScheduledTripID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduledTrip_Bus">
+          <End Role="Bus" Type="Self.Bus" Multiplicity="1" />
+          <End Role="ScheduledTrip" Type="Self.ScheduledTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bus">
+              <PropertyRef Name="BusID" />
+            </Principal>
+            <Dependent Role="ScheduledTrip">
+              <PropertyRef Name="BusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduledTrip_Driver">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="1" />
+          <End Role="ScheduledTrip" Type="Self.ScheduledTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverID" />
+            </Principal>
+            <Dependent Role="ScheduledTrip">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduledTrip_TripCategory">
+          <End Role="TripCategory" Type="Self.TripCategory" Multiplicity="1" />
+          <End Role="ScheduledTrip" Type="Self.ScheduledTrip" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TripCategory">
+              <PropertyRef Name="TripCategoryID" />
+            </Principal>
+            <Dependent Role="ScheduledTrip">
+              <PropertyRef Name="ScheduledTripID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Class">
+          <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentDailyTrip_DailyTrip">
+          <End Role="DailyTrip" Type="Self.DailyTrip" Multiplicity="1" />
+          <End Role="StudentDailyTrip" Type="Self.StudentDailyTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DailyTrip">
+              <PropertyRef Name="DailyTripID" />
+            </Principal>
+            <Dependent Role="StudentDailyTrip">
+              <PropertyRef Name="DailyTripID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentDailyTrip_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="StudentDailyTrip" Type="Self.StudentDailyTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="StudentDailyTrip">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentParent_Parent">
+          <End Role="Parent" Type="Self.Parent" Multiplicity="1" />
+          <End Role="StudentParent" Type="Self.StudentParent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parent">
+              <PropertyRef Name="ParentID" />
+            </Principal>
+            <Dependent Role="StudentParent">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentParent_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="StudentParent" Type="Self.StudentParent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="StudentParent">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentScheduledTrip_ScheduledTrip">
+          <End Role="ScheduledTrip" Type="Self.ScheduledTrip" Multiplicity="1" />
+          <End Role="StudentScheduledTrip" Type="Self.StudentScheduledTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScheduledTrip">
+              <PropertyRef Name="ScheduledTripID" />
+            </Principal>
+            <Dependent Role="StudentScheduledTrip">
+              <PropertyRef Name="ScheduledTripID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentScheduledTrip_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="StudentScheduledTrip" Type="Self.StudentScheduledTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="StudentScheduledTrip">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subscription_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="Subscription" Type="Self.Subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="ScheduleID" />
+            </Principal>
+            <Dependent Role="Subscription">
+              <PropertyRef Name="ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subscription_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Subscription" Type="Self.Subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="Subscription">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripCategory_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="TripCategory" Type="Self.TripCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="ScheduleID" />
+            </Principal>
+            <Dependent Role="TripCategory">
+              <PropertyRef Name="ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="IntelligentBusSystemModelStoreContainer">
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bus" EntityType="Self.Bus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClassTripCategory" EntityType="Self.ClassTripCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DailyTrip" EntityType="Self.DailyTrip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Driver" EntityType="Self.Driver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parent" EntityType="Self.Parent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScheduledTrip" EntityType="Self.ScheduledTrip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentDailyTrip" EntityType="Self.StudentDailyTrip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentParent" EntityType="Self.StudentParent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentScheduledTrip" EntityType="Self.StudentScheduledTrip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subscription" EntityType="Self.Subscription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SUser" EntityType="Self.SUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TripCategory" EntityType="Self.TripCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="School" EntityType="Self.School" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [School].[SchoolName] AS [SchoolName], 
+    [School].[SchoolLat] AS [SchoolLat], 
+    [School].[SchoolLong] AS [SchoolLong], 
+    [School].[SchoolPhoto] AS [SchoolPhoto], 
+    [School].[SchoolLogo] AS [SchoolLogo]
+    FROM [dbo].[School] AS [School]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Address_Student" Association="Self.FK_Address_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClassTripCategory_Class" Association="Self.FK_ClassTripCategory_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="ClassTripCategory" EntitySet="ClassTripCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClassTripCategory_TripCategory" Association="Self.FK_ClassTripCategory_TripCategory">
+            <End Role="TripCategory" EntitySet="TripCategory" />
+            <End Role="ClassTripCategory" EntitySet="ClassTripCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DailyTrip_Bus" Association="Self.FK_DailyTrip_Bus">
+            <End Role="Bus" EntitySet="Bus" />
+            <End Role="DailyTrip" EntitySet="DailyTrip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DailyTrip_Driver" Association="Self.FK_DailyTrip_Driver">
+            <End Role="Driver" EntitySet="Driver" />
+            <End Role="DailyTrip" EntitySet="DailyTrip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DailyTrip_ScheduledTrip" Association="Self.FK_DailyTrip_ScheduledTrip">
+            <End Role="ScheduledTrip" EntitySet="ScheduledTrip" />
+            <End Role="DailyTrip" EntitySet="DailyTrip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduledTrip_Bus" Association="Self.FK_ScheduledTrip_Bus">
+            <End Role="Bus" EntitySet="Bus" />
+            <End Role="ScheduledTrip" EntitySet="ScheduledTrip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduledTrip_Driver" Association="Self.FK_ScheduledTrip_Driver">
+            <End Role="Driver" EntitySet="Driver" />
+            <End Role="ScheduledTrip" EntitySet="ScheduledTrip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduledTrip_TripCategory" Association="Self.FK_ScheduledTrip_TripCategory">
+            <End Role="TripCategory" EntitySet="TripCategory" />
+            <End Role="ScheduledTrip" EntitySet="ScheduledTrip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Class" Association="Self.FK_Student_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentDailyTrip_DailyTrip" Association="Self.FK_StudentDailyTrip_DailyTrip">
+            <End Role="DailyTrip" EntitySet="DailyTrip" />
+            <End Role="StudentDailyTrip" EntitySet="StudentDailyTrip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentDailyTrip_Student" Association="Self.FK_StudentDailyTrip_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="StudentDailyTrip" EntitySet="StudentDailyTrip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentParent_Parent" Association="Self.FK_StudentParent_Parent">
+            <End Role="Parent" EntitySet="Parent" />
+            <End Role="StudentParent" EntitySet="StudentParent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentParent_Student" Association="Self.FK_StudentParent_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="StudentParent" EntitySet="StudentParent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentScheduledTrip_ScheduledTrip" Association="Self.FK_StudentScheduledTrip_ScheduledTrip">
+            <End Role="ScheduledTrip" EntitySet="ScheduledTrip" />
+            <End Role="StudentScheduledTrip" EntitySet="StudentScheduledTrip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentScheduledTrip_Student" Association="Self.FK_StudentScheduledTrip_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="StudentScheduledTrip" EntitySet="StudentScheduledTrip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subscription_Schedule" Association="Self.FK_Subscription_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="Subscription" EntitySet="Subscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subscription_Student" Association="Self.FK_Subscription_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Subscription" EntitySet="Subscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripCategory_Schedule" Association="Self.FK_TripCategory_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="TripCategory" EntitySet="TripCategory" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IntelligentBusSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AddressLat" Type="Double" Nullable="false" />
+          <Property Name="AddressLong" Type="Double" Nullable="false" />
+          <Property Name="AddressDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="StudentID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Address_Student" FromRole="Address" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Bus">
+          <Key>
+            <PropertyRef Name="BusID" />
+          </Key>
+          <Property Name="BusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BusNumber" Type="Int32" />
+          <Property Name="BusModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BusCapacity" Type="Int32" Nullable="false" />
+          <Property Name="BusMaxCapacity" Type="Int32" Nullable="false" />
+          <Property Name="BusStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BusLat" Type="Double" Nullable="false" />
+          <Property Name="BusLong" Type="Double" Nullable="false" />
+          <NavigationProperty Name="DailyTrips" Relationship="Self.FK_DailyTrip_Bus" FromRole="Bus" ToRole="DailyTrip" />
+          <NavigationProperty Name="ScheduledTrips" Relationship="Self.FK_ScheduledTrip_Bus" FromRole="Bus" ToRole="ScheduledTrip" />
+        </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="Int32" Nullable="false" />
+          <Property Name="ClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_Student_Class" FromRole="Class" ToRole="Student" />
+          <NavigationProperty Name="TripCategories" Relationship="Self.ClassTripCategory" FromRole="Class" ToRole="TripCategory" />
+        </EntityType>
+        <EntityType Name="DailyTrip">
+          <Key>
+            <PropertyRef Name="DailyTripID" />
+          </Key>
+          <Property Name="DailyTripID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DailyTripDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ScheduledTripID" Type="Int32" />
+          <Property Name="BusID" Type="Int32" Nullable="false" />
+          <Property Name="DriverID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DailyTripStartTime" Type="Time" Precision="7" />
+          <Property Name="DailyTripEndTime" Type="Time" Precision="7" />
+          <NavigationProperty Name="Bus" Relationship="Self.FK_DailyTrip_Bus" FromRole="DailyTrip" ToRole="Bus" />
+          <NavigationProperty Name="Driver" Relationship="Self.FK_DailyTrip_Driver" FromRole="DailyTrip" ToRole="Driver" />
+          <NavigationProperty Name="ScheduledTrip" Relationship="Self.FK_DailyTrip_ScheduledTrip" FromRole="DailyTrip" ToRole="ScheduledTrip" />
+          <NavigationProperty Name="StudentDailyTrips" Relationship="Self.FK_StudentDailyTrip_DailyTrip" FromRole="DailyTrip" ToRole="StudentDailyTrip" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="DriverID" />
+          </Key>
+          <Property Name="DriverID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DriverFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DriverLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DriverPhoto" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DriverLat" Type="Double" />
+          <Property Name="DriverLong" Type="Double" />
+          <NavigationProperty Name="DailyTrips" Relationship="Self.FK_DailyTrip_Driver" FromRole="Driver" ToRole="DailyTrip" />
+          <NavigationProperty Name="ScheduledTrips" Relationship="Self.FK_ScheduledTrip_Driver" FromRole="Driver" ToRole="ScheduledTrip" />
+        </EntityType>
+        <EntityType Name="Parent">
+          <Key>
+            <PropertyRef Name="ParentID" />
+          </Key>
+          <Property Name="ParentID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ParentPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ParentFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ParentLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ParentNumber" Type="Int32" />
+          <NavigationProperty Name="Students" Relationship="Self.StudentParent" FromRole="Parent" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="ScheduleID" />
+          </Key>
+          <Property Name="ScheduleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ScheduleME" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ScheduleDay" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ScheduleDescription" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Subscriptions" Relationship="Self.FK_Subscription_Schedule" FromRole="Schedule" ToRole="Subscription" />
+          <NavigationProperty Name="TripCategories" Relationship="Self.FK_TripCategory_Schedule" FromRole="Schedule" ToRole="TripCategory" />
+        </EntityType>
+        <EntityType Name="ScheduledTrip">
+          <Key>
+            <PropertyRef Name="ScheduledTripID" />
+          </Key>
+          <Property Name="ScheduledTripID" Type="Int32" Nullable="false" />
+          <Property Name="BusID" Type="Int32" Nullable="false" />
+          <Property Name="DriverID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TripCategoryID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bus" Relationship="Self.FK_ScheduledTrip_Bus" FromRole="ScheduledTrip" ToRole="Bus" />
+          <NavigationProperty Name="DailyTrips" Relationship="Self.FK_DailyTrip_ScheduledTrip" FromRole="ScheduledTrip" ToRole="DailyTrip" />
+          <NavigationProperty Name="Driver" Relationship="Self.FK_ScheduledTrip_Driver" FromRole="ScheduledTrip" ToRole="Driver" />
+          <NavigationProperty Name="TripCategory" Relationship="Self.FK_ScheduledTrip_TripCategory" FromRole="ScheduledTrip" ToRole="TripCategory" />
+          <NavigationProperty Name="StudentScheduledTrips" Relationship="Self.FK_StudentScheduledTrip_ScheduledTrip" FromRole="ScheduledTrip" ToRole="StudentScheduledTrip" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StudentFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StudentLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StudentGender" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StudentBirthdate" Type="DateTime" Precision="0" />
+          <Property Name="StudentPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClassID" Type="Int32" />
+          <NavigationProperty Name="Addresses" Relationship="Self.FK_Address_Student" FromRole="Student" ToRole="Address" />
+          <NavigationProperty Name="Class" Relationship="Self.FK_Student_Class" FromRole="Student" ToRole="Class" />
+          <NavigationProperty Name="StudentDailyTrips" Relationship="Self.FK_StudentDailyTrip_Student" FromRole="Student" ToRole="StudentDailyTrip" />
+          <NavigationProperty Name="StudentScheduledTrips" Relationship="Self.FK_StudentScheduledTrip_Student" FromRole="Student" ToRole="StudentScheduledTrip" />
+          <NavigationProperty Name="Subscriptions" Relationship="Self.FK_Subscription_Student" FromRole="Student" ToRole="Subscription" />
+          <NavigationProperty Name="Parents" Relationship="Self.StudentParent" FromRole="Student" ToRole="Parent" />
+        </EntityType>
+        <EntityType Name="StudentDailyTrip">
+          <Key>
+            <PropertyRef Name="DailyTripID" />
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="DailyTripID" Type="Int32" Nullable="false" />
+          <Property Name="StudentID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StudentDailyTripStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudentDailyTripCheckTime" Type="Time" Precision="7" />
+          <Property Name="StudentDailyTripOrder" Type="Int32" />
+          <Property Name="StudentDailyTripLat" Type="Double" />
+          <Property Name="StudentDailyTripLong" Type="Double" />
+          <NavigationProperty Name="DailyTrip" Relationship="Self.FK_StudentDailyTrip_DailyTrip" FromRole="StudentDailyTrip" ToRole="DailyTrip" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_StudentDailyTrip_Student" FromRole="StudentDailyTrip" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="StudentScheduledTrip">
+          <Key>
+            <PropertyRef Name="ScheduledTripID" />
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="ScheduledTripID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StudentScheduledTripOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ScheduledTrip" Relationship="Self.FK_StudentScheduledTrip_ScheduledTrip" FromRole="StudentScheduledTrip" ToRole="ScheduledTrip" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_StudentScheduledTrip_Student" FromRole="StudentScheduledTrip" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Subscription">
+          <Key>
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="ScheduleID" />
+          </Key>
+          <Property Name="StudentID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ScheduleID" Type="Int32" Nullable="false" />
+          <Property Name="SubscriptionYN" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AddressID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Schedule" Relationship="Self.FK_Subscription_Schedule" FromRole="Subscription" ToRole="Schedule" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Subscription_Student" FromRole="Subscription" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="SUser">
+          <Key>
+            <PropertyRef Name="SUserID" />
+          </Key>
+          <Property Name="SUserID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SUserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SUserFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SUserLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SUserRole" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SUserPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TripCategory">
+          <Key>
+            <PropertyRef Name="TripCategoryID" />
+          </Key>
+          <Property Name="TripCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ScheduleID" Type="Int32" Nullable="false" />
+          <Property Name="TripCategoryTime" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Schedule" Relationship="Self.FK_TripCategory_Schedule" FromRole="TripCategory" ToRole="Schedule" />
+          <NavigationProperty Name="ScheduledTrip" Relationship="Self.FK_ScheduledTrip_TripCategory" FromRole="TripCategory" ToRole="ScheduledTrip" />
+          <NavigationProperty Name="Classes" Relationship="Self.ClassTripCategory" FromRole="TripCategory" ToRole="Class" />
+        </EntityType>
+        <EntityType Name="School">
+          <Key>
+            <PropertyRef Name="SchoolName" />
+            <PropertyRef Name="SchoolLat" />
+            <PropertyRef Name="SchoolLong" />
+          </Key>
+          <Property Name="SchoolName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SchoolLat" Type="Double" Nullable="false" />
+          <Property Name="SchoolLong" Type="Double" Nullable="false" />
+          <Property Name="SchoolPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SchoolLogo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Address_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DailyTrip_Bus">
+          <End Role="Bus" Type="Self.Bus" Multiplicity="1" />
+          <End Role="DailyTrip" Type="Self.DailyTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bus">
+              <PropertyRef Name="BusID" />
+            </Principal>
+            <Dependent Role="DailyTrip">
+              <PropertyRef Name="BusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduledTrip_Bus">
+          <End Role="Bus" Type="Self.Bus" Multiplicity="1" />
+          <End Role="ScheduledTrip" Type="Self.ScheduledTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bus">
+              <PropertyRef Name="BusID" />
+            </Principal>
+            <Dependent Role="ScheduledTrip">
+              <PropertyRef Name="BusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Class">
+          <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DailyTrip_Driver">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="1" />
+          <End Role="DailyTrip" Type="Self.DailyTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverID" />
+            </Principal>
+            <Dependent Role="DailyTrip">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DailyTrip_ScheduledTrip">
+          <End Role="ScheduledTrip" Type="Self.ScheduledTrip" Multiplicity="0..1" />
+          <End Role="DailyTrip" Type="Self.DailyTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScheduledTrip">
+              <PropertyRef Name="ScheduledTripID" />
+            </Principal>
+            <Dependent Role="DailyTrip">
+              <PropertyRef Name="ScheduledTripID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentDailyTrip_DailyTrip">
+          <End Role="DailyTrip" Type="Self.DailyTrip" Multiplicity="1" />
+          <End Role="StudentDailyTrip" Type="Self.StudentDailyTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DailyTrip">
+              <PropertyRef Name="DailyTripID" />
+            </Principal>
+            <Dependent Role="StudentDailyTrip">
+              <PropertyRef Name="DailyTripID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduledTrip_Driver">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="1" />
+          <End Role="ScheduledTrip" Type="Self.ScheduledTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverID" />
+            </Principal>
+            <Dependent Role="ScheduledTrip">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subscription_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="Subscription" Type="Self.Subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="ScheduleID" />
+            </Principal>
+            <Dependent Role="Subscription">
+              <PropertyRef Name="ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripCategory_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="TripCategory" Type="Self.TripCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="ScheduleID" />
+            </Principal>
+            <Dependent Role="TripCategory">
+              <PropertyRef Name="ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduledTrip_TripCategory">
+          <End Role="TripCategory" Type="Self.TripCategory" Multiplicity="1" />
+          <End Role="ScheduledTrip" Type="Self.ScheduledTrip" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TripCategory">
+              <PropertyRef Name="TripCategoryID" />
+            </Principal>
+            <Dependent Role="ScheduledTrip">
+              <PropertyRef Name="ScheduledTripID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentScheduledTrip_ScheduledTrip">
+          <End Role="ScheduledTrip" Type="Self.ScheduledTrip" Multiplicity="1" />
+          <End Role="StudentScheduledTrip" Type="Self.StudentScheduledTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScheduledTrip">
+              <PropertyRef Name="ScheduledTripID" />
+            </Principal>
+            <Dependent Role="StudentScheduledTrip">
+              <PropertyRef Name="ScheduledTripID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentDailyTrip_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="StudentDailyTrip" Type="Self.StudentDailyTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="StudentDailyTrip">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentScheduledTrip_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="StudentScheduledTrip" Type="Self.StudentScheduledTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="StudentScheduledTrip">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subscription_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Subscription" Type="Self.Subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="Subscription">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ClassTripCategory">
+          <End Role="Class" Type="Self.Class" Multiplicity="*" />
+          <End Role="TripCategory" Type="Self.TripCategory" Multiplicity="*" />
+        </Association>
+        <Association Name="StudentParent">
+          <End Role="Parent" Type="Self.Parent" Multiplicity="*" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="IntelligentBusSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Addresses" EntityType="Self.Address" />
+          <EntitySet Name="Buses" EntityType="Self.Bus" />
+          <EntitySet Name="Classes" EntityType="Self.Class" />
+          <EntitySet Name="DailyTrips" EntityType="Self.DailyTrip" />
+          <EntitySet Name="Drivers" EntityType="Self.Driver" />
+          <EntitySet Name="Parents" EntityType="Self.Parent" />
+          <EntitySet Name="Schedules" EntityType="Self.Schedule" />
+          <EntitySet Name="ScheduledTrips" EntityType="Self.ScheduledTrip" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="StudentDailyTrips" EntityType="Self.StudentDailyTrip" />
+          <EntitySet Name="StudentScheduledTrips" EntityType="Self.StudentScheduledTrip" />
+          <EntitySet Name="Subscriptions" EntityType="Self.Subscription" />
+          <EntitySet Name="SUsers" EntityType="Self.SUser" />
+          <EntitySet Name="TripCategories" EntityType="Self.TripCategory" />
+          <EntitySet Name="Schools" EntityType="Self.School" />
+          <AssociationSet Name="FK_Address_Student" Association="Self.FK_Address_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DailyTrip_Bus" Association="Self.FK_DailyTrip_Bus">
+            <End Role="Bus" EntitySet="Buses" />
+            <End Role="DailyTrip" EntitySet="DailyTrips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduledTrip_Bus" Association="Self.FK_ScheduledTrip_Bus">
+            <End Role="Bus" EntitySet="Buses" />
+            <End Role="ScheduledTrip" EntitySet="ScheduledTrips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Class" Association="Self.FK_Student_Class">
+            <End Role="Class" EntitySet="Classes" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DailyTrip_Driver" Association="Self.FK_DailyTrip_Driver">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="DailyTrip" EntitySet="DailyTrips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DailyTrip_ScheduledTrip" Association="Self.FK_DailyTrip_ScheduledTrip">
+            <End Role="ScheduledTrip" EntitySet="ScheduledTrips" />
+            <End Role="DailyTrip" EntitySet="DailyTrips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentDailyTrip_DailyTrip" Association="Self.FK_StudentDailyTrip_DailyTrip">
+            <End Role="DailyTrip" EntitySet="DailyTrips" />
+            <End Role="StudentDailyTrip" EntitySet="StudentDailyTrips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduledTrip_Driver" Association="Self.FK_ScheduledTrip_Driver">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="ScheduledTrip" EntitySet="ScheduledTrips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subscription_Schedule" Association="Self.FK_Subscription_Schedule">
+            <End Role="Schedule" EntitySet="Schedules" />
+            <End Role="Subscription" EntitySet="Subscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripCategory_Schedule" Association="Self.FK_TripCategory_Schedule">
+            <End Role="Schedule" EntitySet="Schedules" />
+            <End Role="TripCategory" EntitySet="TripCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduledTrip_TripCategory" Association="Self.FK_ScheduledTrip_TripCategory">
+            <End Role="TripCategory" EntitySet="TripCategories" />
+            <End Role="ScheduledTrip" EntitySet="ScheduledTrips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentScheduledTrip_ScheduledTrip" Association="Self.FK_StudentScheduledTrip_ScheduledTrip">
+            <End Role="ScheduledTrip" EntitySet="ScheduledTrips" />
+            <End Role="StudentScheduledTrip" EntitySet="StudentScheduledTrips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentDailyTrip_Student" Association="Self.FK_StudentDailyTrip_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="StudentDailyTrip" EntitySet="StudentDailyTrips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentScheduledTrip_Student" Association="Self.FK_StudentScheduledTrip_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="StudentScheduledTrip" EntitySet="StudentScheduledTrips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subscription_Student" Association="Self.FK_Subscription_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Subscription" EntitySet="Subscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="ClassTripCategory" Association="Self.ClassTripCategory">
+            <End Role="Class" EntitySet="Classes" />
+            <End Role="TripCategory" EntitySet="TripCategories" />
+          </AssociationSet>
+          <AssociationSet Name="StudentParent" Association="Self.StudentParent">
+            <End Role="Parent" EntitySet="Parents" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="IntelligentBusSystemModelStoreContainer" CdmEntityContainer="IntelligentBusSystemEntities">
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="IntelligentBusSystemModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="AddressLat" ColumnName="AddressLat" />
+                <ScalarProperty Name="AddressLong" ColumnName="AddressLong" />
+                <ScalarProperty Name="AddressDescription" ColumnName="AddressDescription" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Buses">
+            <EntityTypeMapping TypeName="IntelligentBusSystemModel.Bus">
+              <MappingFragment StoreEntitySet="Bus">
+                <ScalarProperty Name="BusID" ColumnName="BusID" />
+                <ScalarProperty Name="BusNumber" ColumnName="BusNumber" />
+                <ScalarProperty Name="BusModel" ColumnName="BusModel" />
+                <ScalarProperty Name="BusCapacity" ColumnName="BusCapacity" />
+                <ScalarProperty Name="BusMaxCapacity" ColumnName="BusMaxCapacity" />
+                <ScalarProperty Name="BusStatus" ColumnName="BusStatus" />
+                <ScalarProperty Name="BusLat" ColumnName="BusLat" />
+                <ScalarProperty Name="BusLong" ColumnName="BusLong" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Classes">
+            <EntityTypeMapping TypeName="IntelligentBusSystemModel.Class">
+              <MappingFragment StoreEntitySet="Class">
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DailyTrips">
+            <EntityTypeMapping TypeName="IntelligentBusSystemModel.DailyTrip">
+              <MappingFragment StoreEntitySet="DailyTrip">
+                <ScalarProperty Name="DailyTripID" ColumnName="DailyTripID" />
+                <ScalarProperty Name="DailyTripDate" ColumnName="DailyTripDate" />
+                <ScalarProperty Name="ScheduledTripID" ColumnName="ScheduledTripID" />
+                <ScalarProperty Name="BusID" ColumnName="BusID" />
+                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+                <ScalarProperty Name="DailyTripStartTime" ColumnName="DailyTripStartTime" />
+                <ScalarProperty Name="DailyTripEndTime" ColumnName="DailyTripEndTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drivers">
+            <EntityTypeMapping TypeName="IntelligentBusSystemModel.Driver">
+              <MappingFragment StoreEntitySet="Driver">
+                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+                <ScalarProperty Name="DriverFirstName" ColumnName="DriverFirstName" />
+                <ScalarProperty Name="DriverLastName" ColumnName="DriverLastName" />
+                <ScalarProperty Name="DriverPhoto" ColumnName="DriverPhoto" />
+                <ScalarProperty Name="DriverLat" ColumnName="DriverLat" />
+                <ScalarProperty Name="DriverLong" ColumnName="DriverLong" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parents">
+            <EntityTypeMapping TypeName="IntelligentBusSystemModel.Parent">
+              <MappingFragment StoreEntitySet="Parent">
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="ParentPassword" ColumnName="ParentPassword" />
+                <ScalarProperty Name="ParentFirstName" ColumnName="ParentFirstName" />
+                <ScalarProperty Name="ParentLastName" ColumnName="ParentLastName" />
+                <ScalarProperty Name="ParentNumber" ColumnName="ParentNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedules">
+            <EntityTypeMapping TypeName="IntelligentBusSystemModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+                <ScalarProperty Name="ScheduleME" ColumnName="ScheduleME" />
+                <ScalarProperty Name="ScheduleDay" ColumnName="ScheduleDay" />
+                <ScalarProperty Name="ScheduleDescription" ColumnName="ScheduleDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScheduledTrips">
+            <EntityTypeMapping TypeName="IntelligentBusSystemModel.ScheduledTrip">
+              <MappingFragment StoreEntitySet="ScheduledTrip">
+                <ScalarProperty Name="ScheduledTripID" ColumnName="ScheduledTripID" />
+                <ScalarProperty Name="BusID" ColumnName="BusID" />
+                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+                <ScalarProperty Name="TripCategoryID" ColumnName="TripCategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="IntelligentBusSystemModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="StudentFirstName" ColumnName="StudentFirstName" />
+                <ScalarProperty Name="StudentLastName" ColumnName="StudentLastName" />
+                <ScalarProperty Name="StudentGender" ColumnName="StudentGender" />
+                <ScalarProperty Name="StudentBirthdate" ColumnName="StudentBirthdate" />
+                <ScalarProperty Name="StudentPhoto" ColumnName="StudentPhoto" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentDailyTrips">
+            <EntityTypeMapping TypeName="IntelligentBusSystemModel.StudentDailyTrip">
+              <MappingFragment StoreEntitySet="StudentDailyTrip">
+                <ScalarProperty Name="DailyTripID" ColumnName="DailyTripID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="StudentDailyTripStatus" ColumnName="StudentDailyTripStatus" />
+                <ScalarProperty Name="StudentDailyTripCheckTime" ColumnName="StudentDailyTripCheckTime" />
+                <ScalarProperty Name="StudentDailyTripOrder" ColumnName="StudentDailyTripOrder" />
+                <ScalarProperty Name="StudentDailyTripLat" ColumnName="StudentDailyTripLat" />
+                <ScalarProperty Name="StudentDailyTripLong" ColumnName="StudentDailyTripLong" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentScheduledTrips">
+            <EntityTypeMapping TypeName="IntelligentBusSystemModel.StudentScheduledTrip">
+              <MappingFragment StoreEntitySet="StudentScheduledTrip">
+                <ScalarProperty Name="ScheduledTripID" ColumnName="ScheduledTripID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="StudentScheduledTripOrder" ColumnName="StudentScheduledTripOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subscriptions">
+            <EntityTypeMapping TypeName="IntelligentBusSystemModel.Subscription">
+              <MappingFragment StoreEntitySet="Subscription">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+                <ScalarProperty Name="SubscriptionYN" ColumnName="SubscriptionYN" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUsers">
+            <EntityTypeMapping TypeName="IntelligentBusSystemModel.SUser">
+              <MappingFragment StoreEntitySet="SUser">
+                <ScalarProperty Name="SUserID" ColumnName="SUserID" />
+                <ScalarProperty Name="SUserPassword" ColumnName="SUserPassword" />
+                <ScalarProperty Name="SUserFirstName" ColumnName="SUserFirstName" />
+                <ScalarProperty Name="SUserLastName" ColumnName="SUserLastName" />
+                <ScalarProperty Name="SUserRole" ColumnName="SUserRole" />
+                <ScalarProperty Name="SUserPhoto" ColumnName="SUserPhoto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TripCategories">
+            <EntityTypeMapping TypeName="IntelligentBusSystemModel.TripCategory">
+              <MappingFragment StoreEntitySet="TripCategory">
+                <ScalarProperty Name="TripCategoryID" ColumnName="TripCategoryID" />
+                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+                <ScalarProperty Name="TripCategoryTime" ColumnName="TripCategoryTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schools">
+            <EntityTypeMapping TypeName="IntelligentBusSystemModel.School">
+              <MappingFragment StoreEntitySet="School">
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="SchoolLat" ColumnName="SchoolLat" />
+                <ScalarProperty Name="SchoolLong" ColumnName="SchoolLong" />
+                <ScalarProperty Name="SchoolPhoto" ColumnName="SchoolPhoto" />
+                <ScalarProperty Name="SchoolLogo" ColumnName="SchoolLogo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ClassTripCategory" TypeName="IntelligentBusSystemModel.ClassTripCategory" StoreEntitySet="ClassTripCategory">
+            <EndProperty Name="Class">
+              <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+            </EndProperty>
+            <EndProperty Name="TripCategory">
+              <ScalarProperty Name="TripCategoryID" ColumnName="TripCategoryID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="StudentParent" TypeName="IntelligentBusSystemModel.StudentParent" StoreEntitySet="StudentParent">
+            <EndProperty Name="Parent">
+              <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+            </EndProperty>
+            <EndProperty Name="Student">
+              <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

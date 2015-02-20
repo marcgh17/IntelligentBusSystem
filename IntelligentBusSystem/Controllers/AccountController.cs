@@ -34,19 +34,28 @@ namespace IntelligentBusSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                if (model.Password == model.UserName)
+                using (var context = new IntelligentBusSystemEntities())
                 {
-                    FormsAuthentication.SetAuthCookie(
-                        model.UserName, model.RememberMe);
-                    return RedirectToLocal(returnUrl);
+                    var username = context.SUsers.Find(model.UserName);
+                    if (username != null)
+                    {
+                        if (username.SUserPassword == model.Password)
+                        {
+                            FormsAuthentication.SetAuthCookie(
+                            model.UserName, model.RememberMe);
+                            return RedirectToLocal(returnUrl);
+                        }
 
+                        else
+                        {
+                            ModelState.AddModelError("", "Wrong password!");
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Invalid username!");
+                    }
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid username or password.");
-                }
-
             }
              return View(model);
             
