@@ -623,7 +623,7 @@ abbr[title], abbr[data-original-title] {
 
 .initialism {
     font-size: 90%;
-    text-transform: uppercase;
+    text-transform: none;
 }
 
 blockquote {
@@ -2338,6 +2338,7 @@ textarea.input-lg, select[multiple].input-lg {
     font-weight: 400;
     cursor: pointer;
     border-radius: 0;
+    text-align:left;
 }
 
     .btn-link, .btn-link:active, .btn-link[disabled], fieldset[disabled] .btn-link {
@@ -4614,10 +4615,36 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
     font-weight: 700;
     line-height: 1;
     color: #fff;
-    text-align: center;
+    text-align: left;
     white-space: nowrap;
     vertical-align: baseline;
     border-radius: .25em;
+}
+.mylabel {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 90%;
+    font-weight: 700;
+    line-height: 1;
+    color: #50a6bf;
+    text-align:  left;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+    border: 1px solid #FFFFFF ;
+}
+.uMyLabel{
+      display: inline;
+    padding: .2em .6em .3em;
+    font-size: 90%;
+    font-weight: 700;
+    line-height: 1;
+    color: #4898b0;
+    text-align:  left;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+    border: 1px solid #FFFFFF ;
 }
 
     .label[href]:hover, .label[href]:focus {

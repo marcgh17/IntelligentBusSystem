@@ -20,7 +20,7 @@ namespace IntelligentBusSystem.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            if (Request.IsAuthenticated) return  RedirectToAction("Index","Home");
+            if (Request.IsAuthenticated) return  RedirectToAction("Profile","Profile");
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -74,7 +74,7 @@ namespace IntelligentBusSystem.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Profile", "Profile");
             }
         }
 
