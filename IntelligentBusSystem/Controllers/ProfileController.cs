@@ -19,14 +19,9 @@ namespace IntelligentBusSystem.Controllers
                 return View((SUser)user);
             }
         }
-        public ActionResult AdminPage()
+        public ActionResult AddUser()
         {
-            using (var context = new IntelligentBusSystemEntities())
-            {
-                var us = User.Identity.Name;
-                var user = context.SUsers.Find(us);
-                return View((SUser)user);
-            }
+            return View();
         }
 	}
 }

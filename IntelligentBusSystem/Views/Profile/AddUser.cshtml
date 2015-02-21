@@ -1,0 +1,73 @@
+﻿@model IntelligentBusSystem.Models.SignUpViewModel
+@{
+    ViewBag.Title = "AddUser";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-5">
+            <header class="page-header">
+                <h2 class="page-title"><span class="label label-info">Add user</span></h2>
+            </header>
+            <div class="panel panel-default">
+                <div class="panel-body form-horizontal">
+                    <div class="form-group">
+
+                        <label for="UsernameTxt" class="col-sm-4 control-label mylabel">User name</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="UsernameTxt" name="UsernameTxt">
+                            @Html.ValidationMessageFor(m => m.UserName)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="PasswordTxt" class="col-sm-4 control-label mylabel">Password</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="PasswordTxt" name="PasswordTxt">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="FirstNameTxt" class="col-sm-4 control-label mylabel">First name</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="FirstNameTxt" name="FirstNameTxt">
+                        </div>
+                    </div>
+                   
+                    <div class="form-group">
+                        <label for="LastNameTxt" class="col-sm-4 control-label mylabel">Last name</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="LastNameTxt" name="LastNameTxt">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="RoleTxt" class="col-sm-4 control-label mylabel">Role</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="RoleTxt" name="RoleTxt">
+                                <option value="A">Admin</option>
+                                <option value="U">User</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ImageUpload" class="col-sm-4 control-label mylabel">Upload image</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="ImageUpload" name="ImageUpload">
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="button" id="AddUserBtn" class="btn btn-link preview-add-button">
+                                <span class="glyphicon glyphicon-upload"></span> Add photo
+                            </button>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <div class="col-sm-12 text-right">
+                            <button type="submit" id="AddUserBtn" class="btn btn-info preview-add-button">
+                                <span class="glyphicon glyphicon-plus"></span> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        
+    </div>
+</div>
