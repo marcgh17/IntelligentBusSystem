@@ -163,6 +163,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\UserAccountsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -200,6 +201,7 @@
     <Compile Include="Models\Parent.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserAccountsViewModels.cs" />
     <Compile Include="Models\Schedule.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -291,7 +293,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Profile\Profile.cshtml" />
-    <Content Include="Views\Profile\AddUser.cshtml" />
+    <Content Include="Views\UserAccounts\AddUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
