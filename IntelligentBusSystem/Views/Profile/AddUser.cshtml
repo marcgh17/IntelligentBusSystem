@@ -10,53 +10,74 @@
             </header>
             <div class="panel panel-default">
                 <div class="panel-body form-horizontal">
+@using (Html.BeginForm("AddUser", "Profile", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+        {
                     <div class="form-group">
 
-                        <label for="UsernameTxt" class="col-sm-4 control-label mylabel">User name</label>
+                        <label class="col-sm-4 control-label mylabel">User name</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="UsernameTxt" name="UsernameTxt">
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", autocomplete = "off" })
                             @Html.ValidationMessageFor(m => m.UserName)
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="PasswordTxt" class="col-sm-4 control-label mylabel">Password</label>
+                        <label class="col-sm-4 control-label mylabel">Password</label>
                         <div class="col-sm-8">
-                            <input type="password" class="form-control" id="PasswordTxt" name="PasswordTxt">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", autocomplete = "off" })
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </div>
+                    </div>
+                  <div class="form-group">
+                        <label  class="col-sm-4 control-label mylabel">Confirm Password</label>
+                        <div class="col-sm-8">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", autocomplete = "off" })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword)
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="FirstNameTxt" class="col-sm-4 control-label mylabel">First name</label>
+                        <label class="col-sm-4 control-label mylabel">First name</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="FirstNameTxt" name="FirstNameTxt">
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
                         </div>
                     </div>
                    
                     <div class="form-group">
-                        <label for="LastNameTxt" class="col-sm-4 control-label mylabel">Last name</label>
+                        <label  class="col-sm-4 control-label mylabel">Last name</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="LastNameTxt" name="LastNameTxt">
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="RoleTxt" class="col-sm-4 control-label mylabel">Role</label>
-                        <div class="col-sm-8">
-                            <select class="form-control" id="RoleTxt" name="RoleTxt">
-                                <option value="A">Admin</option>
-                                <option value="U">User</option>
-                            </select>
+                        <label class="col-sm-4 control-label mylabel">Role</label>
+                        <div class="col-sm-1">
+@{
+    var roles = new List<SelectListItem>();
+    roles.Add(new SelectListItem { Value = "A", Text = "Admin" });
+    roles.Add(new SelectListItem { Value = "U", Text = "User" });
+    var selectitem = new SelectList(roles,"Value","Text");
+
+                            @Html.DropDownListFor(m => m.Role,selectitem )
+}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="ImageUpload" class="col-sm-4 control-label mylabel">Upload image</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="ImageUpload" name="ImageUpload">
-                        </div>
-                        <div class="col-sm-4">
-                            <button type="button" id="AddUserBtn" class="btn btn-link preview-add-button">
-                                <span class="glyphicon glyphicon-upload"></span> Add photo
-                            </button>
-                        </div>
-                    </div>
+                        <label  class="col-sm-4 control-label mylabel">Upload image</label>
+                      
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Photo, new { @class = "form-control", @id="PhotoFileTextBox" })
+                           
+                              
+                                    <button type="button" id="AddPhoto" onclick="javascript: openFileBrowser()" class="btn btn-link preview-add-button">
+                                        <span class="glyphicon glyphicon-upload"></span> Add photo
+                                    </button>
+                                
+                                </div>
+                                <div style="width:0px;height:0px;overflow:hidden">
+                                    <input type="file" name="uploadFile" id="PhotoFileName" onchange=" javascript:UpdateFileName()" />
+                                </div>
+                                </div>
+                      
+                      
                     <br />
                     <div class="form-group">
                         <div class="col-sm-12 text-right">
@@ -65,9 +86,26 @@
                             </button>
                         </div>
                     </div>
+}
                 </div>
             </div>
         </div> 
-        
+ 
     </div>
 </div>
+
+@section scripts
+        {
+
+    <script type="text/javascript">
+        function UpdateFileName() {
+            $('#PhotoFileTextBox').val($('#PhotoFileName').val());
+
+        }
+
+        function openFileBrowser() {
+
+            $('#PhotoFileName').trigger('click');
+        }
+    </script>
+}
