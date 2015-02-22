@@ -10,7 +10,7 @@
             </header>
             <div class="panel panel-default">
                 <div class="panel-body form-horizontal">
-@using (Html.BeginForm("AddUser", "Profile", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("AddUser", "UserAccounts", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
         {
                     <div class="form-group">
 

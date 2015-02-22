@@ -59,7 +59,7 @@ namespace IntelligentBusSystem.Controllers
                         newuser.SUserRole = model.Role;
                         if (uploadFile != null)
                         {
-                            string databasePath = "/img/Users/" + Path.GetFileName(uploadFile.FileName);
+                            string databasePath = "/img/Users/" + model.FirstName+  Guid.NewGuid()+ Path.GetFileName(uploadFile.FileName);
                             string filePath = HttpContext.Server.MapPath(databasePath);
                             uploadFile.SaveAs(filePath);
                             newuser.SUserPhoto = databasePath;
@@ -75,7 +75,7 @@ namespace IntelligentBusSystem.Controllers
                         context.SaveChanges();
                         //UserAdded
                         //Put After Add Code Here
-                        return RedirectToAction("addUser", "Profile");
+                        return RedirectToAction("addUser", "UserAccounts");
 
                     }
 
