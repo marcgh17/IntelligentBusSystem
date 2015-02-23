@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="be7229ba83ba423ba05d689b0a67b0ca" Name="Diagram">
+      <Diagram DiagramId="1d7158e8002d424480d7ff9dd8c69491" Name="Diagram1">
         <EntityTypeShape EntityType="IntelligentBusSystemModel.Address" Width="1.5" PointX="5.25" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="IntelligentBusSystemModel.Bus" Width="1.5" PointX="9" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="IntelligentBusSystemModel.Class" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
@@ -18,8 +18,10 @@
         <EntityTypeShape EntityType="IntelligentBusSystemModel.StudentScheduledTrip" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="IntelligentBusSystemModel.Subscription" Width="1.5" PointX="8.25" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="IntelligentBusSystemModel.SUser" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="IntelligentBusSystemModel.sysdiagram" Width="1.5" PointX="2.75" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="IntelligentBusSystemModel.TripCategory" Width="1.5" PointX="6" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="IntelligentBusSystemModel.School" Width="1.5" PointX="2.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="IntelligentBusSystemModel.School" Width="1.5" PointX="10.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="IntelligentBusSystemModel.WebAppMenu" Width="1.5" PointX="11.75" PointY="1.375" IsExpanded="true" />
         <AssociationConnector Association="IntelligentBusSystemModel.FK_Address_Student" ManuallyRouted="false" />
         <AssociationConnector Association="IntelligentBusSystemModel.FK_DailyTrip_Bus" ManuallyRouted="false" />
         <AssociationConnector Association="IntelligentBusSystemModel.FK_ScheduledTrip_Bus" ManuallyRouted="false" />

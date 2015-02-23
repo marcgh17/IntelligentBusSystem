@@ -15,9 +15,10 @@ namespace IntelligentBusSystem.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+           // ViewBag.Message = "Your application description page.";
 
-            return View();
+           // return PartialView("_LoginPartial");
+           return View();
         }
 
         public ActionResult Contact()

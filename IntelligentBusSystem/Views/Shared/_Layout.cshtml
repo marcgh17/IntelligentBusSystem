@@ -17,7 +17,6 @@
     <!-- Squad theme CSS -->
     <link href="/Content/style.css" rel="stylesheet">
     <link href="/Content/default.css" rel="stylesheet">
-
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
@@ -41,7 +40,9 @@
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
 
 
-                @Html.Partial("_LoginPartial")
+           
+           
+              @Html.Partial("_LoginPartial")
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -77,8 +78,9 @@
         </div>
     </footer>
 
-    @RenderSection("scripts", required: false)
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+
+    <script src="/Scripts/jquery-1.10.2.min.js"></script>
     @Scripts.Render("~/bundles/jqueryval")
 
     <!-- Core JavaScript Files -->
@@ -89,7 +91,8 @@
     <script src="/Scripts/wow.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="/Scripts/custom.js"></script>
-
+    <script src="/Scripts/jquery.dataTables.min.js"></script>
+    @RenderSection("scripts", required: false)
 </body>
 
 </html>

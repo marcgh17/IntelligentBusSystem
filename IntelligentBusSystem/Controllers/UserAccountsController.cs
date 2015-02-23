@@ -90,5 +90,16 @@ namespace IntelligentBusSystem.Controllers
 
             return View(model);
         }
+
+
+        public ActionResult DisplayAllUsersGrid()
+        {
+           using (var context = new IntelligentBusSystemEntities())
+           {
+               return PartialView("UsersGrid", context.SUsers.ToList());
+           }
+        }
+
+     
+        }
     }
-}

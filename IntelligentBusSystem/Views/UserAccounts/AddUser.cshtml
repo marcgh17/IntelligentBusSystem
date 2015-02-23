@@ -10,88 +10,100 @@
             </header>
             <div class="panel panel-default">
                 <div class="panel-body form-horizontal">
-@using (Html.BeginForm("AddUser", "UserAccounts", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
-        {
-                    <div class="form-group">
+                    @using (Html.BeginForm("AddUser", "UserAccounts", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                    {
+                        <div class="form-group">
 
-                        <label class="col-sm-4 control-label mylabel">User name</label>
-                        <div class="col-sm-8">
-                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", autocomplete = "off" })
-                            @Html.ValidationMessageFor(m => m.UserName)
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label mylabel">Password</label>
-                        <div class="col-sm-8">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", autocomplete = "off" })
-                            @Html.ValidationMessageFor(m => m.Password)
-                        </div>
-                    </div>
-                  <div class="form-group">
-                        <label  class="col-sm-4 control-label mylabel">Confirm Password</label>
-                        <div class="col-sm-8">
-                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", autocomplete = "off" })
-                            @Html.ValidationMessageFor(m => m.ConfirmPassword)
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label mylabel">First name</label>
-                        <div class="col-sm-8">
-                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-                        </div>
-                    </div>
-                   
-                    <div class="form-group">
-                        <label  class="col-sm-4 control-label mylabel">Last name</label>
-                        <div class="col-sm-8">
-                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label mylabel">Role</label>
-                        <div class="col-sm-1">
-@{
-    var roles = new List<SelectListItem>();
-    roles.Add(new SelectListItem { Value = "A", Text = "Admin" });
-    roles.Add(new SelectListItem { Value = "U", Text = "User" });
-    var selectitem = new SelectList(roles,"Value","Text");
-
-                            @Html.DropDownListFor(m => m.Role,selectitem )
-}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label  class="col-sm-4 control-label mylabel">Upload image</label>
-                      
+                            <label class="col-sm-4 control-label mylabel">User name</label>
                             <div class="col-sm-8">
-                                @Html.TextBoxFor(m => m.Photo, new { @class = "form-control", @id="PhotoFileTextBox" })
-                           
-                              
-                                    <button type="button" id="AddPhoto" onclick="javascript: openFileBrowser()" class="btn btn-link preview-add-button">
-                                        <span class="glyphicon glyphicon-upload"></span> Add photo
-                                    </button>
-                                
-                                </div>
-                                <div style="width:0px;height:0px;overflow:hidden">
-                                    <input type="file" name="uploadFile" id="PhotoFileName" onchange=" javascript:UpdateFileName()" />
-                                </div>
-                                </div>
-                      
-                      
-                    <br />
-                    <div class="form-group">
-                        <div class="col-sm-12 text-right">
-                            <button type="submit" id="AddUserBtn" class="btn btn-info preview-add-button">
-                                <span class="glyphicon glyphicon-plus"></span> Add
-                            </button>
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", autocomplete = "off" })
+                                @Html.ValidationMessageFor(m => m.UserName)
+                            </div>
                         </div>
-                    </div>
-}
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label mylabel">Password</label>
+                            <div class="col-sm-8">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", autocomplete = "off" })
+                                @Html.ValidationMessageFor(m => m.Password)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label mylabel">Confirm Password</label>
+                            <div class="col-sm-8">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", autocomplete = "off" })
+                                @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label mylabel">First name</label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label mylabel">Last name</label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label mylabel">Role</label>
+                            <div class="col-sm-1">
+                                @{
+                        var roles = new List<SelectListItem>();
+                        roles.Add(new SelectListItem { Value = "A", Text = "Admin" });
+                        roles.Add(new SelectListItem { Value = "U", Text = "User" });
+                        var selectitem = new SelectList(roles, "Value", "Text");
+                        @Html.DropDownListFor(m => m.Role, selectitem)
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label mylabel">Upload image</label>
+
+                            <div class="col-sm-4">
+                                @Html.TextBoxFor(m => m.Photo, new { @class = "form-control", @id = "PhotoFileTextBox" })
+                            </div>
+                            <button type="button" id="AddPhoto" onclick="javascript: openFileBrowser()" class="btn btn-link preview-add-button col-sm-4">
+                                <span class="glyphicon glyphicon-upload"></span> Add photo
+                            </button>
+
+
+                            <div style="width:0px;height:0px;overflow:hidden">
+                                <input type="file" name="uploadFile" id="PhotoFileName" onchange=" javascript:UpdateFileName()" />
+                            </div>
+                        </div>
+
+
+                        <br />
+                        <div class="form-group">
+                            <div class="col-sm-12 text-right">
+                                <button type="submit" id="AddUserBtn" class="btn btn-info preview-add-button">
+                                    <span class="glyphicon glyphicon-plus"></span> Add
+                                </button>
+                            </div>
+                        </div>
+                    }
                 </div>
+
             </div>
-        </div> 
- 
+        </div>
+        <div class="col-sm-7" style="border-color:#4c93c6">
+            <header class="page-header">
+                <h2 class="page-title"><span class="label label-info">Users' information</span></h2>
+            </header>
+            <div class="panel panel-default">
+                <div class="panel-body form-horizontal">
+                    @Html.Action("DisplayAllUsersGrid", "UserAccounts")
+                </div>
+
+            </div>
+
+            <br />
+        </div>
     </div>
+
 </div>
 
 @section scripts

@@ -162,6 +162,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\UserAccountsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -183,6 +184,7 @@
     <Compile Include="Models\Driver.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MenuViewModels.cs" />
     <Compile Include="Models\Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -201,7 +203,6 @@
     <Compile Include="Models\Parent.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserAccountsViewModels.cs" />
     <Compile Include="Models\Schedule.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -226,7 +227,14 @@
     <Compile Include="Models\SUser.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TripCategory.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserAccountsViewModels.cs" />
+    <Compile Include="Models\WebAppMenu.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -243,6 +251,27 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="img\bg1.jpg" />
+    <Content Include="img\icons\button-icons.png" />
+    <Content Include="img\icons\grid-menu-icons.png" />
+    <Content Include="img\icons\menu-icons.png" />
+    <Content Include="img\icons\menu-icons2.png" />
+    <Content Include="img\icons\search.png" />
+    <Content Include="img\icons\search2.png" />
+    <Content Include="img\icons\service-icon-1.png" />
+    <Content Include="img\icons\service-icon-2.png" />
+    <Content Include="img\icons\service-icon-3.png" />
+    <Content Include="img\icons\service-icon-4.png" />
+    <Content Include="img\icons\social-icons2.png" />
+    <Content Include="img\icons\weather-icons.png" />
+    <Content Include="img\icons\weather-main.png" />
+    <Content Include="img\loader.gif" />
+    <Content Include="img\spinner.gif" />
+    <Content Include="img\Users\a70e43c87-e78f-4a03-a883-aaf8b9abd146Screenshot_2013-05-24-22-05-47.png" />
+    <Content Include="img\Users\addd722fc-f6ce-49a6-ade2-0b0c22a7e549Screenshot_2013-05-24-22-05-47.png" />
+    <Content Include="img\Users\nophoto.png" />
+    <Content Include="img\Users\Screenshot_2013-03-14-20-15-06.png" />
+    <Content Include="img\Users\Screenshot_2013-05-19-22-42-44.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\font-awesome.less" />
@@ -267,6 +296,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -294,6 +325,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Profile\Profile.cshtml" />
     <Content Include="Views\UserAccounts\AddUser.cshtml" />
+    <Content Include="Views\Shared\_Menu.cshtml" />
+    <Content Include="Views\UserAccounts\UsersGrid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
