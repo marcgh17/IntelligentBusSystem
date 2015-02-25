@@ -228,9 +228,6 @@
     <Compile Include="Models\SUser.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TripCategory.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

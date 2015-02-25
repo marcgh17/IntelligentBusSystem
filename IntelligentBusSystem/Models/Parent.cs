@@ -23,7 +23,7 @@ namespace IntelligentBusSystem.Models
         public string ParentPassword { get; set; }
         public string ParentFirstName { get; set; }
         public string ParentLastName { get; set; }
-        public Nullable<int> ParentNumber { get; set; }
+        public string ParentNumber { get; set; }
     
         public virtual ICollection<Student> Students { get; set; }
     }

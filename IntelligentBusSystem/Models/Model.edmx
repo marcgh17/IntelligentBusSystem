@@ -75,7 +75,7 @@
           <Property Name="ParentPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ParentFirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ParentLastName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ParentNumber" Type="int" />
+          <Property Name="ParentNumber" Type="text" />
         </EntityType>
         <EntityType Name="Schedule">
           <Key>
@@ -108,7 +108,7 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.School' does not have a p
           <Property Name="SchoolLong" Type="float" Nullable="false" />
           <Property Name="SchoolPhoto" Type="text" />
           <Property Name="SchoolLogo" Type="text" />
-          <Property Name="SchoolPhoneNumber" Type="int" />
+          <Property Name="SchoolPhoneNumber" Type="text" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -174,16 +174,6 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.School' does not have a p
           <Property Name="SUserRole" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SUserPhoto" Type="text" />
           <Property Name="SUserThumbPhoto" Type="text" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TripCategory">
           <Key>
@@ -450,7 +440,6 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
           <EntitySet Name="StudentScheduledTrip" EntityType="Self.StudentScheduledTrip" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subscription" EntityType="Self.Subscription" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SUser" EntityType="Self.SUser" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TripCategory" EntityType="Self.TripCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="School" EntityType="Self.School" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -627,7 +616,7 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
           <Property Name="ParentPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ParentFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ParentLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ParentNumber" Type="Int32" />
+          <Property Name="ParentNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Students" Relationship="Self.StudentParent" FromRole="Parent" ToRole="Student" />
         </EntityType>
         <EntityType Name="Schedule">
@@ -724,16 +713,6 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
           <Property Name="SUserPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="SUserThumbPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="TripCategory">
           <Key>
             <PropertyRef Name="TripCategoryID" />
@@ -756,7 +735,7 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
           <Property Name="SchoolLong" Type="Double" Nullable="false" />
           <Property Name="SchoolPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="SchoolLogo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="SchoolPhoneNumber" Type="Int32" />
+          <Property Name="SchoolPhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="WebAppMenu">
           <Key>
@@ -971,7 +950,6 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
           <EntitySet Name="StudentScheduledTrips" EntityType="Self.StudentScheduledTrip" />
           <EntitySet Name="Subscriptions" EntityType="Self.Subscription" />
           <EntitySet Name="SUsers" EntityType="Self.SUser" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TripCategories" EntityType="Self.TripCategory" />
           <EntitySet Name="Schools" EntityType="Self.School" />
           <EntitySet Name="WebAppMenus" EntityType="Self.WebAppMenu" />
@@ -1196,17 +1174,6 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
                 <ScalarProperty Name="SUserRole" ColumnName="SUserRole" />
                 <ScalarProperty Name="SUserPhoto" ColumnName="SUserPhoto" />
                 <ScalarProperty Name="SUserThumbPhoto" ColumnName="SUserThumbPhoto" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="IntelligentBusSystemModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

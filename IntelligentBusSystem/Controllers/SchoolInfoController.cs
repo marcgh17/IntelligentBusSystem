@@ -18,6 +18,7 @@ namespace IntelligentBusSystem.Controllers
             {
 
                 School s = context.Schools.ToList().First();
+                s.SchoolPhoneNumber = FormatPhoneNumber(s.SchoolPhoneNumber);
                 if (s != null)
                     return View(s);
                 else
@@ -39,6 +40,11 @@ namespace IntelligentBusSystem.Controllers
             }
 
         }
+
+    public string FormatPhoneNumber(string pn)
+{
+    return "";
+}
 
 
 	}
