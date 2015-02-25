@@ -329,6 +329,8 @@
     <Content Include="Views\UserAccounts\UsersGrid.cshtml" />
     <Content Include="Views\SchoolInfo\Index.cshtml" />
     <Content Include="Views\SchoolInfo\SchoolHeader.cshtml" />
+    <Content Include="Views\Profile\DriverProfile.cshtml" />
+    <Content Include="Views\Profile\StudentProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

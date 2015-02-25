@@ -34,7 +34,45 @@ namespace IntelligentBusSystem.Controllers
             }
         }
 
+        public ActionResult DriverProfile(string driver = "")
+        {
+            using (var context = new IntelligentBusSystemEntities())
+            {
+                //Requesting Personal Profile
+                if (driver == "")
+                {
+                     return Redirect("/");
+                }
 
-      
+                    //Requesting Specific Profile
+                else
+                {
+                    var u = context.Drivers.Find(driver);
+                    if (u != null) return View((Driver)u);
+                    else return Redirect("/");
+                }
+            }
+        }
+        public ActionResult StudentProfile(string student = "")
+        {
+            using (var context = new IntelligentBusSystemEntities())
+            {
+                //Requesting Personal Profile
+                if (student == "")
+                {
+                    return Redirect("/");
+                }
+
+                    //Requesting Specific Profile
+                else
+                {
+                    var stud = context.Students.Find(student);
+                    var sclass = context.Classes.Find(stud.ClassID);
+                    var tuple = new Tuple<Student, Class>(stud, sclass);
+                    if (stud != null) return View(tuple);
+                    else return Redirect("/");
+                }
+            }
+        }
     }
 }
