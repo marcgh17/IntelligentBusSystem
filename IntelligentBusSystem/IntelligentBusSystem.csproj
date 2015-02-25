@@ -331,6 +331,7 @@
     <Content Include="Views\SchoolInfo\SchoolHeader.cshtml" />
     <Content Include="Views\Profile\DriverProfile.cshtml" />
     <Content Include="Views\Profile\StudentProfile.cshtml" />
+    <Content Include="Views\Profile\DisplaySchedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

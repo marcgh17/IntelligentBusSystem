@@ -74,5 +74,17 @@ namespace IntelligentBusSystem.Controllers
                 }
             }
         }
+        public ActionResult DisplaySchedule()
+        {
+            using (var context = new IntelligentBusSystemEntities())
+            {
+                var stud=context.Students.Find(User.Identity.Name);
+                var sched=context.Schedules.ToList();
+                var sub=context.Subscriptions.ToList();
+
+                var tuple = new Tuple<Student, IEnumerable<Schedule>, IEnumerable<Subscription>>(stud, sched, sub);
+                return PartialView("DisplaySchedule", tuple);
+            }
+        }
     }
 }

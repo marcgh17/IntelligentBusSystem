@@ -1,0 +1,42 @@
+﻿@model Tuple<IntelligentBusSystem.Models.Student,IEnumerable<IntelligentBusSystem.Models.Schedule>,IEnumerable<IntelligentBusSystem.Models.Subscription>>
+
+<table border="0" class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            @foreach (var s in Model.Item2)
+            {
+                var day = @s.ScheduleDay;
+                if (day == "Mo") day = "Monday";
+                if (day == "Tu") day = "Tuesday";
+                if (day == "We") day = "Wednesday";
+                if (day == "Th") day = "Thursday";
+                if (day == "Fr") day = "Friday";
+                if (day == "Sa") day = "Saturday";
+                if (day == "Su") day = "Sunday";
+
+                var time = @s.ScheduleME;
+                if (time == "M") time = "Morning";
+                if (time == "E") time = "Evening";
+                <th> <h5>@day @time</h5></th>
+            }
+        </tr>
+    </thead>
+    
+    <tbody>
+        <tr>
+            @foreach (var item in Model.Item3)
+            {
+                <td>
+                    @{
+                var x = "yes";
+                x = (@item.StudentID == Model.Item1.StudentID) ? "Yes" : "No";
+                    }@x;
+                </td>
+            }
+        </tr>
+
+    </tbody>
+</table>
+
+
+
