@@ -84,7 +84,7 @@
           <Property Name="ScheduleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ScheduleME" Type="nvarchar" MaxLength="1" Nullable="false" />
           <Property Name="ScheduleDay" Type="nvarchar" MaxLength="2" Nullable="false" />
-          <Property Name="ScheduleDescription" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ScheduleDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="ScheduledTrip">
           <Key>
@@ -108,6 +108,7 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.School' does not have a p
           <Property Name="SchoolLong" Type="float" Nullable="false" />
           <Property Name="SchoolPhoto" Type="text" />
           <Property Name="SchoolLogo" Type="text" />
+          <Property Name="SchoolPhoneNumber" Type="int" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -457,7 +458,8 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
     [School].[SchoolLat] AS [SchoolLat], 
     [School].[SchoolLong] AS [SchoolLong], 
     [School].[SchoolPhoto] AS [SchoolPhoto], 
-    [School].[SchoolLogo] AS [SchoolLogo]
+    [School].[SchoolLogo] AS [SchoolLogo], 
+    [School].[SchoolPhoneNumber] AS [SchoolPhoneNumber]
     FROM [dbo].[School] AS [School]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="WebAppMenu" EntityType="Self.WebAppMenu" store:Type="Tables" store:Schema="dbo">
@@ -635,7 +637,7 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
           <Property Name="ScheduleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ScheduleME" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ScheduleDay" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ScheduleDescription" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ScheduleDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Subscriptions" Relationship="Self.FK_Subscription_Schedule" FromRole="Schedule" ToRole="Subscription" />
           <NavigationProperty Name="TripCategories" Relationship="Self.FK_TripCategory_Schedule" FromRole="Schedule" ToRole="TripCategory" />
         </EntityType>
@@ -754,6 +756,7 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
           <Property Name="SchoolLong" Type="Double" Nullable="false" />
           <Property Name="SchoolPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="SchoolLogo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SchoolPhoneNumber" Type="Int32" />
         </EntityType>
         <EntityType Name="WebAppMenu">
           <Key>
@@ -1224,6 +1227,7 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
                 <ScalarProperty Name="SchoolLong" ColumnName="SchoolLong" />
                 <ScalarProperty Name="SchoolPhoto" ColumnName="SchoolPhoto" />
                 <ScalarProperty Name="SchoolLogo" ColumnName="SchoolLogo" />
+                <ScalarProperty Name="SchoolPhoneNumber" ColumnName="SchoolPhoneNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

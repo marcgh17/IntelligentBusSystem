@@ -19,5 +19,6 @@ namespace IntelligentBusSystem.Models
         public double SchoolLong { get; set; }
         public string SchoolPhoto { get; set; }
         public string SchoolLogo { get; set; }
+        public Nullable<int> SchoolPhoneNumber { get; set; }
     }
 }
