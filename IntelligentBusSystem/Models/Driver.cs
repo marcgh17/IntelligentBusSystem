@@ -24,6 +24,7 @@ namespace IntelligentBusSystem.Models
         public string DriverFirstName { get; set; }
         public string DriverLastName { get; set; }
         public string DriverPhoto { get; set; }
+        public string DriverThumbPhoto { get; set; }
         public Nullable<double> DriverLat { get; set; }
         public Nullable<double> DriverLong { get; set; }
     

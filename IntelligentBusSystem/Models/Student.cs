@@ -29,6 +29,7 @@ namespace IntelligentBusSystem.Models
         public string StudentGender { get; set; }
         public Nullable<System.DateTime> StudentBirthdate { get; set; }
         public string StudentPhoto { get; set; }
+        public string StudentThumbPhoto { get; set; }
         public Nullable<int> ClassID { get; set; }
     
         public virtual ICollection<Address> Addresses { get; set; }

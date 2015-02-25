@@ -62,7 +62,8 @@
           <Property Name="DriverID" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="DriverFirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="DriverLastName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="DriverPhoto" Type="nchar" MaxLength="10" />
+          <Property Name="DriverPhoto" Type="text" />
+          <Property Name="DriverThumbPhoto" Type="text" />
           <Property Name="DriverLat" Type="float" />
           <Property Name="DriverLong" Type="float" />
         </EntityType>
@@ -118,6 +119,7 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.School' does not have a p
           <Property Name="StudentGender" Type="nvarchar" MaxLength="1" Nullable="false" />
           <Property Name="StudentBirthdate" Type="date" />
           <Property Name="StudentPhoto" Type="text" />
+          <Property Name="StudentThumbPhoto" Type="text" />
           <Property Name="ClassID" Type="int" />
         </EntityType>
         <EntityType Name="StudentDailyTrip">
@@ -170,6 +172,7 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.School' does not have a p
           <Property Name="SUserLastName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SUserRole" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SUserPhoto" Type="text" />
+          <Property Name="SUserThumbPhoto" Type="text" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -607,7 +610,8 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
           <Property Name="DriverID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DriverFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DriverLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DriverPhoto" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DriverPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DriverThumbPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="DriverLat" Type="Double" />
           <Property Name="DriverLong" Type="Double" />
           <NavigationProperty Name="DailyTrips" Relationship="Self.FK_DailyTrip_Driver" FromRole="Driver" ToRole="DailyTrip" />
@@ -659,6 +663,7 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
           <Property Name="StudentGender" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="StudentBirthdate" Type="DateTime" Precision="0" />
           <Property Name="StudentPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="StudentThumbPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ClassID" Type="Int32" />
           <NavigationProperty Name="Addresses" Relationship="Self.FK_Address_Student" FromRole="Student" ToRole="Address" />
           <NavigationProperty Name="Class" Relationship="Self.FK_Student_Class" FromRole="Student" ToRole="Class" />
@@ -715,6 +720,7 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
           <Property Name="SUserLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SUserRole" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SUserPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SUserThumbPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -1094,6 +1100,7 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
                 <ScalarProperty Name="DriverFirstName" ColumnName="DriverFirstName" />
                 <ScalarProperty Name="DriverLastName" ColumnName="DriverLastName" />
                 <ScalarProperty Name="DriverPhoto" ColumnName="DriverPhoto" />
+                <ScalarProperty Name="DriverThumbPhoto" ColumnName="DriverThumbPhoto" />
                 <ScalarProperty Name="DriverLat" ColumnName="DriverLat" />
                 <ScalarProperty Name="DriverLong" ColumnName="DriverLong" />
               </MappingFragment>
@@ -1139,6 +1146,7 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
                 <ScalarProperty Name="StudentGender" ColumnName="StudentGender" />
                 <ScalarProperty Name="StudentBirthdate" ColumnName="StudentBirthdate" />
                 <ScalarProperty Name="StudentPhoto" ColumnName="StudentPhoto" />
+                <ScalarProperty Name="StudentThumbPhoto" ColumnName="StudentThumbPhoto" />
                 <ScalarProperty Name="ClassID" ColumnName="ClassID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1184,6 +1192,7 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
                 <ScalarProperty Name="SUserLastName" ColumnName="SUserLastName" />
                 <ScalarProperty Name="SUserRole" ColumnName="SUserRole" />
                 <ScalarProperty Name="SUserPhoto" ColumnName="SUserPhoto" />
+                <ScalarProperty Name="SUserThumbPhoto" ColumnName="SUserThumbPhoto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

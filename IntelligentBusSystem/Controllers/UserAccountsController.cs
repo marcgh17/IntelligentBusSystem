@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using IntelligentBusSystem.Models;
 using System.IO;
+using System.Drawing;
 
 
 namespace IntelligentBusSystem.Controllers
@@ -60,15 +61,30 @@ namespace IntelligentBusSystem.Controllers
                         if (uploadFile != null)
                         {
                             string databasePath = "/img/Users/" + model.FirstName+  Guid.NewGuid()+ Path.GetFileName(uploadFile.FileName);
+                            string databasePathThumb = "/img/Users/thumb_" + model.FirstName + Guid.NewGuid() + Path.GetFileName(uploadFile.FileName);
+
                             string filePath = HttpContext.Server.MapPath(databasePath);
                             uploadFile.SaveAs(filePath);
                             newuser.SUserPhoto = databasePath;
+                            using (Bitmap originalImage = new Bitmap(filePath))
+                            {
+                               
+                                int width = 100;
+                                int height = 100;
+                                System.Drawing.Image.GetThumbnailImageAbort thumbnailImageAbortDelegate = new System.Drawing.Image.GetThumbnailImageAbort(ThumbnailCallback);
+                                System.Drawing.Image thumbnail = originalImage.GetThumbnailImage(width, height, thumbnailImageAbortDelegate, IntPtr.Zero);
+                                thumbnail.Save(Server.MapPath(databasePathThumb));
+                                newuser.SUserThumbPhoto = databasePathThumb;
+
+                            }
 
                         }
                         else
                         {
                             string databasePath = "/img/Users/nophoto.png";
+                            string databasePathThumb = "/img/Users/thumb_nophoto.png";
                             newuser.SUserPhoto = databasePath;
+                            newuser.SUserThumbPhoto = databasePathThumb;
 
                         }
                         context.SUsers.Add(newuser);
@@ -98,6 +114,10 @@ namespace IntelligentBusSystem.Controllers
            {
                return PartialView("UsersGrid", context.SUsers.ToList());
            }
+        }
+        public bool ThumbnailCallback() //for resize
+        {
+            return false;
         }
 
      

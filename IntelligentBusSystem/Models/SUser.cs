@@ -20,5 +20,6 @@ namespace IntelligentBusSystem.Models
         public string SUserLastName { get; set; }
         public string SUserRole { get; set; }
         public string SUserPhoto { get; set; }
+        public string SUserThumbPhoto { get; set; }
     }
 }
