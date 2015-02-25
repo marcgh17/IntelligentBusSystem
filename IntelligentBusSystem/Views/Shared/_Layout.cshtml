@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <title>Intelligent Bus System</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
 
@@ -31,8 +31,8 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="index.html">
-                    <h1>Besancon </h1>
+                <a class="navbar-brand" href="/SchoolInfo/Index">
+                    @Html.Action("Header", "SchoolInfo")
                 </a>
             </div>
 
@@ -61,12 +61,13 @@
         @RenderBody()
 
 
-
+        
     </section>
     <!-- /Section: about -->
     <!-- Section: contact -->
     <!-- /Section: contact -->
-
+    <br />
+ 
     <footer>
         <div class="container">
             <div class="row">

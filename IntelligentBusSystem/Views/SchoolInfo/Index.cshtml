@@ -1,0 +1,94 @@
+﻿@model IntelligentBusSystem.Models.School
+@{
+    ViewBag.Title = "School Information";
+}
+
+<h2>@Html.Action("Header", "SchoolInfo")</h2>
+<h4>Check and edit school informations.</h4>
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading resume-heading">
+                            <div id="map-canvas" style="height:400px"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+
+                    <h2>Snail mail</h2>
+
+                    <address>
+
+                        Hythe Window Cleaning
+
+                        15 Springfield Way
+
+                        Hythe
+
+                        Kent
+
+                        United Kingdon
+
+                        CT21 5SH
+
+                        <abbr title="Phone">P:</abbr> 01234 567 890
+
+                        <br />
+                        <img src="@Model.SchoolPhoto" height="250" width="350" />
+
+                    </address>
+
+                </div>
+            </div>
+        </div>
+     
+
+        @section scripts
+{
+
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places,weather"></script>
+            <script type="text/javascript">
+                var map;
+                var schoolMarker;
+                var currentPositionMarker;
+                var sPosition;
+                var cPosition;
+                var bounds ;
+                $(document).ready(function () {
+                    var school = @Html.Raw(Json.Encode(Model));
+                    sPosition =new google.maps.LatLng(school.SchoolLat, school.SchoolLong);
+                    var mapOptions = {
+                        zoom: 14,
+                        center: sPosition,
+
+                    };
+                    map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+                    schoolMarker=new google.maps.Marker({
+                        position: sPosition,
+                        map: map,
+                        title: school.SchoolName});
+                    navigator.geolocation.getCurrentPosition(getPosition);
+
+                    function getPosition(position) {
+                        cPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                        currentPositionMarker = new google.maps.Marker({
+                            position: cPosition,
+                            map: map,
+                            title: "You are here!"
+                        });
+                        bounds = new google.maps.LatLngBounds ();
+                        bounds.extend (cPosition);
+                        bounds.extend (sPosition);
+                        map.fitBounds (bounds);
+
+                    }
+                });
+            </script>
+        }
