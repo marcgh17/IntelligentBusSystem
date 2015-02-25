@@ -164,6 +164,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\SchoolInfoController.cs" />
     <Compile Include="Controllers\UserAccountsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -266,6 +267,8 @@
     <Content Include="img\icons\weather-icons.png" />
     <Content Include="img\icons\weather-main.png" />
     <Content Include="img\loader.gif" />
+    <Content Include="img\school\NDL_Logo.png" />
+    <Content Include="img\school\NDL_Photo.png" />
     <Content Include="img\spinner.gif" />
     <Content Include="img\Users\a70e43c87-e78f-4a03-a883-aaf8b9abd146Screenshot_2013-05-24-22-05-47.png" />
     <Content Include="img\Users\addd722fc-f6ce-49a6-ade2-0b0c22a7e549Screenshot_2013-05-24-22-05-47.png" />
@@ -327,6 +330,8 @@
     <Content Include="Views\UserAccounts\AddUser.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\UserAccounts\UsersGrid.cshtml" />
+    <Content Include="Views\SchoolInfo\Index.cshtml" />
+    <Content Include="Views\SchoolInfo\SchoolHeader.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
