@@ -95,14 +95,11 @@
           <Property Name="DriverID" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="TripCategoryID" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'IntelligentBusSystem.dbo.School' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="School">
           <Key>
-            <PropertyRef Name="SchoolName" />
-            <PropertyRef Name="SchoolLat" />
-            <PropertyRef Name="SchoolLong" />
+            <PropertyRef Name="SchoolID" />
           </Key>
+          <Property Name="SchoolID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SchoolName" Type="text" Nullable="false" />
           <Property Name="SchoolLat" Type="float" Nullable="false" />
           <Property Name="SchoolLong" Type="float" Nullable="false" />
@@ -434,6 +431,7 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
           <EntitySet Name="Parent" EntityType="Self.Parent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScheduledTrip" EntityType="Self.ScheduledTrip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="School" EntityType="Self.School" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentDailyTrip" EntityType="Self.StudentDailyTrip" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentParent" EntityType="Self.StudentParent" Schema="dbo" store:Type="Tables" />
@@ -441,16 +439,6 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
           <EntitySet Name="Subscription" EntityType="Self.Subscription" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SUser" EntityType="Self.SUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TripCategory" EntityType="Self.TripCategory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="School" EntityType="Self.School" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [School].[SchoolName] AS [SchoolName], 
-    [School].[SchoolLat] AS [SchoolLat], 
-    [School].[SchoolLong] AS [SchoolLong], 
-    [School].[SchoolPhoto] AS [SchoolPhoto], 
-    [School].[SchoolLogo] AS [SchoolLogo], 
-    [School].[SchoolPhoneNumber] AS [SchoolPhoneNumber]
-    FROM [dbo].[School] AS [School]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="WebAppMenu" EntityType="Self.WebAppMenu" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [WebAppMenu].[WebAppMenuID] AS [WebAppMenuID], 
@@ -644,6 +632,18 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
           <NavigationProperty Name="TripCategory" Relationship="Self.FK_ScheduledTrip_TripCategory" FromRole="ScheduledTrip" ToRole="TripCategory" />
           <NavigationProperty Name="StudentScheduledTrips" Relationship="Self.FK_StudentScheduledTrip_ScheduledTrip" FromRole="ScheduledTrip" ToRole="StudentScheduledTrip" />
         </EntityType>
+        <EntityType Name="School">
+          <Key>
+            <PropertyRef Name="SchoolID" />
+          </Key>
+          <Property Name="SchoolID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SchoolName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SchoolLat" Type="Double" Nullable="false" />
+          <Property Name="SchoolLong" Type="Double" Nullable="false" />
+          <Property Name="SchoolPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SchoolLogo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SchoolPhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="Student">
           <Key>
             <PropertyRef Name="StudentID" />
@@ -723,19 +723,6 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
           <NavigationProperty Name="Schedule" Relationship="Self.FK_TripCategory_Schedule" FromRole="TripCategory" ToRole="Schedule" />
           <NavigationProperty Name="ScheduledTrip" Relationship="Self.FK_ScheduledTrip_TripCategory" FromRole="TripCategory" ToRole="ScheduledTrip" />
           <NavigationProperty Name="Classes" Relationship="Self.ClassTripCategory" FromRole="TripCategory" ToRole="Class" />
-        </EntityType>
-        <EntityType Name="School">
-          <Key>
-            <PropertyRef Name="SchoolName" />
-            <PropertyRef Name="SchoolLat" />
-            <PropertyRef Name="SchoolLong" />
-          </Key>
-          <Property Name="SchoolName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SchoolLat" Type="Double" Nullable="false" />
-          <Property Name="SchoolLong" Type="Double" Nullable="false" />
-          <Property Name="SchoolPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="SchoolLogo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="SchoolPhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="WebAppMenu">
           <Key>
@@ -945,13 +932,13 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
           <EntitySet Name="Parents" EntityType="Self.Parent" />
           <EntitySet Name="Schedules" EntityType="Self.Schedule" />
           <EntitySet Name="ScheduledTrips" EntityType="Self.ScheduledTrip" />
+          <EntitySet Name="Schools" EntityType="Self.School" />
           <EntitySet Name="Students" EntityType="Self.Student" />
           <EntitySet Name="StudentDailyTrips" EntityType="Self.StudentDailyTrip" />
           <EntitySet Name="StudentScheduledTrips" EntityType="Self.StudentScheduledTrip" />
           <EntitySet Name="Subscriptions" EntityType="Self.Subscription" />
           <EntitySet Name="SUsers" EntityType="Self.SUser" />
           <EntitySet Name="TripCategories" EntityType="Self.TripCategory" />
-          <EntitySet Name="Schools" EntityType="Self.School" />
           <EntitySet Name="WebAppMenus" EntityType="Self.WebAppMenu" />
           <AssociationSet Name="FK_Address_Student" Association="Self.FK_Address_Student">
             <End Role="Student" EntitySet="Students" />
@@ -1118,6 +1105,19 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Schools">
+            <EntityTypeMapping TypeName="IntelligentBusSystemModel.School">
+              <MappingFragment StoreEntitySet="School">
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="SchoolLat" ColumnName="SchoolLat" />
+                <ScalarProperty Name="SchoolLong" ColumnName="SchoolLong" />
+                <ScalarProperty Name="SchoolPhoto" ColumnName="SchoolPhoto" />
+                <ScalarProperty Name="SchoolLogo" ColumnName="SchoolLogo" />
+                <ScalarProperty Name="SchoolPhoneNumber" ColumnName="SchoolPhoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Students">
             <EntityTypeMapping TypeName="IntelligentBusSystemModel.Student">
               <MappingFragment StoreEntitySet="Student">
@@ -1183,18 +1183,6 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
                 <ScalarProperty Name="TripCategoryID" ColumnName="TripCategoryID" />
                 <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
                 <ScalarProperty Name="TripCategoryTime" ColumnName="TripCategoryTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Schools">
-            <EntityTypeMapping TypeName="IntelligentBusSystemModel.School">
-              <MappingFragment StoreEntitySet="School">
-                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
-                <ScalarProperty Name="SchoolLat" ColumnName="SchoolLat" />
-                <ScalarProperty Name="SchoolLong" ColumnName="SchoolLong" />
-                <ScalarProperty Name="SchoolPhoto" ColumnName="SchoolPhoto" />
-                <ScalarProperty Name="SchoolLogo" ColumnName="SchoolLogo" />
-                <ScalarProperty Name="SchoolPhoneNumber" ColumnName="SchoolPhoneNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

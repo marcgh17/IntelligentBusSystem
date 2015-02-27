@@ -1,0 +1,126 @@
+﻿@model IntelligentBusSystem.Models.School
+@using (Html.BeginForm("SaveChanges", "SchoolInfo", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Edit School Info</h4>
+        </div>
+    <div class="modal-body">
+   
+
+            <div class="row">
+
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading resume-heading">
+                            <div id="editmap-canvas" style="height:280px;width:340px"></div>
+                        </div>
+                      
+                    </div>
+                    <h5>Right click on the map to select a new location.</h5>
+                </div>
+
+                <div class="col-md-4">
+
+                   
+
+<table>
+    <tr>
+        <td>
+            School Name:<br />
+            @Html.TextBoxFor(m => m.SchoolName, new { @class = "form-control" })<br />
+            @Html.ValidationMessageFor(m => m.SchoolName)
+            Phone Number:<br />
+            @Html.TextBoxFor(m => m.SchoolPhoneNumber, new { @class = "form-control" })<br />
+            @Html.ValidationMessageFor(m => m.SchoolPhoneNumber)
+            Selected Latitude:<br />
+            @Html.TextBoxFor(m => m.SchoolLat, new { @class = "form-control", @readonly="true", @id="EditLat" })<br />
+            @Html.ValidationMessageFor(m => m.SchoolLat)
+            Selected Longitude:<br />
+            @Html.TextBoxFor(m => m.SchoolLong, new { @class = "form-control" , @readonly="true", @id="EditLong"})<br />
+            @Html.ValidationMessageFor(m => m.SchoolLong)
+            <button type="button" id="ResetMarker" onclick="javascript: ResetPositionMarker();" class="btn btn-link preview-add-button">
+                <span class="glyphicon glyphicon-refresh"></span> Reset Marker
+            </button>
+
+        </td>
+    </tr>
+</table>
+
+                </div>
+            </div>
+            </div>
+
+           
+            <div class="modal-footer">
+                <input type="submit" value="Save Changes" class=" btn btn-primary" />
+            </div>
+            }
+
+   <!-- Core JavaScript Files -->
+<script src="/Scripts/jquery.min.js"></script>
+<script src="/Scripts/bootstrap.min.js"></script>
+<script src="/Scripts/jquery.easing.min.js"></script>
+<script src="/Scripts/jquery.scrollTo.js"></script>
+<script src="/Scripts/wow.min.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="/Scripts/custom.js"></script>
+<script src="/Scripts/jquery.dataTables.min.js"></script>
+<script src="/Scripts/bootstrap-modal.js"></script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+            var editmap;
+            var oldschoolMarker;
+            var newPositionMarker;
+            var editsPosition;
+            var neweditsPosition;
+            var cPosition;
+            var bounds ;
+            var school;
+            $(document).ready(function () {
+               school = @Html.Raw(Json.Encode(Model));
+               
+                editsPosition =new google.maps.LatLng(school.SchoolLat, school.SchoolLong);
+                var mapOptions = {
+                    zoom: 13,
+                    center: editsPosition,
+
+                };
+                editmap = new google.maps.Map(document.getElementById("editmap-canvas"), mapOptions);
+
+                oldschoolMarker=new google.maps.Marker({
+                    position: editsPosition,
+                    map: editmap,
+                    title: school.SchoolName});
+                google.maps.event.addListener(editmap, "rightclick", function(event) {
+                    var lat = event.latLng.lat().toFixed(6);
+                    var long = event.latLng.lng().toFixed(6);
+                    $('#EditLat').val(lat);
+                    $('#EditLong').val(long);
+                    neweditsPosition =new google.maps.LatLng(lat,long);
+                    oldschoolMarker.setMap(null);
+                    oldschoolMarker=new google.maps.Marker({
+                        position: neweditsPosition,
+                        map: editmap,
+                        title: school.SchoolName});
+
+                });
+             
+            });
+        function ResetPositionMarker()
+        {
+            var lat = editsPosition.lat().toFixed(6);
+            var long = editsPosition.lng().toFixed(6);
+            $('#EditLat').val(lat);
+            $('#EditLong').val(long);
+            oldschoolMarker.setMap(null);
+            oldschoolMarker=new google.maps.Marker({
+                position: editsPosition,
+                map: editmap,
+                title: school.SchoolName});
+        }
+
+
+
+    </script>

@@ -3,92 +3,98 @@
     ViewBag.Title = "School Information";
 }
 
-<h2 >@Html.Action("Header", "SchoolInfo")</h2>
-<h4>Check and edit school informations.</h4>
+<div class="page-header">
+    <h2 class="page-title"><span class="label label-info">About us</span></h2>
+    
+    <h4>Check and edit school informations.</h4>
+    </div>
+    <div class="container">
 
-        <div class="container">
+        <div class="row">
 
-            <div class="row">
-
-                <div class="col-md-8">
-                    <div class="panel panel-default">
-                        <div class="panel-heading resume-heading">
-                            <div id="map-canvas" style="height:400px"></div>
-                        </div>
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading resume-heading">
+                        <div id="map-canvas" style="height:360px"></div>
                     </div>
                 </div>
+            </div>
 
-                <div class="col-md-4">
+            <div class="col-md-4">
 
-                    <h2>Snail mail</h2>
+                <h3>@Html.Action("Header", "SchoolInfo")</h3>
 
-                    <address>
+                <address>
+                    <abbr title="Phone">Phone:</abbr> @Model.SchoolPhoneNumber
 
-                        Hythe Window Cleaning
+                    <br />
+                    <img src="@Model.SchoolPhoto" height="250" width="350" />
 
-                        15 Springfield Way
+                </address>
 
-                        Hythe
-
-                        Kent
-
-                        United Kingdon
-
-                        CT21 5SH
-
-                        <abbr title="Phone">P:</abbr> 01234 567 890
-
-                        <br />
-                        <img src="@Model.SchoolPhoto" height="250" width="350" />
-
-                    </address>
-
-                </div>
             </div>
         </div>
-     
+        <div>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#EditSchoolModal">
+               Edit School Info
+            </button>
 
-        @section scripts
+            <!-- Modal -->
+            <div class="modal fade" id="EditSchoolModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        @Html.Partial("EditSchoolInfo", Model)
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+    @section scripts
 {
 
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places,weather"></script>
-            <script type="text/javascript">
-                var map;
-                var schoolMarker;
-                var currentPositionMarker;
-                var sPosition;
-                var cPosition;
-                var bounds ;
-                $(document).ready(function () {
-                    var school = @Html.Raw(Json.Encode(Model));
-                    sPosition =new google.maps.LatLng(school.SchoolLat, school.SchoolLong);
-                    var mapOptions = {
-                        zoom: 14,
-                        center: sPosition,
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places,weather"></script>
+        <script type="text/javascript">
+            var map;
+            var schoolMarker;
+            var currentPositionMarker;
+            var sPosition;
+            var cPosition;
+            var bounds ;
+            $(document).ready(function () {
+                var school = @Html.Raw(Json.Encode(Model));
+                sPosition =new google.maps.LatLng(school.SchoolLat, school.SchoolLong);
+                var mapOptions = {
+                    zoom: 14,
+                    center: sPosition,
 
-                    };
-                    map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+                };
+                map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
-                    schoolMarker=new google.maps.Marker({
-                        position: sPosition,
+                schoolMarker=new google.maps.Marker({
+                    position: sPosition,
+                    map: map,
+                    title: school.SchoolName});
+                navigator.geolocation.getCurrentPosition(getPosition);
+
+                function getPosition(position) {
+                    cPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    currentPositionMarker = new google.maps.Marker({
+                        position: cPosition,
                         map: map,
-                        title: school.SchoolName});
-                    navigator.geolocation.getCurrentPosition(getPosition);
+                        title: "You are here!"
+                    });
+                    bounds = new google.maps.LatLngBounds ();
+                    bounds.extend (cPosition);
+                    bounds.extend (sPosition);
+                    map.fitBounds (bounds);
 
-                    function getPosition(position) {
-                        cPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                        currentPositionMarker = new google.maps.Marker({
-                            position: cPosition,
-                            map: map,
-                            title: "You are here!"
-                        });
-                        bounds = new google.maps.LatLngBounds ();
-                        bounds.extend (cPosition);
-                        bounds.extend (sPosition);
-                        map.fitBounds (bounds);
-
-                    }
-                });
-            </script>
-        }
+                }
+            });
+           
+     
+        </script>
+    }

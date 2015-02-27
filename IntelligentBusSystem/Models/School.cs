@@ -14,6 +14,7 @@ namespace IntelligentBusSystem.Models
     
     public partial class School
     {
+        public int SchoolID { get; set; }
         public string SchoolName { get; set; }
         public double SchoolLat { get; set; }
         public double SchoolLong { get; set; }

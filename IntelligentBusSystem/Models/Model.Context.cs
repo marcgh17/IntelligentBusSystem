@@ -33,13 +33,13 @@ namespace IntelligentBusSystem.Models
         public virtual DbSet<Parent> Parents { get; set; }
         public virtual DbSet<Schedule> Schedules { get; set; }
         public virtual DbSet<ScheduledTrip> ScheduledTrips { get; set; }
+        public virtual DbSet<School> Schools { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<StudentDailyTrip> StudentDailyTrips { get; set; }
         public virtual DbSet<StudentScheduledTrip> StudentScheduledTrips { get; set; }
         public virtual DbSet<Subscription> Subscriptions { get; set; }
         public virtual DbSet<SUser> SUsers { get; set; }
         public virtual DbSet<TripCategory> TripCategories { get; set; }
-        public virtual DbSet<School> Schools { get; set; }
         public virtual DbSet<WebAppMenu> WebAppMenus { get; set; }
     }
 }
