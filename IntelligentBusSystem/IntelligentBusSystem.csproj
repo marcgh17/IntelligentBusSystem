@@ -161,6 +161,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BusController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -334,6 +335,7 @@
     <Content Include="Views\SchoolInfo\EditSchoolInfo.cshtml" />
     <Content Include="Views\Profile\DriverProfile.cshtml" />
     <Content Include="Views\Profile\StudentProfile.cshtml" />
+    <Content Include="Views\Bus\MonitorBuses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

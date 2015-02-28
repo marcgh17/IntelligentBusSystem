@@ -1,0 +1,94 @@
+﻿@model IEnumerable<IntelligentBusSystem.Models.Bus>
+    @{
+        ViewBag.Title = "Monitor Buses";
+    }
+@using Newtonsoft.Json
+    <div class="page-header">
+        <h2 class="page-title"><span class="label label-info">Buses</span></h2>
+
+        <h3 class="page-title"><span class="label label-warning">Check and monitor buses</span></h3>
+
+    </div>
+    <div class="container">
+
+    <div class="row">
+
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading resume-heading">
+                    <div id="map-canvas" style="height:500px"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            hhhhh
+        </div>
+    </div>
+</div>
+
+
+                @section scripts
+{
+
+                    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places,weather"></script>
+                    <script type="text/javascript">
+                        var map;
+                        var busesMarkers=[];
+                        var currentPositionMarker;
+                        var sPosition;
+                        var cPosition;
+                        var bounds;
+                        $(document).ready(function () {
+                            var json =@Html.Raw(JsonConvert.SerializeObject(Model, new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects }));
+                         
+                            sPosition = new google.maps.LatLng(40, 30);
+                            var mapOptions = {
+                                zoom: 10,
+                                center: sPosition,
+
+                            };
+                            map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+                            var i=0;
+                            bounds = new google.maps.LatLngBounds();
+                           
+                            for(i=0;i<json.length;++i)
+                            {
+                               
+                                AddBusMarker(json[i].BusID,json[i].BusNumber,json[i].BusLat,json[i].BusLong,i);
+                            }
+                            map.fitBounds(bounds);
+                        });
+
+                        function AddBusMarker(id, number, lat, long,i) {
+                            var mPosition = new google.maps.LatLng(lat, long);
+                            busesMarkers[i] = new google.maps.Marker({
+                                position: mPosition,
+                                map: map,
+                                title: "Bus #g"+number,
+                                icon: 'http://www.googlemapsmarkers.com/v1/'+number+'/0099FF/'
+                            });
+                            var contentString = '<div id="content"><b><i>Bus #'+
+                               number+
+                            '</i></b></br></br><b>Latitude: </b>'+
+                            lat+
+                            '</br><b>Longitude: </b>' +
+                            long+
+                            '</div>';
+
+                            var infowindow = new google.maps.InfoWindow({
+                                content: contentString
+                            });
+
+                            google.maps.event.addListener(busesMarkers[i], 'click', function() {
+                                infowindow.open(map,busesMarkers[i]);
+                            });
+            
+                            bounds.extend(mPosition);
+                        }
+
+                    </script>
+                }
+
+
