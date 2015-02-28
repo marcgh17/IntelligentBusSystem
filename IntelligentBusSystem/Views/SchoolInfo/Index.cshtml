@@ -65,7 +65,7 @@
             var cPosition;
             var bounds ;
             $(document).ready(function () {
-                var school = @Html.Raw(Json.Encode(Model));
+                var school = @Html.Raw(Json.Encode(Model))
                 sPosition =new google.maps.LatLng(school.SchoolLat, school.SchoolLong);
                 var mapOptions = {
                     zoom: 14,

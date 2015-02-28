@@ -66,10 +66,13 @@ namespace IntelligentBusSystem.Controllers
                     //Requesting Specific Profile
                 else
                 {
-                    var stud = context.Students.Find(student);
-                    var sclass = context.Classes.Find(stud.ClassID);
-                    var tuple = new Tuple<Student, Class>(stud, sclass);
-                    if (stud != null) return View(tuple);
+                    StudentProfileModel spm = new StudentProfileModel();
+                    
+                    spm.student = context.Students.Find(student);
+                    spm.studentclass = context.Classes.Find(spm.student.ClassID);
+                    spm.studentaddresses = context.Addresses.Where(a => a.StudentID == student).ToList();
+                  //  var tuple = new Tuple<Student, Class, IEnumerable<Address>>(stud, sclass, add);
+                    if (spm != null) return View(spm);
                     else return Redirect("/");
                 }
             }

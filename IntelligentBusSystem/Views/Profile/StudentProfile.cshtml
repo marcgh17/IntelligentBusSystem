@@ -1,44 +1,44 @@
-﻿@model Tuple<IntelligentBusSystem.Models.Student, IntelligentBusSystem.Models.Class>
+﻿@model IntelligentBusSystem.Models.StudentProfileModel
 @{
     ViewBag.Title = "StudentProfile";
 }
-
+@using Newtonsoft.Json
 <div class="resume">
     <header class="page-header">
-        <h2 class="page-title"><span class="label label-info">@Model.Item1.StudentFirstName @Model.Item1.StudentLastName's profile</span></h2>
-        <h3 class="page-title"><span class="label label-warning">@Model.Item2.ClassName Student</span></h3>
+        <h2 class="page-title"><span class="label label-info">@Model.student.StudentFirstName @Model.student.StudentLastName's profile</span></h2>
+        <h3 class="page-title"><span class="label label-warning">@Model.studentclass.ClassName Student</span></h3>
     </header>
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
-            <div class="panel panel-default">
+        <div class="col-md-6">
+            <div class="panel panel-default" style="margin-left:10px">
                 <div class="panel-heading resume-heading">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <div class="col-xs-12 col-sm-4">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
                                 <figure>
-                                    <img src="@Model.Item1.StudentThumbPhoto" alt="@Model.Item1.StudentID" class="img-thumbnail img-circle" style=" width:250px;height:250px">
+                                    <img src="@Model.student.StudentThumbPhoto" alt="@Model.student.StudentID" class="img-thumbnail img-circle" style=" width:250px;height:250px">
                                 </figure>
                             </div>
 
-                            <div class="col-xs-12 col-sm-8">
+                            <div class="col-md-6">
 
                                 <ul class="list-group">
                                     <li class="list-group-item">
-                                        <label class="uMyLabel">User name: </label><label class="mylabel">@Model.Item1.StudentID</label>
+                                        <label class="uMyLabel">User name: </label><label class="mylabel">@Model.student.StudentID</label>
                                     </li>
-                                    <li class="list-group-item"><label class="uMyLabel">First name: </label><label class="mylabel">@Model.Item1.StudentFirstName</label></li>
+                                    <li class="list-group-item"><label class="uMyLabel">First name: </label><label class="mylabel">@Model.student.StudentFirstName</label></li>
                                     <li class="list-group-item">
-                                        <label class="uMyLabel">Last name: </label><label class="mylabel">@Model.Item1.StudentLastName</label>
+                                        <label class="uMyLabel">Last name: </label><label class="mylabel">@Model.student.StudentLastName</label>
                                     </li>
                                     <li class="list-group-item">
                                         <label class="uMyLabel">Gender: </label><label class="mylabel">
                                             @{
-                                                var role = (@Model.Item1.StudentGender == "M") ? "Male" : "Female";
+                                                var role = (@Model.student.StudentGender == "M") ? "Male" : "Female";
                                             } @role
                                         </label>
                                     </li>
                                     <li class="list-group-item">
-                                        <label class="uMyLabel">Date of birth: </label><label class="mylabel">@Model.Item1.StudentBirthdate</label>
+                                        <label class="uMyLabel">Date of birth: </label><label class="mylabel">@Model.student.StudentBirthdate</label>
                                     </li>
                                 </ul>
                             </div>
@@ -48,6 +48,50 @@
             </div>
 
         </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading resume-heading">
+                    <div id="map-canvas" style="height:250px"></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @Html.Action("DisplaySchedule")
+
+@section scripts{
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places,weather"></script>
+  <script type="text/javascript">
+    var map;
+    var studentMarkers=[];
+    var currentPositionMarker;
+    var bounds ;
+    $(document).ready(function () {
+        var StudentLocations=@Html.Raw(@JsonConvert.SerializeObject(Model.studentaddresses));
+        @*var StudentLocations = @Html.Raw(Json.Encode())*@
+        sPosition =new google.maps.LatLng(33.5,35.7);
+        var mapOptions = {
+            zoom: 14,
+            center: sPosition
+            };
+       
+        alert("test");
+        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+        var a= @Model.studentaddresses.Count;
+      // to do
+        //schoolMarker=new google.maps.Marker({
+        //    position: sPosition,
+        //    map: map,
+        //    title: school.SchoolName});
+    });
+      function AddMarker(lat,long,desc) {
+          mPosition = new google.maps.LatLng(lat,long);
+          mMarker=new google.maps.Marker({
+              position: mPosition,
+              map: map,
+              title: desc});
+      }
+    </script>
+}
