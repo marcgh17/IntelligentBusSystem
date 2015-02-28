@@ -1,12 +1,12 @@
-﻿@model IntelligentBusSystem.Models.StudentProfileModel
+﻿@model IntelligentBusSystem.Models.Student
 @{
     ViewBag.Title = "StudentProfile";
 }
 @using Newtonsoft.Json
 <div class="resume">
     <header class="page-header">
-        <h2 class="page-title"><span class="label label-info">@Model.student.StudentFirstName @Model.student.StudentLastName's profile</span></h2>
-        <h3 class="page-title"><span class="label label-warning">@Model.studentclass.ClassName Student</span></h3>
+        <h2 class="page-title"><span class="label label-info">@Model.StudentFirstName @Model.StudentLastName's profile</span></h2>
+        <h3 class="page-title"><span class="label label-warning">@Model.Class.ClassName Student</span></h3>
     </header>
     <div class="row">
         <div class="col-md-6">
@@ -16,7 +16,7 @@
                         <div class="col-md-12">
                             <div class="col-md-6">
                                 <figure>
-                                    <img src="@Model.student.StudentThumbPhoto" alt="@Model.student.StudentID" class="img-thumbnail img-circle" style=" width:250px;height:250px">
+                                    <img src="@Model.StudentPhoto" alt="@Model.StudentID" class="img-thumbnail img-circle" style=" width:250px;height:250px">
                                 </figure>
                             </div>
 
@@ -24,21 +24,21 @@
 
                                 <ul class="list-group">
                                     <li class="list-group-item">
-                                        <label class="uMyLabel">User name: </label><label class="mylabel">@Model.student.StudentID</label>
+                                        <label class="uMyLabel">User name: </label><label class="mylabel">@Model.StudentID</label>
                                     </li>
-                                    <li class="list-group-item"><label class="uMyLabel">First name: </label><label class="mylabel">@Model.student.StudentFirstName</label></li>
+                                    <li class="list-group-item"><label class="uMyLabel">First name: </label><label class="mylabel">@Model.StudentFirstName</label></li>
                                     <li class="list-group-item">
-                                        <label class="uMyLabel">Last name: </label><label class="mylabel">@Model.student.StudentLastName</label>
+                                        <label class="uMyLabel">Last name: </label><label class="mylabel">@Model.StudentLastName</label>
                                     </li>
                                     <li class="list-group-item">
                                         <label class="uMyLabel">Gender: </label><label class="mylabel">
                                             @{
-                                                var role = (@Model.student.StudentGender == "M") ? "Male" : "Female";
+                                                var role = (@Model.StudentGender == "M") ? "Male" : "Female";
                                             } @role
                                         </label>
                                     </li>
                                     <li class="list-group-item">
-                                        <label class="uMyLabel">Date of birth: </label><label class="mylabel">@Model.student.StudentBirthdate</label>
+                                        <label class="uMyLabel">Date of birth: </label><label class="mylabel">@Model.StudentBirthdate.Value.ToShortDateString()</label>
                                     </li>
                                 </ul>
                             </div>
@@ -49,7 +49,7 @@
 
         </div>
         <div class="col-md-6">
-            <div class="panel panel-default">
+            <div class="panel panel-default" style=" margin-right:10px">
                 <div class="panel-heading resume-heading">
                     <div id="map-canvas" style="height:250px"></div>
                 </div>
@@ -57,41 +57,119 @@
         </div>
     </div>
 </div>
-@Html.Action("DisplaySchedule")
+<div style="margin-left:10px; margin-right:10px">
+<table border=0" class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
 
-@section scripts{
-    
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places,weather"></script>
-  <script type="text/javascript">
-    var map;
-    var studentMarkers=[];
-    var currentPositionMarker;
-    var bounds ;
-    $(document).ready(function () {
-        var StudentLocations=@Html.Raw(@JsonConvert.SerializeObject(Model.studentaddresses));
-        @*var StudentLocations = @Html.Raw(Json.Encode())*@
-        sPosition =new google.maps.LatLng(33.5,35.7);
-        var mapOptions = {
-            zoom: 14,
-            center: sPosition
-            };
-       
-        alert("test");
-        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-        var a= @Model.studentaddresses.Count;
-      // to do
-        //schoolMarker=new google.maps.Marker({
-        //    position: sPosition,
-        //    map: map,
-        //    title: school.SchoolName});
-    });
-      function AddMarker(lat,long,desc) {
-          mPosition = new google.maps.LatLng(lat,long);
-          mMarker=new google.maps.Marker({
-              position: mPosition,
-              map: map,
-              title: desc});
-      }
-    </script>
-}
+            <th> <h5>Monday Morning </h5></th>
+            <th> <h5>Monday Evening </h5></th>
+            <th> <h5>Tuesday Morning </h5></th>
+            <th> <h5>Tuesday Evening </h5></th>
+            <th> <h5>Wednesday Morning </h5></th>
+            <th> <h5>Wednesday Evening </h5></th>
+            <th> <h5>Thursday Morning </h5></th>
+            <th> <h5>Thursday Evening </h5></th>
+            <th> <h5>Friday Morning </h5></th>
+            <th> <h5>Friday Evening </h5></th>
+            <th> <h5>Saturday Morning </h5></th>
+            <th> <h5>Saturday Evening </h5></th>
+            <th> <h5>Sunday Morning </h5></th>
+            <th> <h5>Sunday Evening </h5></th>
+
+
+
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            @foreach (var subs in Model.Subscriptions)
+            {
+                <td>
+                    @if (subs.SubscriptionYN == "N")
+                    {
+                        <img src="/img/icons/RedX.png" width="25" height="25" />
+                    }
+                    @if (subs.SubscriptionYN == "Y")
+                    {
+                        for (int i = 0; i < Model.Addresses.Count; ++i)
+                        {
+                            if (subs.AddressID == Model.Addresses.ElementAt(i).AddressID)
+                            {
+                                int j = i % 7;
+                                var imgsrc = "/img/MapIcons/Loc" + j + ".png";
+                                <img src="@imgsrc" width="25" height="25" />
+                            }
+                        }
+
+                    }
+                </td>
+            }
+        </tr>
+
+    </tbody>
+    </table>
+    </div>
+    @section scripts{
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places,weather"></script>
+        <script type="text/javascript">
+            var map;
+            var studentMarkers = [];
+            var currentPositionMarker;
+            var bounds;
+            var markersCount;
+            $(document).ready(function () {
+
+
+                var json =@Html.Raw(JsonConvert.SerializeObject(Model, new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects }))
+
+                sPosition = new google.maps.LatLng(33.5, 35.7);
+                var mapOptions = {
+                    zoom: 14,
+                    center: sPosition
+                };
+
+                map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+                bounds = new google.maps.LatLngBounds();
+                var i = 0;
+                for (i = 0; i < json.Addresses.length; ++i) {
+
+                    AddMapMarker(json.Addresses[i].AddressID, json.Addresses[i].AddressLat, json.Addresses[i].AddressLong, json.Addresses[i].AddressDescription, i);
+
+                }
+                map.fitBounds(bounds);
+
+            });
+
+            function AddMapMarker(id, lat, long, desc, i) {
+                var mPosition = new google.maps.LatLng(lat, long);
+                var j = i % 7;
+                studentMarkers[i] = new google.maps.Marker({
+                    position: mPosition,
+                    map: map,
+                    title: desc,
+                    icon: '/img/MapIcons/Loc' + j + '.png'
+                });
+                var contentString = '<div id="content"><b><i>'+
+                   desc+
+                '</i></b></br></br><b>Latitude: </b>'+
+                lat+
+                '</br><b>Longitude: </b>' +
+                long+
+                '</div>';
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                });
+
+                google.maps.event.addListener(studentMarkers[i], 'click', function() {
+                    infowindow.open(map,studentMarkers[i]);
+                });
+            
+                bounds.extend(mPosition);
+            }
+        </script>
+    }

@@ -237,6 +237,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerializerContext.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -331,7 +332,6 @@
     <Content Include="Views\SchoolInfo\Index.cshtml" />
     <Content Include="Views\SchoolInfo\SchoolHeader.cshtml" />
     <Content Include="Views\SchoolInfo\EditSchoolInfo.cshtml" />
-    <Content Include="Views\Profile\DisplaySchedule.cshtml" />
     <Content Include="Views\Profile\DriverProfile.cshtml" />
     <Content Include="Views\Profile\StudentProfile.cshtml" />
   </ItemGroup>

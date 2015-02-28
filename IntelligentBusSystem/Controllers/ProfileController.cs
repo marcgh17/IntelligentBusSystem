@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using IntelligentBusSystem.Models;
 using System.IO;
+using Newtonsoft.Json;
 namespace IntelligentBusSystem.Controllers
 {
     [Authorize]
@@ -53,10 +54,10 @@ namespace IntelligentBusSystem.Controllers
                 }
             }
         }
+
         public ActionResult StudentProfile(string student = "")
         {
-            using (var context = new IntelligentBusSystemEntities())
-            {
+            
                 //Requesting Personal Profile
                 if (student == "")
                 {
@@ -66,16 +67,22 @@ namespace IntelligentBusSystem.Controllers
                     //Requesting Specific Profile
                 else
                 {
+                           using (var context = new SerializerContext())
+                           {
                     StudentProfileModel spm = new StudentProfileModel();
-                    
-                    spm.student = context.Students.Find(student);
-                    spm.studentclass = context.Classes.Find(spm.student.ClassID);
-                    spm.studentaddresses = context.Addresses.Where(a => a.StudentID == student).ToList();
-                  //  var tuple = new Tuple<Student, Class, IEnumerable<Address>>(stud, sclass, add);
-                    if (spm != null) return View(spm);
+
+                    spm.Student = context.Students.Find(student);
+                    spm.StudentClass = context.Classes.Find(spm.Student.ClassID);
+                    spm.StudentAddresses = context.Addresses.Where(a => a.StudentID == student).ToList();
+                    spm.StudentSubscriptions = context.Subscriptions.Where(a => a.StudentID == student).ToList();
+
+                     
+                    if (spm != null) return View(spm.Student);
                     else return Redirect("/");
                 }
-            }
+
+                }
+            
         }
         public ActionResult DisplaySchedule()
         {

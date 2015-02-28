@@ -7,8 +7,11 @@ namespace IntelligentBusSystem.Models
 {
     public class StudentProfileModel
     {
-        public Student student { get; set; }
-        public Class studentclass { get; set; }
-        public List<Address> studentaddresses { get; set; }
+        public Student Student { get; set; }
+        public Class StudentClass { get; set; }
+        public List<Address> StudentAddresses { get; set; }
+        public List<Subscription> StudentSubscriptions { get; set; }
+
+
     }
 }
