@@ -204,6 +204,7 @@
     <Compile Include="Models\Parent.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProfileViewModels.cs" />
     <Compile Include="Models\Schedule.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -330,6 +331,9 @@
     <Content Include="Views\SchoolInfo\Index.cshtml" />
     <Content Include="Views\SchoolInfo\SchoolHeader.cshtml" />
     <Content Include="Views\SchoolInfo\EditSchoolInfo.cshtml" />
+    <Content Include="Views\Profile\DisplaySchedule.cshtml" />
+    <Content Include="Views\Profile\DriverProfile.cshtml" />
+    <Content Include="Views\Profile\StudentProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
