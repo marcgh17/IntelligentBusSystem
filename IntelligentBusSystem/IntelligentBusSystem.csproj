@@ -233,6 +233,7 @@
     <Compile Include="Models\TripCategory.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StudentAccountsViewModels.cs" />
     <Compile Include="Models\UserAccountsViewModels.cs" />
     <Compile Include="Models\WebAppMenu.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -336,6 +337,7 @@
     <Content Include="Views\Profile\DriverProfile.cshtml" />
     <Content Include="Views\Profile\StudentProfile.cshtml" />
     <Content Include="Views\Bus\MonitorBuses.cshtml" />
+    <Content Include="Views\UserAccounts\AddStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
