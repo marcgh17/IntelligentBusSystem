@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using IntelligentBusSystem.Models;
 using System.IO;
 using System.Drawing;
+using Newtonsoft.Json;
 
 
 namespace IntelligentBusSystem.Controllers
@@ -116,6 +117,7 @@ namespace IntelligentBusSystem.Controllers
                     
                     AddStudentViewModel vm = new AddStudentViewModel();
                     vm.AllClasses = context.Classes.ToList();
+                    vm.School = context.Schools.First();
                     return View(vm);
                 }
             }
@@ -123,6 +125,83 @@ namespace IntelligentBusSystem.Controllers
 
         }
 
+           [HttpPost]
+        public ActionResult AddStudent(AddStudentViewModel model, HttpPostedFileBase uploadFile)
+        {
+               using (var context = new IntelligentBusSystemEntities())
+                {
+                    Student newStudent = new Student();
+                    SUser oldStudent = context.SUsers.Find(model.ID);
+                    if (oldStudent == null)
+                    {
+                        newStudent.StudentID = model.ID;
+                        newStudent.StudentFirstName=model.FirstName;
+                        newStudent.StudentLastName=model.LastName;
+                        newStudent.StudentGender=model.Gender;
+                        newStudent.StudentBirthdate=Convert.ToDateTime(model.Birthdate);
+                        newStudent.ClassID=model.StudentClassID;
+                        newStudent.Addresses=FixAddresses(model.StudentAddresses,model.ID);
+                     
+                        if (uploadFile != null)
+                        {
+                            string databasePath = "/img/Students/" + model.ID+  Guid.NewGuid()+ Path.GetFileName(uploadFile.FileName);
+                            string databasePathThumb = "/img/Students/thumb_" + model.FirstName + Guid.NewGuid() + Path.GetFileName(uploadFile.FileName);
+
+                            string filePath = HttpContext.Server.MapPath(databasePath);
+                            uploadFile.SaveAs(filePath);
+                            newStudent.StudentPhoto = databasePath;
+                            using (Bitmap originalImage = new Bitmap(filePath))
+                            {
+                               
+                                int width = 100;
+                                int height = 100;
+                                System.Drawing.Image.GetThumbnailImageAbort thumbnailImageAbortDelegate = new System.Drawing.Image.GetThumbnailImageAbort(ThumbnailCallback);
+                                System.Drawing.Image thumbnail = originalImage.GetThumbnailImage(width, height, thumbnailImageAbortDelegate, IntPtr.Zero);
+                                thumbnail.Save(Server.MapPath(databasePathThumb));
+                                newStudent.StudentThumbPhoto = databasePathThumb;
+
+                            }
+
+                        }
+                        else
+                        {
+                            string databasePath = "/img/Students/nophoto.png";
+                            string databasePathThumb = "/img/Students/thumb_nophoto.png";
+                            newStudent.StudentPhoto = databasePath;
+                             newStudent.StudentThumbPhoto = databasePathThumb;
+
+                        }
+                       context.Students.Add(newStudent);
+                        context.SaveChanges();
+                        //UserAdded
+                        //Put After Add Code Here
+                        return RedirectToAction("StudentProfile","Profile", new { student = newStudent.StudentID});
+
+                    }
+
+                    else
+                    {
+                        ModelState.AddModelError("", "ID already exists!");
+                    }
+
+                }
+            
+
+
+            return View(model);
+        }
+
+         public List<Address> FixAddresses(string addresses,string sid)
+         {
+             if (addresses == null) return null;
+                 System.Web.Script.Serialization.JavaScriptSerializer json_serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                 List<Address> saddresses = JsonConvert.DeserializeObject<List<Address>>(addresses);
+                 foreach( Address add in saddresses)
+                 {
+                     add.StudentID = sid;
+                 }
+                 return saddresses;
+         }
         public ActionResult DisplayAllUsersGrid()
         {
            using (var context = new IntelligentBusSystemEntities())

@@ -5,9 +5,9 @@ namespace IntelligentBusSystem.Models
 {
     public class AddStudentViewModel
     {
-        [Required(ErrorMessage = "Username is Required")]
-        [Display(Name = "User name")]
-        public string UserName { get; set; }
+        [Required(ErrorMessage = "ID is Required")]
+        [Display(Name = "ID")]
+        public string ID { get; set; }
 
 
         [Required(ErrorMessage = "First name is Required")]
@@ -31,17 +31,16 @@ namespace IntelligentBusSystem.Models
 
         [Required(ErrorMessage = "StudentClass is Required")]
         [Display(Name = "StudentClass")]
-        public Class StudentClass { get; set; }
+        public int StudentClassID { get; set; }
 
         [Required(ErrorMessage = "StudentAddresses is Required")]
         [Display(Name = "StudentAddresses")]
-        public List<Address> StudentAddresses { get; set; }
+        public string StudentAddresses { get; set; }
 
-        [Required(ErrorMessage = "StudentSubscriptions is Required")]
-        [Display(Name = "StudentSubscriptions")]
-        
         public List<Subscription> StudentSubscriptions { get; set; }
         public List<Class> AllClasses { get; set; }
+
+        public School School { get; set; }
       
     }
 }

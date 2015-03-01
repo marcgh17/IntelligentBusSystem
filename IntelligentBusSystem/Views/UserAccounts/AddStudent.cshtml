@@ -19,10 +19,10 @@
                             </header>
                             <div class="form-group">
 
-                                <label class="col-sm-4 control-label mylabel">User name</label>
+                                <label class="col-sm-4 control-label mylabel">ID</label>
                                 <div class="col-sm-8">
-                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", autocomplete = "off" })
-                                    @Html.ValidationMessageFor(m => m.UserName)
+                                    @Html.TextBoxFor(m => m.ID, new { @class = "form-control", autocomplete = "off" })
+                                    @Html.ValidationMessageFor(m => m.ID)
                                 </div>
                             </div>
                             <div class="form-group">
@@ -67,7 +67,7 @@
                             SClass.Add(new SelectListItem { Value = cl.ClassID.ToString(), Text = cl.ClassName });
                         }
                         var selectitemclass = new SelectList(SClass, "Value", "Text");
-                                    @Html.DropDownListFor(m => m.StudentClass, selectitemclass)
+                                    @Html.DropDownListFor(m => m.StudentClassID, selectitemclass)
 
                                     }
                                 </div>
@@ -85,6 +85,7 @@
 
                                 <div style="width:0px;height:0px;overflow:hidden">
                                     <input type="file" name="uploadFile" id="PhotoFileName" onchange=" javascript:UpdateFileName()" />
+                                    @Html.HiddenFor(m => m.StudentAddresses, new { @id = "AddressesJSON" })
                                 </div>
                             </div>
 
@@ -92,19 +93,24 @@
                             <br />
                         </div>
                         <div class="col-sm-7">
-                            <button type="button" id="ResetMarker" onclick="javascript: ResetPositionMarker();" class="btn btn-link preview-add-button">
-                                <span class="glyphicon glyphicon-refresh"></span> Reset Marker
-                            </button>
+                            <b>Selected Marker:</b><img src="/img/icons/RedX.png" width="25" height="25" id="SelectedMarkerIcon" /> &nbsp; &nbsp; &nbsp; &nbsp; <b>Address description:</b> <input  onchange="javascript:UpdateDescription()" id="MarkerDescription" />
+                            
                             <div class="panel panel-default">
                                 <div class="panel-heading resume-heading">
                                     <div id="editmap-canvas" style="height:300px;width:580px"></div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-8 alert alert-warning " style="margin-left:15px">Right click on the map to select a new location.</label>
+                                <label class="col-sm-8 alert alert-warning " style="margin-left:15px">Click on the map to relocate the selected marker.</label>
                                 <div class="col-sm-3">
-                                    <button type="button" id="AddLocationBtn" class="btn btn-link preview-add-button" onclick="javascript: AddLocations();">
-                                        <span class="glyphicon glyphicon-map-marker"></span> Add Location
+                                   <button type="button" id="AddLocationBtn" class="btn btn-link preview-add-button" onclick="javascript: AddLocation();">
+    <span class="glyphicon glyphicon-map-marker"></span> Add Location
+</button>
+    <button type="button" id="SaveLocationsBtn" class="btn btn-link preview-add-button" onclick="javascript: SaveLocations();">
+        <span class="glyphicon glyphicon-save"></span> Save Locations
+    </button>
+                                    <button type="button" id="ResetMarker" onclick="javascript: ResetPositionMarker();" class="btn btn-link preview-add-button">
+                                        <span class="glyphicon glyphicon-remove"></span> Remove Markers
                                     </button>
                                 </div>
                             </div>
@@ -114,7 +120,7 @@
                                 <div class="form-group">
                                     <div class="col-sm-12 text-right">
                                         <button type="submit" id="AddUserBtn" class="btn btn-info preview-add-button">
-                                            <span class="glyphicon glyphicon-plus"></span> Add
+                                            <span class="glyphicon glyphicon-plus"></span> Add Student
                                         </button>
                                     </div>
                                 </div>
@@ -146,7 +152,7 @@
 </div>
 
 @section scripts
-        {
+  {
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
@@ -158,12 +164,15 @@
         var editsPosition;
         var lats = [];
         var longs = [];
+        var descs=[];
+        var selectedmarker;
         var i = 0;
         var j = i;
         var studentAddresses = [];
         var studentMarkers= [];
+        var MarkersHM= new MyHashMap();
         $(document).ready(function () {
-            schoolPosition = new google.maps.LatLng(33.8869, 35.5131);
+            schoolPosition = new google.maps.LatLng(@Model.School.SchoolLat,@Model.School.SchoolLong);
             var mapOptions = {
                 zoom: 13,
                 center: schoolPosition,
@@ -175,42 +184,86 @@
                 position: schoolPosition,
                 map: editmap
             });
-            google.maps.event.addListener(editmap, "rightclick", function (event) {
-
-                lats[i] = event.latLng.lat().toFixed(6);
-                longs[i] = event.latLng.lng().toFixed(6);
-                studentAddresses[i] = new google.maps.LatLng(lats[i], longs[i]);
-                studentMarkers[i] = new google.maps.Marker({
-                    position: studentAddresses[i],
-                    map: editmap,
-                    icon: '/img/MapIcons/Loc' + j + '.png'
-                });
-                i = i + 1;
-                j = i % 7;
-            });
+            google.maps.event.addListener(editmap, "click", function (event) { ChangeMarkerPositon(event)});
 
         });
-        function AddLocations() {
+
+        function ChangeMarkerPositon(event)
+        {
+            selectedmarker.setPosition(new google.maps.LatLng(event.latLng.lat().toFixed(6),event.latLng.lng().toFixed(6)));
+            var markerindex=MarkersHM.get(selectedmarker);
+            lats[markerindex]=event.latLng.lat().toFixed(6);
+            longs[markerindex]=event.latLng.lng().toFixed(6);
+
+        }
+        function AddLocation()
+        {
+            var center =editmap.getCenter();
+            lats[i] = center.lat().toFixed(6);
+            longs[i] = center.lng().toFixed(6);
+            descs[i]="No description";
+            studentAddresses[i] = new google.maps.LatLng(lats[i], longs[i]);
+            studentMarkers[i] = new google.maps.Marker({
+                position: studentAddresses[i],
+                map: editmap,
+                icon: '/img/MapIcons/Loc' + j + '.png'
+            });
+            MarkersHM.put(studentMarkers[i],i);
+            setSelectedMarker(studentMarkers[i],i);
+            i = i + 1;
+            j = i % 7;
+            document.getElementById("MarkerDescription").value="No description";
+            google.maps.event.addListener(studentMarkers[i-1], 'click', function() { setSelectedMarker(this);});
+        }
+
+
+        function setSelectedMarker(marker)
+        {
+           
+            selectedmarker=marker;
+            document.getElementById("SelectedMarkerIcon").src=marker.icon;
+            var markerindex=MarkersHM.get(marker);
+            document.getElementById("MarkerDescription").value=descs[markerindex];
+
+        }
+        function SaveLocations() {
+
+            var AddressesJSON= document.getElementById("AddressesJSON");
+            var json=[];
             document.getElementById("AddressesList").style.visibility = "visible";
             var el = document.getElementById("AddressesList");
             var innerhtml="";
-            for (j = 0; j < studentAddresses.length; ++j) {
-                innerhtml = innerhtml + "<a href='#' class='list-group-item active'><h4 class='list-group-item-heading'>Address" + j + "</h4><p class='list-group-item-text'>Latitude: "+lats[j] +", Longitude: "+longs[j]+"</p></a>"
+            var t=0;
+            for (t = 0; t < studentAddresses.length; ++t) {
+                var k=t+1;
+                alert(lats[t]);
+                innerhtml = innerhtml + "<a href='#' class='list-group-item active'><h4 class='list-group-item-heading'>Address " + k+ ":"+descs[t]+"</h4><p class='list-group-item-text'>Latitude: "+lats[t] +", Longitude: "+longs[t]+"</p></a>"
+                json.push({"AddressID":0,"AddressLat":lats[t],"AddressLong":longs[t],"AddressDescription":descs[t],"StudentID":0});
             }
             el.innerHTML = innerhtml;
+            AddressesJSON.value=JSON.stringify(json);
+           // alert( AddressesJSON.value);
         }
         function ResetPositionMarker() {
             lats = [];
             longs = [];
+            descs=[];
             for (i = 0; i < studentAddresses.length; ++i) {
                 studentMarkers[i].setMap(null);
             }
             studentAddresses = [];
             studentMarkers = [];
+            selectedmarker=null;
             i = 0;
-            AddLocations();
+            document.getElementById("SelectedMarkerIcon").src="/img/icons/RedX.png";
+            SaveLocations();
         }
+        function UpdateDescription()
+        {
 
+            descs[MarkersHM.get(selectedmarker)]= document.getElementById("MarkerDescription").value;
+            selectedmarker.title=document.getElementById("MarkerDescription").value;
+        }
         function UpdateFileName() {
             $('#PhotoFileTextBox').val($('#PhotoFileName').val());
 
@@ -221,6 +274,26 @@
             $('#PhotoFileName').trigger('click');
         }
 
+
+        function MyHashMap() {
+            var keys = [], values = [];
+
+            return {
+                put: function (key, value) {
+                    var index = keys.indexOf(key);
+                    if(index == -1) {
+                        keys.push(key);
+                        values.push(value);
+                    }
+                    else {
+                        values[index] = value;
+                    }
+                },
+                get: function (key) {
+                    return values[keys.indexOf(key)];
+                }
+            };
+        }
+
     </script>
 }
-
