@@ -39,7 +39,7 @@ namespace IntelligentBusSystem.Controllers
             else return Redirect("/");
 
         }
-
+        
         //Submit A new User
         [HttpPost]
         public ActionResult AddUser(SignUpViewModel model, HttpPostedFileBase uploadFile)
@@ -106,7 +106,22 @@ namespace IntelligentBusSystem.Controllers
 
             return View(model);
         }
+        //Open add Student form
+        public ActionResult AddStudent()
+        {
+            if (checkIfAdmin(User.Identity.Name))
+            {
+                using (var context = new IntelligentBusSystemEntities())
+                {
+                    
+                    AddStudentViewModel vm = new AddStudentViewModel();
+                    vm.AllClasses = context.Classes.ToList();
+                    return View(vm);
+                }
+            }
+            else return Redirect("/");
 
+        }
 
         public ActionResult DisplayAllUsersGrid()
         {

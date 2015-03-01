@@ -1,0 +1,226 @@
+﻿@model IntelligentBusSystem.Models.AddStudentViewModel
+@{
+    ViewBag.Title = "AddStudent";
+}
+@using Newtonsoft.Json
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <header class="page-header">
+                <h2 class="page-title"><span class="label label-info">Add Student</span></h2>
+            </header>
+            <div class="panel panel-default">
+                <div class="panel-body form-horizontal">
+                    @using (Html.BeginForm("AddStudent", "UserAccounts", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                    {
+                        <div class="col-sm-5">
+                            <header class="page-header">
+                                <h3 class="page-title"><span class="label label-warning">Basic Information</span></h3>
+                            </header>
+                            <div class="form-group">
+
+                                <label class="col-sm-4 control-label mylabel">User name</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", autocomplete = "off" })
+                                    @Html.ValidationMessageFor(m => m.UserName)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label mylabel">First name</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label mylabel">Last name</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label mylabel">Birthdate</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.Birthdate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label mylabel">Gender</label>
+                                <div class="col-sm-1">
+                                    @{
+                        var genders = new List<SelectListItem>();
+                        genders.Add(new SelectListItem { Value = "M", Text = "Male" });
+                        genders.Add(new SelectListItem { Value = "F", Text = "Female" });
+                        var selectitem = new SelectList(genders, "Value", "Text");
+                                    @Html.DropDownListFor(m => m.Gender, selectitem)
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label mylabel">Class</label>
+                                <div class="col-sm-1">
+                                    @{
+                        var SClass = new List<SelectListItem>();
+                        foreach (var cl in Model.AllClasses)
+                        {
+
+                            SClass.Add(new SelectListItem { Value = cl.ClassID.ToString(), Text = cl.ClassName });
+                        }
+                        var selectitemclass = new SelectList(SClass, "Value", "Text");
+                                    @Html.DropDownListFor(m => m.StudentClass, selectitemclass)
+
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label mylabel">Upload image</label>
+
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(m => m.Photo, new { @class = "form-control", @id = "PhotoFileTextBox" })
+                                </div>
+                                <button type="button" id="AddPhoto" onclick="javascript: openFileBrowser()" class="btn btn-link preview-add-button col-sm-4">
+                                    <span class="glyphicon glyphicon-upload"></span> Add photo
+                                </button>
+
+
+                                <div style="width:0px;height:0px;overflow:hidden">
+                                    <input type="file" name="uploadFile" id="PhotoFileName" onchange=" javascript:UpdateFileName()" />
+                                </div>
+                            </div>
+
+
+                            <br />
+                        </div>
+                        <div class="col-sm-7">
+                            <button type="button" id="ResetMarker" onclick="javascript: ResetPositionMarker();" class="btn btn-link preview-add-button">
+                                <span class="glyphicon glyphicon-refresh"></span> Reset Marker
+                            </button>
+                            <div class="panel panel-default">
+                                <div class="panel-heading resume-heading">
+                                    <div id="editmap-canvas" style="height:300px;width:580px"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-8 alert alert-warning " style="margin-left:15px">Right click on the map to select a new location.</label>
+                                <div class="col-sm-3">
+                                    <button type="button" id="AddLocationBtn" class="btn btn-link preview-add-button" onclick="javascript: AddLocations();">
+                                        <span class="glyphicon glyphicon-map-marker"></span> Add Location
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+
+                                <div class="form-group">
+                                    <div class="col-sm-12 text-right">
+                                        <button type="submit" id="AddUserBtn" class="btn btn-info preview-add-button">
+                                            <span class="glyphicon glyphicon-plus"></span> Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" id="AddressesList" style="visibility:hidden">
+                            <div class="list-group" id="adList">
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            @*<div class="col-sm-7" style="border-color:#4c93c6">
+                    <header class="page-header">
+                        <h2 class="page-title"><span class="label label-info">Users' information</span></h2>
+                    </header>
+                    <div class="panel panel-default">
+                        <div class="panel-body form-horizontal">
+                            @Html.Action("DisplayAllUsersGrid", "UserAccounts")
+                        </div>
+
+                    </div>
+
+                    <br />
+                </div>*@
+        </div>
+    </div>
+</div>
+
+@section scripts
+        {
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places,weather"></script>
+    <script type="text/javascript">
+        var editmap;
+        var schoolMarker;
+        var schoolPosition;
+        var editsPosition;
+        var lats = [];
+        var longs = [];
+        var i = 0;
+        var j = i;
+        var studentAddresses = [];
+        var studentMarkers= [];
+        $(document).ready(function () {
+            schoolPosition = new google.maps.LatLng(33.8869, 35.5131);
+            var mapOptions = {
+                zoom: 13,
+                center: schoolPosition,
+
+            };
+            editmap = new google.maps.Map(document.getElementById("editmap-canvas"), mapOptions);
+
+            schoolMarker = new google.maps.Marker({
+                position: schoolPosition,
+                map: editmap
+            });
+            google.maps.event.addListener(editmap, "rightclick", function (event) {
+
+                lats[i] = event.latLng.lat().toFixed(6);
+                longs[i] = event.latLng.lng().toFixed(6);
+                studentAddresses[i] = new google.maps.LatLng(lats[i], longs[i]);
+                studentMarkers[i] = new google.maps.Marker({
+                    position: studentAddresses[i],
+                    map: editmap,
+                    icon: '/img/MapIcons/Loc' + j + '.png'
+                });
+                i = i + 1;
+                j = i % 7;
+            });
+
+        });
+        function AddLocations() {
+            document.getElementById("AddressesList").style.visibility = "visible";
+            var el = document.getElementById("AddressesList");
+            var innerhtml="";
+            for (j = 0; j < studentAddresses.length; ++j) {
+                innerhtml = innerhtml + "<a href='#' class='list-group-item active'><h4 class='list-group-item-heading'>Address" + j + "</h4><p class='list-group-item-text'>Latitude: "+lats[j] +", Longitude: "+longs[j]+"</p></a>"
+            }
+            el.innerHTML = innerhtml;
+        }
+        function ResetPositionMarker() {
+            lats = [];
+            longs = [];
+            for (i = 0; i < studentAddresses.length; ++i) {
+                studentMarkers[i].setMap(null);
+            }
+            studentAddresses = [];
+            studentMarkers = [];
+            i = 0;
+            AddLocations();
+        }
+
+        function UpdateFileName() {
+            $('#PhotoFileTextBox').val($('#PhotoFileName').val());
+
+        }
+
+        function openFileBrowser() {
+
+            $('#PhotoFileName').trigger('click');
+        }
+
+    </script>
+}
+
