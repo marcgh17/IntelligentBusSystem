@@ -176,6 +176,9 @@ namespace IntelligentBusSystem.Controllers
                         //UserAdded
                         BarcodeImageGenerator ig = new BarcodeImageGenerator();
                         ig.GenerateBarcodeImage(newStudent.StudentID, "Code128");
+                        //Generate Card
+                        IDCardGenerator icg = new IDCardGenerator();
+                        icg.GetIDCard(newStudent.StudentID);
                         return RedirectToAction("StudentProfile","Profile", new { student = newStudent.StudentID});
 
                     }
