@@ -174,7 +174,8 @@ namespace IntelligentBusSystem.Controllers
                        context.Students.Add(newStudent);
                         context.SaveChanges();
                         //UserAdded
-                        //Put After Add Code Here
+                        BarcodeImageGenerator ig = new BarcodeImageGenerator();
+                        ig.GenerateBarcodeImage(newStudent.StudentID, "Code128");
                         return RedirectToAction("StudentProfile","Profile", new { student = newStudent.StudentID});
 
                     }

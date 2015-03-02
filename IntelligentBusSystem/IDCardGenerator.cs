@@ -19,25 +19,26 @@ namespace IntelligentBusSystem
                 using (MemoryStream stream = new MemoryStream())
                 {
                     using(var context=new IntelligentBusSystemEntities()){
-
+                        Student student = context.Students.Find(id);
+                        School school = context.Schools.First();
                     PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileStream(newFile, FileMode.Create));
                     AcroFields pdfFormFields = pdfStamper.AcroFields;
                     AcroFields.FieldPosition LogofieldPosition = pdfStamper.AcroFields.GetFieldPositions("SchoolLogoImageField")[0];
                     AcroFields.FieldPosition StudentPhotofieldPosition = pdfStamper.AcroFields.GetFieldPositions("StudentImageField")[0];
                     AcroFields.FieldPosition BarCodefieldPosition = pdfStamper.AcroFields.GetFieldPositions("BarCodeImageField")[0];
-                    pdfFormFields.SetField("StudentNameTextField", context.Students.Find(id).StudentFirstName + " "+context.Students.Find(id).StudentLastName);
-                    pdfFormFields.SetField("BirthdateTextField",Convert.ToDateTime(context.Students.Find(id).StudentBirthdate).ToShortDateString());
-                    pdfFormFields.SetField("ClassTextField", context.Students.Find(id).Class.ClassName);
-                    pdfFormFields.SetField("IDTextField", context.Students.Find(id).StudentID);
-                    pdfFormFields.SetField("SchoolNameTextField", context.Schools.First().SchoolName);
+                    pdfFormFields.SetField("StudentNameTextField", student.StudentFirstName + " " + student.StudentLastName);
+                    pdfFormFields.SetField("BirthdateTextField", Convert.ToDateTime(student.StudentBirthdate).ToShortDateString());
+                    pdfFormFields.SetField("ClassTextField", student.Class.ClassName);
+                    pdfFormFields.SetField("IDTextField", id);
+                    pdfFormFields.SetField("SchoolNameTextField", school.SchoolName);
                     pdfFormFields.SetField("YearTextField", "2014-2015");
-                    pdfFormFields.SetField("SchoolAddressField", "Latitude:" + context.Schools.First().SchoolLat + ", Longitude: " + context.Schools.First().SchoolLong);
-                    iTextSharp.text.Image schoolLogo = iTextSharp.text.Image.GetInstance(HttpContext.Current.Server.MapPath(context.Schools.First().SchoolLogo));
+                    pdfFormFields.SetField("SchoolAddressField", "Latitude:" + school.SchoolLat + ", Longitude: " + school.SchoolLong);
+                    iTextSharp.text.Image schoolLogo = iTextSharp.text.Image.GetInstance(HttpContext.Current.Server.MapPath(school.SchoolLogo));
                     schoolLogo.ScaleAbsolute(LogofieldPosition.position.Width, LogofieldPosition.position.Height);
                     schoolLogo.SetAbsolutePosition(LogofieldPosition.position.Left, LogofieldPosition.position.Bottom);
                     pdfStamper.GetOverContent(1).AddImage(schoolLogo);
 
-                    iTextSharp.text.Image StudentPhoto = iTextSharp.text.Image.GetInstance(HttpContext.Current.Server.MapPath(context.Students.Find(id).StudentThumbPhoto));
+                    iTextSharp.text.Image StudentPhoto = iTextSharp.text.Image.GetInstance(HttpContext.Current.Server.MapPath(student.StudentThumbPhoto));
                     StudentPhoto.ScaleAbsolute(StudentPhotofieldPosition.position.Width, StudentPhotofieldPosition.position.Height);
                     StudentPhoto.SetAbsolutePosition(StudentPhotofieldPosition.position.Left, StudentPhotofieldPosition.position.Bottom);
                     pdfStamper.GetOverContent(1).AddImage(StudentPhoto);

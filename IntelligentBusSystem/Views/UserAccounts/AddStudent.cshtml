@@ -52,7 +52,7 @@
                         genders.Add(new SelectListItem { Value = "M", Text = "Male" });
                         genders.Add(new SelectListItem { Value = "F", Text = "Female" });
                         var selectitem = new SelectList(genders, "Value", "Text");
-                                    @Html.DropDownListFor(m => m.Gender, selectitem)
+                        @Html.DropDownListFor(m => m.Gender, selectitem)
                                     }
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                             SClass.Add(new SelectListItem { Value = cl.ClassID.ToString(), Text = cl.ClassName });
                         }
                         var selectitemclass = new SelectList(SClass, "Value", "Text");
-                                    @Html.DropDownListFor(m => m.StudentClassID, selectitemclass)
+                        @Html.DropDownListFor(m => m.StudentClassID, selectitemclass)
 
                                     }
                                 </div>
@@ -93,22 +93,24 @@
                             <br />
                         </div>
                         <div class="col-sm-7">
-                            <b>Selected Marker:</b><img src="/img/icons/RedX.png" width="25" height="25" id="SelectedMarkerIcon" /> &nbsp; &nbsp; &nbsp; &nbsp; <b>Address description:</b> <input  onchange="javascript:UpdateDescription()" id="MarkerDescription" />
-                            
+                            <b>Selected Marker:</b><img src="/img/icons/RedX.png" width="25" height="25" id="SelectedMarkerIcon" /> &nbsp; &nbsp; &nbsp; &nbsp; <b>Address description:</b> <input onchange="javascript:UpdateDescription()" id="MarkerDescription" />
+
                             <div class="panel panel-default">
                                 <div class="panel-heading resume-heading">
+                                    <input type="button" onclick="javascript:FitToLocations()" style="background-color: #f0ad4e;margin-bottom:2px" id="pac-button" value="Fit to Locations" />
+                                    <input id="pac-input" style="width:40%;margin-top:5px" type="text" placeholder="Search Box">
                                     <div id="editmap-canvas" style="height:300px;width:580px"></div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-8 alert alert-warning " style="margin-left:15px">Click on the map to relocate the selected marker.</label>
                                 <div class="col-sm-3">
-                                   <button type="button" id="AddLocationBtn" class="btn btn-link preview-add-button" onclick="javascript: AddLocation();">
-    <span class="glyphicon glyphicon-map-marker"></span> Add Location
-</button>
-    <button type="button" id="SaveLocationsBtn" class="btn btn-link preview-add-button" onclick="javascript: SaveLocations();">
-        <span class="glyphicon glyphicon-save"></span> Save Locations
-    </button>
+                                    <button type="button" id="AddLocationBtn" class="btn btn-link preview-add-button" onclick="javascript: AddLocation();">
+                                        <span class="glyphicon glyphicon-map-marker"></span> Add Location
+                                    </button>
+                                    <button type="button" id="SaveLocationsBtn" class="btn btn-link preview-add-button" onclick="javascript: SaveLocations();">
+                                        <span class="glyphicon glyphicon-save"></span> Save Locations
+                                    </button>
                                     <button type="button" id="ResetMarker" onclick="javascript: ResetPositionMarker();" class="btn btn-link preview-add-button">
                                         <span class="glyphicon glyphicon-remove"></span> Remove Markers
                                     </button>
@@ -170,11 +172,12 @@
         var j = i;
         var studentAddresses = [];
         var studentMarkers= [];
+        var bounds;
         var MarkersHM= new MyHashMap();
         $(document).ready(function () {
             schoolPosition = new google.maps.LatLng(@Model.School.SchoolLat,@Model.School.SchoolLong);
             var mapOptions = {
-                zoom: 13,
+                zoom: 14,
                 center: schoolPosition,
 
             };
@@ -185,6 +188,21 @@
                 map: editmap
             });
             google.maps.event.addListener(editmap, "click", function (event) { ChangeMarkerPositon(event)});
+            var input = document.getElementById('pac-input');
+            editmap.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+            var button=document.getElementById('pac-button');
+            editmap.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(button);
+
+            var searchBox = new google.maps.places.SearchBox(input);
+
+            google.maps.event.addListener(searchBox, 'places_changed', function() {
+                var places = searchBox.getPlaces();
+                var sbounds = new google.maps.LatLngBounds();
+                var position=places[0].geometry.location;
+                sbounds.extend(position);
+                editmap.fitBounds(sbounds);
+                editmap.setZoom(14);
+            });
 
         });
 
@@ -219,7 +237,7 @@
 
         function setSelectedMarker(marker)
         {
-           
+
             selectedmarker=marker;
             document.getElementById("SelectedMarkerIcon").src=marker.icon;
             var markerindex=MarkersHM.get(marker);
@@ -272,6 +290,20 @@
         function openFileBrowser() {
 
             $('#PhotoFileName').trigger('click');
+        }
+
+       function FitToLocations()
+        {
+           bounds =new google.maps.LatLngBounds();
+           bounds.extend(schoolPosition);
+           var t=0;
+           for(t=0;t<studentMarkers.length;++t)
+           {
+               bounds.extend(studentMarkers[t].getPosition());
+           }
+           editmap.fitBounds(bounds);
+           editmap.setZoom(14);
+
         }
 
 

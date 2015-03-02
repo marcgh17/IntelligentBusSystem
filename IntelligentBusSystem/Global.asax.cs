@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Spire.Barcode;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,6 +18,7 @@ namespace IntelligentBusSystem
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            BarcodeSettings.ApplyKey("N6VQYSTJSP3-8WU17-DOOMC-IU6HI");
 
         }
     }
