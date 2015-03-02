@@ -38,12 +38,18 @@ namespace IntelligentBusSystem
                     schoolLogo.SetAbsolutePosition(LogofieldPosition.position.Left, LogofieldPosition.position.Bottom);
                     pdfStamper.GetOverContent(1).AddImage(schoolLogo);
 
-                    iTextSharp.text.Image StudentPhoto = iTextSharp.text.Image.GetInstance(HttpContext.Current.Server.MapPath(student.StudentThumbPhoto));
+                    iTextSharp.text.Image StudentPhoto = iTextSharp.text.Image.GetInstance(HttpContext.Current.Server.MapPath(student.StudentPhoto));
                     StudentPhoto.ScaleAbsolute(StudentPhotofieldPosition.position.Width, StudentPhotofieldPosition.position.Height);
                     StudentPhoto.SetAbsolutePosition(StudentPhotofieldPosition.position.Left, StudentPhotofieldPosition.position.Bottom);
                     pdfStamper.GetOverContent(1).AddImage(StudentPhoto);
 
                    // to do barcode
+
+                    iTextSharp.text.Image StudentBarecodePhoto = iTextSharp.text.Image.GetInstance(HttpContext.Current.Server.MapPath("/img/Barcodes/"+id+".png"));
+                    StudentBarecodePhoto.ScaleAbsolute(BarCodefieldPosition.position.Width, BarCodefieldPosition.position.Height);
+                    StudentBarecodePhoto.SetAbsolutePosition(BarCodefieldPosition.position.Left, BarCodefieldPosition.position.Bottom);
+                    pdfStamper.GetOverContent(2).AddImage(StudentBarecodePhoto);
+
                     pdfStamper.FormFlattening = false;
                     pdfStamper.Writer.CloseStream = false;
                     pdfStamper.Close();
