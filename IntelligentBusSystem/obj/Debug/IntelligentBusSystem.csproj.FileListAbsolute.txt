@@ -218,3 +218,4 @@ C:\Users\TOSHIBA\Documents\GitHub\IntelligentBusSystem\IntelligentBusSystem\Inte
 C:\Users\TOSHIBA\Documents\GitHub\IntelligentBusSystem\IntelligentBusSystem\IntelligentBusSystem\obj\Debug\IntelligentBusSystem.dll
 C:\Users\TOSHIBA\Documents\GitHub\IntelligentBusSystem\IntelligentBusSystem\IntelligentBusSystem\obj\Debug\IntelligentBusSystem.pdb
 C:\Users\TOSHIBA\Documents\GitHub\IntelligentBusSystem\IntelligentBusSystem\IntelligentBusSystem\obj\Debug\IntelligentBusSystem.csprojResolveAssemblyReference.cache
+C:\Users\TOSHIBA\Documents\GitHub\IntelligentBusSystem\IntelligentBusSystem\IntelligentBusSystem\bin\Spire.Barcode.xml

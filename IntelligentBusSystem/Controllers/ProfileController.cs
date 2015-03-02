@@ -69,6 +69,8 @@ namespace IntelligentBusSystem.Controllers
                 {
                            using (var context = new SerializerContext())
                            {
+                               IDCardGenerator idc = new IDCardGenerator();
+                               idc.GetIDCard(student);
                     StudentProfileModel spm = new StudentProfileModel();
 
                     spm.Student = context.Students.Find(student);
