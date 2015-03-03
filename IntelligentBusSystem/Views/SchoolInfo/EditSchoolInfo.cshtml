@@ -18,6 +18,12 @@
                       
                     </div>
                     <h5>Right click on the map to select a new location.</h5>
+
+                    <center>
+                        <button type="button" id="ResetMarker" onclick="javascript: ResetPositionMarker();" class="btn btn-link preview-add-button">
+                            <span class="glyphicon glyphicon-refresh"></span> Reset Marker
+                        </button>
+                    </center>
                 </div>
 
                 <div class="col-md-4">
@@ -30,6 +36,9 @@
             School Name:<br />
             @Html.TextBoxFor(m => m.SchoolName, new { @class = "form-control" })<br />
             @Html.ValidationMessageFor(m => m.SchoolName)
+            Address:<br />
+            @Html.TextBoxFor(m => m.SchoolAddress, new { @class = "form-control" })<br />
+            @Html.ValidationMessageFor(m => m.SchoolAddress)
             Phone Number:<br />
             @Html.TextBoxFor(m => m.SchoolPhoneNumber, new { @class = "form-control" })<br />
             @Html.ValidationMessageFor(m => m.SchoolPhoneNumber)
@@ -39,9 +48,7 @@
             Selected Longitude:<br />
             @Html.TextBoxFor(m => m.SchoolLong, new { @class = "form-control" , @readonly="true", @id="EditLong"})<br />
             @Html.ValidationMessageFor(m => m.SchoolLong)
-            <button type="button" id="ResetMarker" onclick="javascript: ResetPositionMarker();" class="btn btn-link preview-add-button">
-                <span class="glyphicon glyphicon-refresh"></span> Reset Marker
-            </button>
+          
 
         </td>
     </tr>

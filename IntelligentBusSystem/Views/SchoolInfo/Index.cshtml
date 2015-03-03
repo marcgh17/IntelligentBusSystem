@@ -24,8 +24,9 @@
                 <h3>@Html.Action("Header", "SchoolInfo")</h3>
 
                 <address>
-                    <abbr title="Phone">Phone:</abbr> @Model.SchoolPhoneNumber
-
+                   @Model.SchoolAddress
+                    <br />
+                  @Model.SchoolPhoneNumber
                     <br />
                     <img src="@Model.SchoolPhoto" height="250" width="350" />
 
@@ -63,7 +64,7 @@
             var sPosition;
             var cPosition;
             var bounds ;
-            $(document).ready(function () {
+            $(window).load(function () {
                 var school = @Html.Raw(Json.Encode(Model))
                 sPosition =new google.maps.LatLng(school.SchoolLat, school.SchoolLong);
                 var mapOptions = {

@@ -56,6 +56,7 @@ namespace IntelligentBusSystem.Controllers
         {
             School s = context.Schools.ToList().First();
             s.SchoolName=model.SchoolName;
+            s.SchoolAddress = model.SchoolAddress;
             s.SchoolPhoneNumber =FormatToNumber(model.SchoolPhoneNumber);
             s.SchoolLat = model.SchoolLat;
             s.SchoolLong = model.SchoolLong;

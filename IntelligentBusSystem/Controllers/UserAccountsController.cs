@@ -131,7 +131,7 @@ namespace IntelligentBusSystem.Controllers
                using (var context = new IntelligentBusSystemEntities())
                 {
                     Student newStudent = new Student();
-                    SUser oldStudent = context.SUsers.Find(model.ID);
+                    Student oldStudent = context.Students.Find(model.ID);
                     if (oldStudent == null)
                     {
                         newStudent.StudentID = model.ID;

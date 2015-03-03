@@ -106,6 +106,7 @@
           <Property Name="SchoolPhoto" Type="text" />
           <Property Name="SchoolLogo" Type="text" />
           <Property Name="SchoolPhoneNumber" Type="text" />
+          <Property Name="SchoolAddress" Type="text" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -643,6 +644,7 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
           <Property Name="SchoolPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="SchoolLogo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="SchoolPhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SchoolAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -1115,6 +1117,7 @@ warning 6002: The table/view 'IntelligentBusSystem.dbo.WebAppMenu' does not have
                 <ScalarProperty Name="SchoolPhoto" ColumnName="SchoolPhoto" />
                 <ScalarProperty Name="SchoolLogo" ColumnName="SchoolLogo" />
                 <ScalarProperty Name="SchoolPhoneNumber" ColumnName="SchoolPhoneNumber" />
+                <ScalarProperty Name="SchoolAddress" ColumnName="SchoolAddress" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

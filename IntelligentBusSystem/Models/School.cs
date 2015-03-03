@@ -21,5 +21,6 @@ namespace IntelligentBusSystem.Models
         public string SchoolPhoto { get; set; }
         public string SchoolLogo { get; set; }
         public string SchoolPhoneNumber { get; set; }
+        public string SchoolAddress { get; set; }
     }
 }

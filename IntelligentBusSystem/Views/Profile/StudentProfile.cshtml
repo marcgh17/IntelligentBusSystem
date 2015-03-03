@@ -121,7 +121,7 @@
             var currentPositionMarker;
             var bounds;
             var markersCount;
-            $(document).ready(function () {
+            $(window).load(function () {
 
 
                 var json =@Html.Raw(JsonConvert.SerializeObject(Model, new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects }))

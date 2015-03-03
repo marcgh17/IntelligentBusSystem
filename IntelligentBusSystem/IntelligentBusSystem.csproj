@@ -236,6 +236,7 @@
     <Compile Include="Models\Student.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StudentAccountsViewModels.cs" />
     <Compile Include="Models\StudentDailyTrip.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -251,7 +252,6 @@
     <Compile Include="Models\TripCategory.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\StudentAccountsViewModels.cs" />
     <Compile Include="Models\UserAccountsViewModels.cs" />
     <Compile Include="Models\WebAppMenu.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -297,6 +297,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\font-awesome.less" />
+    <Content Include="PdfIDCards\IDCardPDF.pdf" />
     <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -314,7 +315,6 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
-    <Content Include="PdfIDCards\IDCardPDF.pdf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

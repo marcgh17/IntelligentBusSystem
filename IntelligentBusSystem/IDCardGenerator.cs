@@ -32,7 +32,7 @@ namespace IntelligentBusSystem
                     pdfFormFields.SetField("IDTextField", id);
                     pdfFormFields.SetField("SchoolNameTextField", school.SchoolName);
                     pdfFormFields.SetField("YearTextField", "2014-2015");
-                    pdfFormFields.SetField("SchoolAddressField", "Latitude:" + school.SchoolLat + ", Longitude: " + school.SchoolLong);
+                    pdfFormFields.SetField("SchoolAddressField",school.SchoolAddress + "\n"+ String.Format("{0:(+###) ##-######}", Convert.ToInt64(school.SchoolPhoneNumber)));
                     iTextSharp.text.Image schoolLogo = iTextSharp.text.Image.GetInstance(HttpContext.Current.Server.MapPath(school.SchoolLogo));
                     schoolLogo.ScaleAbsolute(LogofieldPosition.position.Width, LogofieldPosition.position.Height);
                     schoolLogo.SetAbsolutePosition(LogofieldPosition.position.Left, LogofieldPosition.position.Bottom);
@@ -51,7 +51,7 @@ namespace IntelligentBusSystem
                     pdfStamper.GetOverContent(2).AddImage(StudentBarecodePhoto);
 
                     pdfStamper.FormFlattening = false;
-                    pdfStamper.Writer.CloseStream = false;
+                    pdfStamper.Writer.CloseStream = true;
                     pdfStamper.Close();
                     pdfReader.Close();
 
