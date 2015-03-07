@@ -63,10 +63,14 @@
             var currentPositionMarker;
             var sPosition;
             var cPosition;
-            var bounds ;
-            $(window).load(function () {
-                var school = @Html.Raw(Json.Encode(Model))
-                sPosition =new google.maps.LatLng(school.SchoolLat, school.SchoolLong);
+            var bounds;
+            var school;
+            $(document).ready(function () {
+                school = @Html.Raw(Json.Encode(Model))
+                    google.maps.event.addDomListener(window, 'load', initialize);
+            });
+            function initialize() {
+                sPosition = new google.maps.LatLng(school.SchoolLat, school.SchoolLong);
                 var mapOptions = {
                     zoom: 14,
                     center: sPosition,
@@ -74,27 +78,29 @@
                 };
                 map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
-                schoolMarker=new google.maps.Marker({
+                schoolMarker = new google.maps.Marker({
                     position: sPosition,
                     map: map,
                     title: school.SchoolName,
-                icon:'/Images/MapIcons/Loc0.png'});
+                    icon: '/Images/MapIcons/Loc0.png'
+                });
                 navigator.geolocation.getCurrentPosition(getPosition);
 
-                function getPosition(position) {
-                    cPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                    currentPositionMarker = new google.maps.Marker({
-                        position: cPosition,
-                        map: map,
-                        title: "You are here!"
-                    });
-                    bounds = new google.maps.LatLngBounds ();
-                    bounds.extend (cPosition);
-                    bounds.extend (sPosition);
-                    map.fitBounds (bounds);
+               
+            }
+            function getPosition(position) {
+                cPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                currentPositionMarker = new google.maps.Marker({
+                    position: cPosition,
+                    map: map,
+                    title: "You are here!"
+                });
+                bounds = new google.maps.LatLngBounds();
+                bounds.extend(cPosition);
+                bounds.extend(sPosition);
+                map.fitBounds(bounds);
 
-                }
-            });
+            }
            
      
         </script>

@@ -267,6 +267,7 @@
   <ItemGroup>
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap-switch.css" />
+    <Content Include="Content\bootstrap-switch.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\default.css" />
@@ -326,7 +327,7 @@
     <Content Include="Images\Users\thumb_Hoda28762b83-61dc-4b5d-91f7-c1f82121c661IMG-20140901-WA0008.jpg" />
     <Content Include="Images\Users\thumb_Marcf73d8ed5-061b-4e58-8c46-d4e0ea9ec95fMarc.png" />
     <Content Include="Images\Users\thumb_nophoto.png" />
-    <Content Include="Scripts\bootstrap-switch.js" />
+    <Content Include="Scripts\bootstrap-switch.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\font-awesome.less" />

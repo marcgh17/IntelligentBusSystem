@@ -164,6 +164,9 @@
         var MarkersHM= new MyHashMap();
         $(document).ready(function () {
             schoolPosition = new google.maps.LatLng(@Model.School.SchoolLat,@Model.School.SchoolLong);
+            google.maps.event.addDomListener(window, 'load', initialize);
+        });
+        function initialize() {
             var mapOptions = {
                 zoom: 14,
                 center: schoolPosition,
@@ -192,8 +195,7 @@
                 editmap.setZoom(14);
             });
 
-        });
-
+        }
         function ChangeMarkerPositon(event)
         {
             selectedmarker.setPosition(new google.maps.LatLng(event.latLng.lat().toFixed(6),event.latLng.lng().toFixed(6)));

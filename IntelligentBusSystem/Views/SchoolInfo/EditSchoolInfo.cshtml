@@ -84,11 +84,12 @@
             var neweditsPosition;
             var cPosition;
             var bounds ;
-            var school;
+            var eschool;
             $(document).ready(function () {
-               school = @Html.Raw(Json.Encode(Model));
+                eschool = @Html.Raw(Json.Encode(Model));
                
-                editsPosition =new google.maps.LatLng(school.SchoolLat, school.SchoolLong);
+
+                editsPosition =new google.maps.LatLng(eschool.SchoolLat, eschool.SchoolLong);
                 var mapOptions = {
                     zoom: 13,
                     center: editsPosition,
@@ -99,7 +100,7 @@
                 oldschoolMarker=new google.maps.Marker({
                     position: editsPosition,
                     map: editmap,
-                    title: school.SchoolName});
+                    title: eschool.SchoolName});
                 google.maps.event.addListener(editmap, "rightclick", function(event) {
                     var lat = event.latLng.lat().toFixed(6);
                     var long = event.latLng.lng().toFixed(6);
@@ -110,7 +111,7 @@
                     oldschoolMarker=new google.maps.Marker({
                         position: neweditsPosition,
                         map: editmap,
-                        title: school.SchoolName});
+                        title: eschool.SchoolName});
 
                 });
              
@@ -125,7 +126,7 @@
             oldschoolMarker=new google.maps.Marker({
                 position: editsPosition,
                 map: editmap,
-                title: school.SchoolName});
+                title: eschool.SchoolName});
         }
 
 

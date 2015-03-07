@@ -57,28 +57,32 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places,weather"></script>
     <script type="text/javascript">
-            var map;
+        var map
+        var sPosition;
 
-            $(window).ready(function () {
+            $(document).ready(function () {
 
 
             
 
-                sPosition = new google.maps.LatLng(@Model.DriverLat, @Model.DriverLong);
-                var mapOptions = {
-                    zoom: 13,
-                    center: sPosition
-                };
-
-                map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-
-               var drivermarker= new google.maps.Marker({
-                    position: sPosition,
-                    map: map,
-                    title: "Driver Home",
-                    icon: '/Images/MapIcons/Loc0.png'
-                });
-
+                sPosition = new google.maps.LatLng(@Model.DriverLat, @Model.DriverLong);      
+                google.maps.event.addDomListener(window, 'load', initialize);
             });
+        function initialize() {
+            var mapOptions = {
+                zoom: 13,
+                center: sPosition
+            };
+
+            map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+            var drivermarker= new google.maps.Marker({
+                position: sPosition,
+                map: map,
+                title: "Driver Home",
+                icon: '/Images/MapIcons/Loc0.png'
+            });
+        }
+           
     </script>
 }
