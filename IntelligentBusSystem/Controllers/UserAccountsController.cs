@@ -61,8 +61,8 @@ namespace IntelligentBusSystem.Controllers
                         newuser.SUserRole = model.Role;
                         if (uploadFile != null)
                         {
-                            string databasePath = "/img/Users/" + model.FirstName+  Guid.NewGuid()+ Path.GetFileName(uploadFile.FileName);
-                            string databasePathThumb = "/img/Users/thumb_" + model.FirstName + Guid.NewGuid() + Path.GetFileName(uploadFile.FileName);
+                            string databasePath = "/Images/Users/" + model.FirstName+  Guid.NewGuid()+ Path.GetFileName(uploadFile.FileName);
+                            string databasePathThumb = "/Images/Users/thumb_" + model.FirstName + Guid.NewGuid() + Path.GetFileName(uploadFile.FileName);
 
                             string filePath = HttpContext.Server.MapPath(databasePath);
                             uploadFile.SaveAs(filePath);
@@ -72,7 +72,7 @@ namespace IntelligentBusSystem.Controllers
                                
                                 int width = 100;
                                 int height = 100;
-                                System.Drawing.Image.GetThumbnailImageAbort thumbnailImageAbortDelegate = new System.Drawing.Image.GetThumbnailImageAbort(ThumbnailCallback);
+                                System.Drawing.Image.GetThumbnailImageAbort thumbnailImageAbortDelegate = new System.Drawing.Image.GetThumbnailImageAbort(Class.ThumbnaiHelper.ThumbnailCallback);
                                 System.Drawing.Image thumbnail = originalImage.GetThumbnailImage(width, height, thumbnailImageAbortDelegate, IntPtr.Zero);
                                 thumbnail.Save(Server.MapPath(databasePathThumb));
                                 newuser.SUserThumbPhoto = databasePathThumb;
@@ -82,8 +82,8 @@ namespace IntelligentBusSystem.Controllers
                         }
                         else
                         {
-                            string databasePath = "/img/Users/nophoto.png";
-                            string databasePathThumb = "/img/Users/thumb_nophoto.png";
+                            string databasePath = "/Images/Users/nophoto.png";
+                            string databasePathThumb = "/Images/Users/thumb_nophoto.png";
                             newuser.SUserPhoto = databasePath;
                             newuser.SUserThumbPhoto = databasePathThumb;
 
@@ -107,105 +107,35 @@ namespace IntelligentBusSystem.Controllers
 
             return View(model);
         }
-        //Open add Student form
-        public ActionResult AddStudent()
+
+        // GET: /Profile/
+        public ActionResult Profile(string user = "")
         {
-            if (checkIfAdmin(User.Identity.Name))
+            using (var context = new IntelligentBusSystemEntities())
             {
-                using (var context = new IntelligentBusSystemEntities())
+                //Requesting Personal Profile
+                if (user == "")
                 {
-                    
-                    AddStudentViewModel vm = new AddStudentViewModel();
-                    vm.AllClasses = context.Classes.ToList();
-                    vm.School = context.Schools.First();
-                    return View(vm);
+                    var u = context.SUsers.Find(User.Identity.Name);
+                    return View((SUser)u);
+                }
+
+                    //Requesting Specific Profile
+                else
+                {
+                    var u = context.SUsers.Find(user);
+                    if (u != null) return View((SUser)u);
+                    else return Redirect("/");
                 }
             }
-            else return Redirect("/");
-
         }
+       
 
-           [HttpPost]
-        public ActionResult AddStudent(AddStudentViewModel model, HttpPostedFileBase uploadFile)
-        {
-               using (var context = new IntelligentBusSystemEntities())
-                {
-                    Student newStudent = new Student();
-                    Student oldStudent = context.Students.Find(model.ID);
-                    if (oldStudent == null)
-                    {
-                        newStudent.StudentID = model.ID;
-                        newStudent.StudentFirstName=model.FirstName;
-                        newStudent.StudentLastName=model.LastName;
-                        newStudent.StudentGender=model.Gender;
-                        newStudent.StudentBirthdate=Convert.ToDateTime(model.Birthdate);
-                        newStudent.ClassID=model.StudentClassID;
-                        newStudent.Addresses=FixAddresses(model.StudentAddresses,model.ID);
-                     
-                        if (uploadFile != null)
-                        {
-                            string databasePath = "/img/Students/" + model.ID+  Guid.NewGuid()+ Path.GetFileName(uploadFile.FileName);
-                            string databasePathThumb = "/img/Students/thumb_" + model.FirstName + Guid.NewGuid() + Path.GetFileName(uploadFile.FileName);
+           //Open add Parent form
+          
+          
 
-                            string filePath = HttpContext.Server.MapPath(databasePath);
-                            uploadFile.SaveAs(filePath);
-                            newStudent.StudentPhoto = databasePath;
-                            using (Bitmap originalImage = new Bitmap(filePath))
-                            {
-                               
-                                int width = 100;
-                                int height = 100;
-                                System.Drawing.Image.GetThumbnailImageAbort thumbnailImageAbortDelegate = new System.Drawing.Image.GetThumbnailImageAbort(ThumbnailCallback);
-                                System.Drawing.Image thumbnail = originalImage.GetThumbnailImage(width, height, thumbnailImageAbortDelegate, IntPtr.Zero);
-                                thumbnail.Save(Server.MapPath(databasePathThumb));
-                                newStudent.StudentThumbPhoto = databasePathThumb;
-
-                            }
-
-                        }
-                        else
-                        {
-                            string databasePath = "/img/Students/nophoto.png";
-                            string databasePathThumb = "/img/Students/thumb_nophoto.png";
-                            newStudent.StudentPhoto = databasePath;
-                             newStudent.StudentThumbPhoto = databasePathThumb;
-
-                        }
-                       context.Students.Add(newStudent);
-                        context.SaveChanges();
-                        //UserAdded
-                        BarcodeImageGenerator ig = new BarcodeImageGenerator();
-                        ig.GenerateBarcodeImage(newStudent.StudentID, "Code128");
-                        //Generate Card
-                        IDCardGenerator icg = new IDCardGenerator();
-                        icg.GetIDCard(newStudent.StudentID);
-                        return RedirectToAction("StudentProfile","Profile", new { student = newStudent.StudentID});
-
-                    }
-
-                    else
-                    {
-                        ModelState.AddModelError("", "ID already exists!");
-                    }
-
-                }
-            
-
-
-            return View(model);
-        }
-
-         public List<Address> FixAddresses(string addresses,string sid)
-         {
-             if (addresses == null) return null;
-                 System.Web.Script.Serialization.JavaScriptSerializer json_serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-                 List<Address> saddresses = JsonConvert.DeserializeObject<List<Address>>(addresses);
-                 foreach( Address add in saddresses)
-                 {
-                     add.StudentID = sid;
-                 }
-                 return saddresses;
-         }
+         
         public ActionResult DisplayAllUsersGrid()
         {
            using (var context = new IntelligentBusSystemEntities())
@@ -213,10 +143,7 @@ namespace IntelligentBusSystem.Controllers
                return PartialView("UsersGrid", context.SUsers.ToList());
            }
         }
-        public bool ThumbnailCallback() //for resize
-        {
-            return false;
-        }
+   
 
      
         }

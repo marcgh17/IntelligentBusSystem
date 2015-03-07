@@ -1,6 +1,6 @@
 ﻿@model IntelligentBusSystem.Models.Student
 @{
-    ViewBag.Title = "StudentProfile";
+    ViewBag.Title = "Student Profile";
 }
 @using Newtonsoft.Json
 <div class="resume">
@@ -60,23 +60,15 @@
 <div style="margin-left:10px; margin-right:10px">
 <table border=0" class="table table-striped table-bordered table-hover">
     <thead>
-        <tr>
+        <tr>@{
+            foreach( var sub in Model.Subscriptions)
+            {
+                  <th> <h5>@sub.Schedule.ScheduleDescription</h5></th>
+            }
+        }
 
-            <th> <h5>Monday Morning </h5></th>
-            <th> <h5>Monday Evening </h5></th>
-            <th> <h5>Tuesday Morning </h5></th>
-            <th> <h5>Tuesday Evening </h5></th>
-            <th> <h5>Wednesday Morning </h5></th>
-            <th> <h5>Wednesday Evening </h5></th>
-            <th> <h5>Thursday Morning </h5></th>
-            <th> <h5>Thursday Evening </h5></th>
-            <th> <h5>Friday Morning </h5></th>
-            <th> <h5>Friday Evening </h5></th>
-            <th> <h5>Saturday Morning </h5></th>
-            <th> <h5>Saturday Evening </h5></th>
-            <th> <h5>Sunday Morning </h5></th>
-            <th> <h5>Sunday Evening </h5></th>
 
+          
 
 
         </tr>
@@ -89,7 +81,7 @@
                 <td>
                     @if (subs.SubscriptionYN == "N")
                     {
-                        <img src="/img/icons/RedX.png" width="25" height="25" />
+                        <img src="/Images/icons/RedX.png" width="25" height="25" />
                     }
                     @if (subs.SubscriptionYN == "Y")
                     {
@@ -98,7 +90,7 @@
                             if (subs.AddressID == Model.Addresses.ElementAt(i).AddressID)
                             {
                                 int j = i % 7;
-                                var imgsrc = "/img/MapIcons/Loc" + j + ".png";
+                                var imgsrc = "/Images/MapIcons/Loc" + j + ".png";
                                 <img src="@imgsrc" width="25" height="25" />
                             }
                         }
@@ -110,6 +102,17 @@
 
     </tbody>
     </table>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#EditSubscriptionsModal">
+        Edit Subscriptions
+
+    </button>
+    <div class="modal fade" id="EditSubscriptionsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                @Html.Partial("EditSubscriptions", Model)
+            </div>
+        </div>
+    </div>
     </div>
     @section scripts{
 
@@ -151,7 +154,7 @@
                     position: mPosition,
                     map: map,
                     title: desc,
-                    icon: '/img/MapIcons/Loc' + j + '.png'
+                    icon: '/Images/MapIcons/Loc' + j + '.png'
                 });
                 var contentString = '<div id="content"><b><i>'+
                    desc+

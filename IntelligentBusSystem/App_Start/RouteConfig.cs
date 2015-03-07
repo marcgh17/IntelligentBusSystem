@@ -16,7 +16,7 @@ namespace IntelligentBusSystem
             routes.MapRoute(
                 name: "Default",//controller name
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Profile", action = "Profile", id = UrlParameter.Optional }
+                defaults: new { controller = "UserAccounts", action = "Profile", id = UrlParameter.Optional }
             );
         }
     }

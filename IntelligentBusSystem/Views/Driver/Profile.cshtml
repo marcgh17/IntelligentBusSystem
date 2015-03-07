@@ -1,0 +1,84 @@
+﻿@model IntelligentBusSystem.Models.Driver
+@{
+    ViewBag.Title = "Driver Profile";
+}
+
+
+<div class="resume">
+    <header class="page-header">
+        <h2 class="page-title"><span class="label label-info">@Model.DriverFirstName @Model.DriverLastName's profile</span></h2>
+        <h3 class="page-title"><span class="label label-warning">Driver</span></h3>
+    </header>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default" style="margin-left:10px">
+                <div class="panel-heading resume-heading">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <figure>
+                                    <img src="@Model.DriverThumbPhoto" alt="@Model.DriverID" class="img-thumbnail img-circle" style=" width:200px;height:200px">
+                                   </figure>
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <label class="uMyLabel">ID: </label><label class="mylabel">@Model.DriverID</label>
+                                    </li>
+                                    <li class="list-group-item"><label class="uMyLabel">First name: </label><label class="mylabel">@Model.DriverFirstName</label></li>
+                                    <li class="list-group-item">
+                                        <label class="uMyLabel">Last name: </label><label class="mylabel">@Model.DriverLastName</label>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <label class="uMyLabel">Driver Home: </label><img width="25" height="25" src="/Images/MapIcons/Loc0.png" />
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default" style=" margin-right:10px">
+                <div class="panel-heading resume-heading">
+                    <div id="map-canvas" style="height:200px"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places,weather"></script>
+    <script type="text/javascript">
+            var map;
+
+            $(window).ready(function () {
+
+
+            
+
+                sPosition = new google.maps.LatLng(@Model.DriverLat, @Model.DriverLong);
+                var mapOptions = {
+                    zoom: 13,
+                    center: sPosition
+                };
+
+                map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+               var drivermarker= new google.maps.Marker({
+                    position: sPosition,
+                    map: map,
+                    title: "Driver Home",
+                    icon: '/Images/MapIcons/Loc0.png'
+                });
+
+            });
+    </script>
+}

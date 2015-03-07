@@ -20,5 +20,13 @@ namespace IntelligentBusSystem.Controllers
             }
             
         }
+
+        [HttpPost]
+        public string GetRemainingTrip(string BusId)
+
+        {
+
+            return "1";
+        }
 	}
 }

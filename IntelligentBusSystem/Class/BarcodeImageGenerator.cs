@@ -18,7 +18,7 @@ namespace IntelligentBusSystem
            b.Data2D = id;
            b.ShowText = false;
            System.Drawing.Image g = b.GenerateImage();
-           g.Save(HttpContext.Current.Server.MapPath("/img/Barcodes/"+id+".png"), ImageFormat.Png);
+           g.Save(HttpContext.Current.Server.MapPath("/Images/Barcodes/"+id+".png"), ImageFormat.Png);
         }
     }
 }

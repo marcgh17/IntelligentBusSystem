@@ -1,0 +1,239 @@
+﻿@model IntelligentBusSystem.Models.AddParentViewModel
+@{
+    ViewBag.Title = "AddParent";
+}
+@using System.Collections;
+@using Newtonsoft.Json
+<div class="container">
+    @using (Html.BeginForm("AddParent", "Parent", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="col-sm-12">
+                <header class="page-header">
+                    <h2 class="page-title"><span class="label label-info">Add parent</span></h2>
+                    <h3 class="page-title"><span class="label label-warning">Assign parent to student(s)</span></h3>
+                </header>
+                <div class="panel panel-default">
+                    <div class="panel-body form-horizontal">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+
+                                <label class="col-sm-4 control-label mylabel">Username</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", autocomplete = "off" })
+                                    @Html.ValidationMessageFor(m => m.Username)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label mylabel">Password</label>
+                                <div class="col-sm-8">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", autocomplete = "off" })
+                                    @Html.ValidationMessageFor(m => m.Password)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label mylabel">Confirm Password</label>
+                                <div class="col-sm-8">
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", autocomplete = "off" })
+                                    @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label mylabel">First name</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label mylabel">Last name</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label mylabel">Phone number</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="dual-list list-left col-md-3">
+                <div class="well text-right">
+                    <div class="row">
+                        <div class="col-md-10" style="padding-right:0px">
+                            <div class="input-group">
+                                <span class="input-group-addon glyphicon glyphicon-search"></span>
+                                <input type="text" name="SearchDualList" class="form-control" placeholder="search" />
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="padding-left:0px">
+                            <div class="btn-group">
+                                <a class="btn btn-default selector" title="select all"><i class="glyphicon glyphicon-unchecked"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="list-group">
+                        @foreach (var el in Model.AllClasses)
+                        {
+                            <li class="list-group-item" id="@el.ClassID">@el.ClassName</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div class="list-arrows col-md-1 text-center">
+                <button class="btn btn-default btn-sm move-left" type="button">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </button>
+
+                <button class="btn btn-default btn-sm move-right" type="button">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </button>
+            </div>
+
+            <div class="dual-list list-right col-md-3">
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="btn-group">
+                                <a class="btn btn-default selector" title="select all"><i class="glyphicon glyphicon-unchecked"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="input-group">
+                                <input type="text" name="SearchDualList" class="form-control" placeholder="search" />
+                                <span class="input-group-addon glyphicon glyphicon-search"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="list-group" id="ChoosenClasses"></ul>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <button type="button" id="AddStudents" onclick="javascript: AddStudent()" class="btn btn-link preview-add-button col-sm-12">
+                    <span class="glyphicon glyphicon-plus-sign"></span> Add Student(s)
+                </button>
+                <div class="dual-list mylist col-md-12">
+                    <div class="well">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="btn-group">
+                                    <a class="btn btn-default selector" title="select all"><i class="glyphicon glyphicon-unchecked"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="input-group">
+                                    <input type="text" name="SearchDualList" class="form-control" placeholder="search" />
+                                    <span class="input-group-addon glyphicon glyphicon-search"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="list-group" id="specificStudents"></ul>
+                    </div>
+                    <button type="button" id="selectstudents" onclick="javascript: selectstudent()" class="btn btn-primary preview-add-button col-sm-5">
+                        <span class="glyphicon glyphicon-check"></span> Select Student(s)
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <button type="submit" id="AddParentBtn" class="btn btn-info preview-add-button">
+            <span class="glyphicon glyphicon-plus"></span> Add
+        </button>
+        <div style="visibility:hidden">@Html.TextBoxFor(m => m.allstudents, new { @class = "form-control", @id = "selectedstudents" })</div>
+
+    }
+</div>
+@section scripts{
+    <script type="text/javascript">
+    var allstudents ;
+   function AddStudent() {
+       var a = document.getElementById('ChoosenClasses').getElementsByTagName("li"); // get all children within container
+       var list=[];
+       for (var i = 0; i<a.length; i++){ // loop over the elements
+         //  console.log(a[i].id);  //  get the ids
+           list.push(a[i].id);
+       }
+       alert(list);
+        var allstudents=[];
+        var txt="";
+        $.ajax({
+            url: '@Url.Action("GetStudents", "Student")',
+            type: "POST",
+            async: true,
+            contentType: "application/json",
+            data: JSON.stringify(list),
+            success: function (Result) {
+                allstudents = JSON.parse(Result);
+                for(i=0;i<allstudents.length;++i)
+                {
+                    txt=txt+"<li class='list-group-item' id="+allstudents[i][0]+">"+ allstudents[i][1] +" "+allstudents[i][2]+"</li>";
+                }
+                document.getElementById('specificStudents').innerHTML=txt;
+            }
+        });
+
+   }
+    function selectstudent() {
+        var msg = "[";
+        actives = $('.mylist ul li.active');
+        for (i = 0; i < actives.length; ++i) {
+           msg=msg+ actives[i].id
+        }
+        msg = msg + "]";
+        $('#selectedstudents').val(msg);
+        alert(msg);
+        alert("Selection successful");
+    }
+    $(function () {
+
+        $('body').on('click', '.list-group .list-group-item', function () {
+            $(this).toggleClass('active');
+        });
+        $('.list-arrows button').click(function () {
+            var $button = $(this), actives = '';
+            if ($button.hasClass('move-left')) {
+                actives = $('.list-right ul li.active');
+                actives.clone().appendTo('.list-left ul');
+                actives.remove();
+            } else if ($button.hasClass('move-right')) {
+                actives = $('.list-left ul li.active');
+                actives.clone().appendTo('.list-right ul');
+                actives.remove();
+            }
+        });
+        $('.dual-list .selector').click(function () {
+            var $checkBox = $(this);
+            if (!$checkBox.hasClass('selected')) {
+                $checkBox.addClass('selected').closest('.well').find('ul li:not(.active)').addClass('active');
+                $checkBox.children('i').removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+            } else {
+                $checkBox.removeClass('selected').closest('.well').find('ul li.active').removeClass('active');
+                $checkBox.children('i').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+            }
+        });
+        $('[name="SearchDualList"]').keyup(function (e) {
+            var code = e.keyCode || e.which;
+            if (code == '9') return;
+            if (code == '27') $(this).val(null);
+            var $rows = $(this).closest('.dual-list').find('.list-group li');
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+            $rows.show().filter(function () {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                return !~text.indexOf(val);
+            }).hide();
+        });
+
+    });
+    </script>
+}

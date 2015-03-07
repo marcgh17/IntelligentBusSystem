@@ -176,19 +176,24 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="BarcodeImageGenerator.cs" />
+    <Compile Include="Class\BarcodeImageGenerator.cs" />
+    <Compile Include="Class\ThumbnaiHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BusController.cs" />
+    <Compile Include="Controllers\DriverController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
-    <Compile Include="Controllers\ProfileController.cs" />
-    <Compile Include="Controllers\SchoolInfoController.cs" />
+    <Compile Include="Controllers\ParentController.cs" />
+    <Compile Include="Controllers\SchoolInfoController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\UserAccountsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="IDCardGenerator.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Class\IDCardGenerator.cs" />
+    <Compile Include="Models\ParentsViewModels.cs" />
     <Compile Include="Models\Address.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -223,7 +228,6 @@
     <Compile Include="Models\Parent.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProfileViewModels.cs" />
     <Compile Include="Models\Schedule.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -236,13 +240,13 @@
     <Compile Include="Models\Student.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\StudentAccountsViewModels.cs" />
     <Compile Include="Models\StudentDailyTrip.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StudentScheduledTrip.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StudentsViewModels.cs" />
     <Compile Include="Models\Subscription.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -257,11 +261,12 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SerializerContext.cs" />
+    <Compile Include="Class\SerializerContext.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\animate.css" />
+    <Content Include="Content\bootstrap-switch.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\default.css" />
@@ -269,35 +274,63 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="img\bg1.jpg" />
-    <Content Include="img\icons\button-icons.png" />
-    <Content Include="img\icons\grid-menu-icons.png" />
-    <Content Include="img\icons\menu-icons.png" />
-    <Content Include="img\icons\menu-icons2.png" />
-    <Content Include="img\icons\search.png" />
-    <Content Include="img\icons\search2.png" />
-    <Content Include="img\icons\service-icon-1.png" />
-    <Content Include="img\icons\service-icon-2.png" />
-    <Content Include="img\icons\service-icon-3.png" />
-    <Content Include="img\icons\service-icon-4.png" />
-    <Content Include="img\icons\social-icons2.png" />
-    <Content Include="img\icons\weather-icons.png" />
-    <Content Include="img\icons\weather-main.png" />
-    <Content Include="img\loader.gif" />
-    <Content Include="img\school\NDL_Logo.png" />
-    <Content Include="img\school\NDL_Photo.png" />
-    <Content Include="img\spinner.gif" />
-    <Content Include="img\Users\a70e43c87-e78f-4a03-a883-aaf8b9abd146Screenshot_2013-05-24-22-05-47.png" />
-    <Content Include="img\Users\addd722fc-f6ce-49a6-ade2-0b0c22a7e549Screenshot_2013-05-24-22-05-47.png" />
-    <Content Include="img\Users\nophoto.png" />
-    <Content Include="img\Users\Screenshot_2013-03-14-20-15-06.png" />
-    <Content Include="img\Users\Screenshot_2013-05-19-22-42-44.png" />
+    <Content Include="Images\Barcodes\110597.png" />
+    <Content Include="Images\Barcodes\111222.png" />
+    <Content Include="Images\Barcodes\111243.png" />
+    <Content Include="Images\Barcodes\111347.png" />
+    <Content Include="Images\Barcodes\111356.png" />
+    <Content Include="Images\Barcodes\123221.png" />
+    <Content Include="Images\Barcodes\131356.png" />
+    <Content Include="Images\bg1.jpg" />
+    <Content Include="Images\icons\button-icons.png" />
+    <Content Include="Images\icons\grid-menu-icons.png" />
+    <Content Include="Images\icons\menu-icons.png" />
+    <Content Include="Images\icons\menu-icons2.png" />
+    <Content Include="Images\icons\RedX.png" />
+    <Content Include="Images\icons\search.png" />
+    <Content Include="Images\icons\search2.png" />
+    <Content Include="Images\icons\service-icon-1.png" />
+    <Content Include="Images\icons\service-icon-2.png" />
+    <Content Include="Images\icons\service-icon-3.png" />
+    <Content Include="Images\icons\service-icon-4.png" />
+    <Content Include="Images\icons\social-icons2.png" />
+    <Content Include="Images\icons\weather-icons.png" />
+    <Content Include="Images\icons\weather-main.png" />
+    <Content Include="Images\loader.gif" />
+    <Content Include="Images\MapIcons\Loc0.png" />
+    <Content Include="Images\MapIcons\Loc1.png" />
+    <Content Include="Images\MapIcons\Loc2.png" />
+    <Content Include="Images\MapIcons\Loc3.png" />
+    <Content Include="Images\MapIcons\Loc4.png" />
+    <Content Include="Images\MapIcons\Loc5.png" />
+    <Content Include="Images\MapIcons\Loc6.png" />
+    <Content Include="Images\school\48.jpg" />
+    <Content Include="Images\school\NDL_Logo.png" />
+    <Content Include="Images\school\NDL_Photo.png" />
+    <Content Include="Images\school\USJ_Logo.png" />
+    <Content Include="Images\school\USJ_Photo.png" />
+    <Content Include="Images\spinner.gif" />
+    <Content Include="Images\Students\111243f3f4543c-513d-492b-ba64-cceedc86220371-photo-passeport-enfant-garcon.jpg" />
+    <Content Include="Images\Students\nophoto.png" />
+    <Content Include="Images\Students\thumb_Jean18a62e60-497f-49ef-8a69-a0cdcaa1e95071-photo-passeport-enfant-garcon.jpg" />
+    <Content Include="Images\Students\thumb_nophoto.png" />
+    <Content Include="Images\Users\a70e43c87-e78f-4a03-a883-aaf8b9abd146Screenshot_2013-05-24-22-05-47.png" />
+    <Content Include="Images\Users\addd722fc-f6ce-49a6-ade2-0b0c22a7e549Screenshot_2013-05-24-22-05-47.png" />
+    <Content Include="Images\Users\Hodaa56b89d4-f2b0-48b3-8285-32f4b1655648IMG-20140901-WA0008.jpg" />
+    <Content Include="Images\Users\Marccb18f9d2-48e6-4108-a023-85febb63e71fMarc.png" />
+    <Content Include="Images\Users\nophoto.png" />
+    <Content Include="Images\Users\Screenshot_2013-03-14-20-15-06.png" />
+    <Content Include="Images\Users\Screenshot_2013-05-19-22-42-44.png" />
+    <Content Include="Images\Users\thumb_Hoda28762b83-61dc-4b5d-91f7-c1f82121c661IMG-20140901-WA0008.jpg" />
+    <Content Include="Images\Users\thumb_Marcf73d8ed5-061b-4e58-8c46-d4e0ea9ec95fMarc.png" />
+    <Content Include="Images\Users\thumb_nophoto.png" />
+    <Content Include="Scripts\bootstrap-switch.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\font-awesome.less" />
-    <Content Include="PdfIDCards\IDCardPDF.pdf" />
+    <Content Include="Documents\PdfIDCards\IDCardPDF.pdf" />
     <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -346,25 +379,28 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Profile\Profile.cshtml" />
+    <Content Include="Views\UserAccounts\Profile.cshtml" />
     <Content Include="Views\UserAccounts\AddUser.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\UserAccounts\UsersGrid.cshtml" />
     <Content Include="Views\SchoolInfo\Index.cshtml" />
     <Content Include="Views\SchoolInfo\SchoolHeader.cshtml" />
     <Content Include="Views\SchoolInfo\EditSchoolInfo.cshtml" />
-    <Content Include="Views\Profile\DriverProfile.cshtml" />
-    <Content Include="Views\Profile\StudentProfile.cshtml" />
+    <Content Include="Views\Driver\Profile.cshtml" />
+    <Content Include="Views\Student\Profile.cshtml" />
     <Content Include="Views\Bus\MonitorBuses.cshtml" />
-    <Content Include="Views\UserAccounts\AddStudent.cshtml" />
+    <Content Include="Views\Student\AddStudent.cshtml" />
+    <Content Include="Views\Student\EditSubscriptions.cshtml" />
+    <Content Include="Views\Parent\AddParent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\Drivers\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>

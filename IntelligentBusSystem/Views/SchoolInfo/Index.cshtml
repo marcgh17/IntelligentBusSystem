@@ -77,7 +77,8 @@
                 schoolMarker=new google.maps.Marker({
                     position: sPosition,
                     map: map,
-                    title: school.SchoolName});
+                    title: school.SchoolName,
+                icon:'/Images/MapIcons/Loc0.png'});
                 navigator.geolocation.getCurrentPosition(getPosition);
 
                 function getPosition(position) {

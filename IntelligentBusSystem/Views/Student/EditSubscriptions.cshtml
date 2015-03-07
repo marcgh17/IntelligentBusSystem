@@ -1,0 +1,154 @@
+﻿@model IntelligentBusSystem.Models.Student
+@using Newtonsoft.Json
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit Subscriptions</h4>
+    </div>
+    <div class="modal-body">
+
+
+        <div class="row">
+
+
+
+
+                <table style="width:100%">
+                    
+                    @{
+            var Addresses = new List<SelectListItem>();
+            int i=0;
+            foreach (var cl in Model.Addresses)
+            {
+
+                Addresses.Add(new SelectListItem { Value = cl.AddressID.ToString(), Text = cl.AddressDescription });
+            }
+            var selectitemclass = new SelectList(Addresses, "Value", "Text");
+            }
+          
+@foreach (var subs in Model.Subscriptions)
+            {
+    <tr>
+                        <td>
+                            
+@if (subs.SubscriptionYN == "N") { var cid="Checkbox"+@subs.ScheduleID; <input type="checkbox" value="" id="@cid"><br /><br />}
+@if (subs.SubscriptionYN == "Y"){ var cid="Checkbox"+@subs.ScheduleID; <input type="checkbox" value="" id="@cid" checked><br /><br />}
+                           
+
+
+                        </td>
+                
+
+                        <td>
+                            <b>  @subs.Schedule.ScheduleDescription;</b><br /><br />
+                        </td>
+        <td>
+            <b> Address: @Html.DropDownList("Address", new SelectList(selectitemclass, "Value", "Text"), new { @id = "DropDownList" + @subs.ScheduleID, @onchange = "javascript:dropdownchange(this)" })</b>
+            <br /><br />
+
+        <td>
+            @{ var imageid = "Image" + @subs.ScheduleID;
+            <img width="15" height="15" src="/Images/MapIcons/Loc0.png" id="@imageid" /><br /><br />
+            }
+        </td>
+                    </tr>
+    
+}
+                </table>
+
+            </div>
+        </div>
+
+
+
+    <div class="modal-footer">
+        <input type="button" value="Save Changes"  onclick="javascript:SaveSubscriptions()" class=" btn btn-primary" />
+    </div>
+            
+
+<!-- Core JavaScript Files -->
+<script src="/Scripts/jquery.min.js"></script>
+<script src="/Scripts/bootstrap.min.js"></script>
+<script src="/Scripts/jquery.easing.min.js"></script>
+<script src="/Scripts/jquery.scrollTo.js"></script>
+<script src="/Scripts/wow.min.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="/Scripts/custom.js"></script>
+<script src="/Scripts/jquery.dataTables.min.js"></script>
+<script src="/Scripts/bootstrap-modal.js"></script>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    var json;
+    var listofAddresses;
+            $(document).ready(function () {
+           
+                json =@Html.Raw(JsonConvert.SerializeObject(Model, new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects }))
+                listofAddresses = [];
+                var t=0
+                for (t;t<json.Addresses.length;++t)
+                {
+                    listofAddresses.push(json.Addresses[t].AddressID);
+                }
+
+                    InitializeDropDownLists(json);
+
+
+
+
+            });
+    function InitializeDropDownLists(json)
+    {
+        var t=0;
+        for (t;t<json.Subscriptions.length;++t)
+        {
+            var scheduleID = json.Subscriptions[t].ScheduleID;
+            var addressID = json.Subscriptions[t].AddressID;
+            $('#DropDownList' + scheduleID).val(addressID);
+            var v = listofAddresses.indexOf(addressID) % 7;
+            document.getElementById("Image"+scheduleID).src = "/Images/MapIcons/Loc" + v + ".png";
+
+        }
+    }
+        function SaveSubscriptions()
+        {
+            var sdata = [];
+            var t = 0;
+            for (t; t < json.Subscriptions.length; ++t) {
+                var scheduleID = json.Subscriptions[t].ScheduleID;
+                var addressID = $('#DropDownList' + scheduleID).val();
+                var StudentID = json.StudentID;
+                var YesorNO;
+                if ($('#Checkbox'+scheduleID).is(':checked'))
+                   YesorNO="Y"  // checked
+                else
+                    YesorNO = "N" // unchecked
+                sdata.push({ "StudentID": StudentID, "ScheduleID": scheduleID, "SubscriptionYN": YesorNO, "AddressID":addressID});
+
+            }
+            $.ajax({
+                url: '@Url.Action("SaveSubscriptions", "Student")',
+                type: "POST",
+                async: true,
+                data: JSON.stringify({ subscriptionsJson: JSON.stringify(sdata) }),
+                dataType: 'text',
+                contentType: "application/json; charset=utf-8",
+                success: function (Result) {
+                    window.location.href = "/Student/Profile?student="+StudentID;
+                }
+            });
+        }
+    function dropdownchange(d)
+    {
+   
+        var v = d.selectedIndex % 7;
+        var imageid = d.id.replace("DropDownList", "Image");
+        document.getElementById(imageid).src = "/Images/MapIcons/Loc" + v + ".png";
+    }
+   
+
+
+
+
+</script>
+

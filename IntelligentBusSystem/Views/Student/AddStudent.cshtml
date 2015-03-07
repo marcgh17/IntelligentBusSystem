@@ -11,7 +11,7 @@
             </header>
             <div class="panel panel-default">
                 <div class="panel-body form-horizontal">
-                    @using (Html.BeginForm("AddStudent", "UserAccounts", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("AddStudent", "Student", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
                     {
                         <div class="col-sm-5">
                             <header class="page-header">
@@ -93,7 +93,7 @@
                             <br />
                         </div>
                         <div class="col-sm-7">
-                            <b>Selected Marker:</b><img src="/img/icons/RedX.png" width="25" height="25" id="SelectedMarkerIcon" /> &nbsp; &nbsp; &nbsp; &nbsp; <b>Address description:</b> <input onchange="javascript:UpdateDescription()" id="MarkerDescription" />
+                            <b>Selected Marker:</b><img src="/Images/icons/RedX.png" width="25" height="25" id="SelectedMarkerIcon" /> &nbsp; &nbsp; &nbsp; &nbsp; <b>Address description:</b> <input onchange="javascript:UpdateDescription()" id="MarkerDescription" />
 
                             <div class="panel panel-default">
                                 <div class="panel-heading resume-heading">
@@ -136,19 +136,7 @@
                     }
                 </div>
             </div>
-            @*<div class="col-sm-7" style="border-color:#4c93c6">
-                    <header class="page-header">
-                        <h2 class="page-title"><span class="label label-info">Users' information</span></h2>
-                    </header>
-                    <div class="panel panel-default">
-                        <div class="panel-body form-horizontal">
-                            @Html.Action("DisplayAllUsersGrid", "UserAccounts")
-                        </div>
 
-                    </div>
-
-                    <br />
-                </div>*@
         </div>
     </div>
 </div>
@@ -224,7 +212,7 @@
             studentMarkers[i] = new google.maps.Marker({
                 position: studentAddresses[i],
                 map: editmap,
-                icon: '/img/MapIcons/Loc' + j + '.png'
+                icon: '/Images/MapIcons/Loc' + j + '.png'
             });
             MarkersHM.put(studentMarkers[i],i);
             setSelectedMarker(studentMarkers[i],i);
@@ -273,7 +261,7 @@
             studentMarkers = [];
             selectedmarker=null;
             i = 0;
-            document.getElementById("SelectedMarkerIcon").src="/img/icons/RedX.png";
+            document.getElementById("SelectedMarkerIcon").src="/Images/Icons/RedX.png";
             SaveLocations();
         }
         function UpdateDescription()
@@ -302,7 +290,7 @@
                bounds.extend(studentMarkers[t].getPosition());
            }
            editmap.fitBounds(bounds);
-           editmap.setZoom(14);
+          // editmap.setZoom(14);
 
         }
 

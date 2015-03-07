@@ -14,8 +14,8 @@ namespace IntelligentBusSystem
         public void GetIDCard(string id)
         {
             
-                string newFile = HttpContext.Current.Server.MapPath("\\PdfIDCards\\" + id + ".pdf");
-                PdfReader pdfReader = new PdfReader(HttpContext.Current.Server.MapPath("\\PdfIDCards\\IDCardPDF.pdf"));
+                string newFile = HttpContext.Current.Server.MapPath("\\Documents\\PdfIDCards\\" + id + ".pdf");
+                PdfReader pdfReader = new PdfReader(HttpContext.Current.Server.MapPath("\\Documents\\PdfIDCards\\IDCardPDF.pdf"));
                 using (MemoryStream stream = new MemoryStream())
                 {
                     using(var context=new IntelligentBusSystemEntities()){
@@ -45,7 +45,7 @@ namespace IntelligentBusSystem
 
                    // to do barcode
 
-                    iTextSharp.text.Image StudentBarecodePhoto = iTextSharp.text.Image.GetInstance(HttpContext.Current.Server.MapPath("/img/Barcodes/"+id+".png"));
+                    iTextSharp.text.Image StudentBarecodePhoto = iTextSharp.text.Image.GetInstance(HttpContext.Current.Server.MapPath("/Images/Barcodes/"+id+".png"));
                     StudentBarecodePhoto.ScaleAbsolute(BarCodefieldPosition.position.Width, BarCodefieldPosition.position.Height);
                     StudentBarecodePhoto.SetAbsolutePosition(BarCodefieldPosition.position.Left, BarCodefieldPosition.position.Bottom);
                     pdfStamper.GetOverContent(2).AddImage(StudentBarecodePhoto);

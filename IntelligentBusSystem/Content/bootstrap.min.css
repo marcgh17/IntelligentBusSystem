@@ -567,7 +567,19 @@ ul, ol {
     padding-left: 0;
     list-style: none;
 }
+        .dual-list .list-group {
+            margin-top: 8px;
+        }
+        .list-left li, .list-right .mylist li {
+            cursor: pointer;
+        }
+        .list-arrows {
+            padding-top: 100px;
+        }
 
+            .list-arrows button {
+                margin-bottom: 20px;
+            }
 .list-inline {
     padding-left: 0;
     list-style: none;
@@ -4747,7 +4759,7 @@ a.badge:hover, a.badge:focus {
 
 a.list-group-item.active > .badge, .nav-pills > .active > a > .badge {
     color: #428bca;
-    background-color: #fff;
+    background-color: #428bca;
 }
 
 .nav-pills > li > a > .badge {
@@ -5054,7 +5066,9 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
     background-color: #fff;
     border: 1px solid #ddd;
 }
-
+.list-group-item.active  {
+    background-color: #428bca;
+}
     .list-group-item:first-child {
         border-top-right-radius: 4px;
         border-top-left-radius: 4px;
